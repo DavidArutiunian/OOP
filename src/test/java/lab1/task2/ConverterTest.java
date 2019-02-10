@@ -37,4 +37,30 @@ public class ConverterTest {
         Converter converter = new Converter(value, from);
         Assert.assertEquals(converter.convert(to), expected);
     }
+
+    @Test
+    public void testValidationWorks() {
+        {
+            final var cases = Arrays.asList(new Object[][]{
+                {"1G", 16},
+                {"1F", 15}
+            });
+            cases.forEach((final Object[] item) -> {
+                final var value = (String) item[0];
+                final var radix = (int) item[1];
+                Assert.assertFalse(Converter.isValueValid(value, radix));
+            });
+        }
+        {
+            final var cases = Arrays.asList(new Object[][]{
+                {"1F", 16},
+                {"1E", 15}
+            });
+            cases.forEach((final Object[] item) -> {
+                final var value = (String) item[0];
+                final var radix = (int) item[1];
+                Assert.assertTrue(Converter.isValueValid(value, radix));
+            });
+        }
+    }
 }

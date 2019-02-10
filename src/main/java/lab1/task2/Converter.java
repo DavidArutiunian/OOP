@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Converter {
+    private static final int MIN_RADIX = 2;
+    private static final int MAX_RADIX = 36;
     private static final String SYMBOLS = "0123456789ABCDEFGHIJKLMNOPQRASUVWXYZ";
     private List<Integer> number = new ArrayList<>();
     private int radix;
@@ -19,11 +21,25 @@ class Converter {
             if (SYMBOLS.indexOf(ch) == -1) {
                 continue;
             }
-            this.number.add(charToInt(ch));
+            this.number.add(Converter.charToInt(ch, radix));
         }
     }
 
-    private int charToInt(char character) {
+    static boolean isRadixValid(final int radix) {
+        return radix >= MIN_RADIX && radix <= MAX_RADIX;
+    }
+
+    static boolean isValueValid(final String value, final int radix) {
+        for (int i = 0; i < value.length(); i++) {
+            final int ch = charToInt(value.charAt(i), radix);
+            if (ch > radix - 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static int charToInt(final char character, final int radix) {
         final boolean isMoreEqThenZero = character >= SpecialChars.ZERO.toChar();
         final boolean isLessEqThenNine = character <= SpecialChars.NINE.toChar();
         final boolean isLessThenRadix = (character - SpecialChars.ZERO.toChar()) < radix;
@@ -41,7 +57,7 @@ class Converter {
         }
     }
 
-    private char intToChar(int character) {
+    private static char intToChar(int character) {
         final boolean isMoreThenZero = character >= 0;
         final boolean isLessThenNine = character <= 9;
         if (isMoreThenZero && isLessThenNine) {
@@ -54,7 +70,7 @@ class Converter {
     private int getNextNumber(int nextRadix) {
         int temp = 0;
         for (int i = 0; i < number.size(); i++) {
-            temp = temp * this.radix + number.get(i);
+            temp = temp * radix + number.get(i);
             number.set(i, temp / nextRadix);
             temp = temp % nextRadix;
         }

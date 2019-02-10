@@ -33,7 +33,7 @@ public class ConverterTest {
     }
 
     @Test
-    public void convert() {
+    public void testConverterWorks() {
         Converter converter = new Converter(value, from);
         Assert.assertEquals(converter.convert(to), expected);
     }

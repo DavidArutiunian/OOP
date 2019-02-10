@@ -3,13 +3,13 @@ package lab1.task2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Converter {
+class Converter {
     private static final String SYMBOLS = "0123456789ABCDEFGHIJKLMNOPQRASUVWXYZ";
-    private List<Integer> number = new ArrayList<Integer>();
+    private List<Integer> number = new ArrayList<>();
     private int radix;
     private boolean negative = false;
 
-    public Converter(final String number, int radix) {
+    Converter(final String number, int radix) {
         this.radix = radix;
         for (int i = 0; i < number.length(); i++) {
             char ch = number.charAt(i);
@@ -70,8 +70,8 @@ public class Converter {
         return true;
     }
 
-    public String convert(int nextRadix) {
-        List<Integer> buffer = new ArrayList<Integer>();
+    String convert(int nextRadix) {
+        List<Integer> buffer = new ArrayList<>();
         do {
             buffer.add(getNextNumber(nextRadix));
         } while (!hasOnlyZeroes());

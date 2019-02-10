@@ -15,7 +15,7 @@ class Converter {
         this.radix = radix;
         for (int i = 0; i < number.length(); i++) {
             char ch = number.charAt(i);
-            if (ch == SpecialChars.MINUS.toChar()) {
+            if (ch == '-') {
                 negative = true;
             }
             if (SYMBOLS.indexOf(ch) == -1) {
@@ -40,17 +40,17 @@ class Converter {
     }
 
     private static int charToInt(final char character, final int radix) {
-        final boolean isMoreEqThenZero = character >= SpecialChars.ZERO.toChar();
-        final boolean isLessEqThenNine = character <= SpecialChars.NINE.toChar();
-        final boolean isLessThenRadix = (character - SpecialChars.ZERO.toChar()) < radix;
+        final boolean isMoreEqThenZero = character >= '0';
+        final boolean isLessEqThenNine = character <= '9';
+        final boolean isLessThenRadix = (character - '0') < radix;
         if (isMoreEqThenZero && isLessEqThenNine && isLessThenRadix) {
-            return character - SpecialChars.ZERO.toChar();
+            return character - '0';
         } else {
-            final boolean isMoreEqThenA = character >= SpecialChars.A_LETTER.toChar();
-            final boolean isLessEqThenZ = character <= SpecialChars.Z_LETTER.toChar();
-            final boolean isALessThenRadix = (character - SpecialChars.A_LETTER.toChar()) < radix;
+            final boolean isMoreEqThenA = character >= 'A';
+            final boolean isLessEqThenZ = character <= 'Z';
+            final boolean isALessThenRadix = (character - 'A') < radix;
             if (isMoreEqThenA && isLessEqThenZ && isALessThenRadix) {
-                return character - SpecialChars.A_LETTER.toChar() + SpecialNumbers.BASE.toNumber();
+                return character - 'A' + 10;
             } else {
                 return -1;
             }
@@ -61,9 +61,9 @@ class Converter {
         final boolean isMoreThenZero = character >= 0;
         final boolean isLessThenNine = character <= 9;
         if (isMoreThenZero && isLessThenNine) {
-            return (char) (character + SpecialChars.ZERO.toChar());
+            return (char) (character + '0');
         } else {
-            return (char) (character + SpecialChars.A_LETTER.toChar() - SpecialNumbers.BASE.toNumber());
+            return (char) (character + 'A' - 10);
         }
     }
 
@@ -78,7 +78,7 @@ class Converter {
     }
 
     private boolean hasOnlyZeroes() {
-        for (Integer integer : number) {
+        for (int integer : number) {
             if (integer != 0) {
                 return false;
             }
@@ -96,40 +96,8 @@ class Converter {
             temp.append(intToChar(buffer.get(i)));
         }
         if (negative) {
-            temp.insert(0, SpecialChars.MINUS.toChar());
+            temp.insert(0, '-');
         }
         return temp.toString();
-    }
-
-    private enum SpecialChars {
-        ZERO('0'),
-        NINE('9'),
-        A_LETTER('A'),
-        Z_LETTER('Z'),
-        MINUS('-');
-
-        private final char character;
-
-        SpecialChars(char text) {
-            this.character = text;
-        }
-
-        public char toChar() {
-            return character;
-        }
-    }
-
-    private enum SpecialNumbers {
-        BASE(10);
-
-        private final int number;
-
-        SpecialNumbers(int i) {
-            number = i;
-        }
-
-        public int toNumber() {
-            return number;
-        }
     }
 }

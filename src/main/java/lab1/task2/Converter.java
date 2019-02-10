@@ -6,19 +6,19 @@ import java.util.List;
 class Converter {
     private static final int MIN_RADIX = 2;
     private static final int MAX_RADIX = 36;
-    private static final String SYMBOLS = "0123456789ABCDEFGHIJKLMNOPQRASUVWXYZ";
-    private List<Integer> number = new ArrayList<>();
-    private int radix;
+    private static final String VALID_SYMBOLS = "0123456789ABCDEFGHIJKLMNOPQRASUVWXYZ";
+    private final List<Integer> number = new ArrayList<>();
+    private final int radix;
     private boolean negative = false;
 
-    Converter(final String number, int radix) {
+    Converter(final String number, final int radix) {
         this.radix = radix;
         for (int i = 0; i < number.length(); i++) {
             char ch = number.charAt(i);
             if (ch == '-') {
                 negative = true;
             }
-            if (SYMBOLS.indexOf(ch) == -1) {
+            if (VALID_SYMBOLS.indexOf(ch) == -1) {
                 continue;
             }
             this.number.add(Converter.charToInt(ch, radix));
@@ -57,7 +57,7 @@ class Converter {
         }
     }
 
-    private static char intToChar(int character) {
+    private static char intToChar(final int character) {
         final boolean isMoreThenZero = character >= 0;
         final boolean isLessThenNine = character <= 9;
         if (isMoreThenZero && isLessThenNine) {
@@ -67,7 +67,7 @@ class Converter {
         }
     }
 
-    private int getNextNumber(int nextRadix) {
+    private int getNextNumber(final int nextRadix) {
         int temp = 0;
         for (int i = 0; i < number.size(); i++) {
             temp = temp * radix + number.get(i);
@@ -86,12 +86,12 @@ class Converter {
         return true;
     }
 
-    String convert(int nextRadix) {
-        List<Integer> buffer = new ArrayList<>();
+    String convert(final int nextRadix) {
+        final List<Integer> buffer = new ArrayList<>();
         do {
             buffer.add(getNextNumber(nextRadix));
         } while (!hasOnlyZeroes());
-        StringBuilder temp = new StringBuilder();
+        final var temp = new StringBuilder();
         for (int i = buffer.size() - 1; i >= 0; i--) {
             temp.append(intToChar(buffer.get(i)));
         }

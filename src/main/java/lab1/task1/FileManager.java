@@ -17,7 +17,7 @@ class FileManager {
 
     File create() throws IOException {
         if (!file.exists()) {
-            boolean isCreated = file.createNewFile();
+            final boolean isCreated = file.createNewFile();
             if (!isCreated) {
                 throw new IOException("Cannot create input file!");
             }
@@ -26,13 +26,13 @@ class FileManager {
     }
 
     void write(String string) throws IOException {
-        List<String> lines = Collections.singletonList(string);
-        Path path = Path.of(file.getAbsolutePath());
+        final List<String> lines = Collections.singletonList(string);
+        final Path path = Path.of(file.getAbsolutePath());
         Files.write(path, lines, Charset.forName("UTF-8"));
     }
 
     String read() throws IOException {
-        Path path = Path.of(file.getAbsolutePath());
+        final Path path = Path.of(file.getAbsolutePath());
         return Files.readString(path);
     }
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 class Join {
     private static final int BUFFER_SIZE = 1024;
-
     private final List<File> files;
     private final File output;
 
@@ -26,13 +25,13 @@ class Join {
 
     private void copyfile(File input, File output) throws IOException {
         try (
-            InputStream inputFile = new FileInputStream(input);
-            OutputStream outputFile = new FileOutputStream(output, true)
+            var inputfile = new FileInputStream(input);
+            var outputfile = new FileOutputStream(output, true)
         ) {
             byte[] buffer = new byte[BUFFER_SIZE];
             int len;
-            while ((len = inputFile.read(buffer)) > 0) {
-                outputFile.write(buffer, 0, len);
+            while ((len = inputfile.read(buffer)) > 0) {
+                outputfile.write(buffer, 0, len);
             }
         }
     }

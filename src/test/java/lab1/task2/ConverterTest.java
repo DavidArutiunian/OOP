@@ -10,10 +10,10 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class ConverterTest {
-    private String value;
-    private int from;
-    private int to;
-    private String expected;
+    private final String value;
+    private final int from;
+    private final int to;
+    private final String expected;
 
     public ConverterTest(String value, int from, int to, String expected) {
         this.value = value;
@@ -38,7 +38,7 @@ public class ConverterTest {
 
     @Test
     public void testConverterWorks() {
-        Converter converter = new Converter(value, from);
+        final var converter = new Converter(value, from);
         Assert.assertEquals(converter.convert(to), expected);
     }
 

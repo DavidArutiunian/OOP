@@ -11,21 +11,21 @@ import java.io.IOException;
 public class FileManagerTest {
     @Before
     public void setUp() {
-        final File file = new File("test.txt");
+        final var file = new File("test.txt");
         file.delete();
     }
 
     @After
     public void tearDown() {
-        final File file = new File("test.txt");
+        final var file = new File("test.txt");
         file.delete();
     }
 
     @Test
     public void testFileCreates() throws IOException {
-        final File file = new File("test.txt");
+        final var file = new File("test.txt");
         Assert.assertFalse(file.exists());
-        FileManager manager = new FileManager("test.txt");
+        final var manager = new FileManager("test.txt");
         Assert.assertFalse(file.exists());
         manager.create();
         Assert.assertTrue(file.exists());
@@ -33,10 +33,10 @@ public class FileManagerTest {
 
     @Test
     public void testWriteReadWorks() throws IOException {
-        FileManager manager = new FileManager("test.txt");
+        final var manager = new FileManager("test.txt");
         manager.create();
         manager.write("Hello, World!");
-        String actual = manager.read();
+        final var actual = manager.read();
         Assert.assertEquals("Hello, World!", actual.strip());
     }
 }

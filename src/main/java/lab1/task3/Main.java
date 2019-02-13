@@ -1,7 +1,6 @@
 package lab1.task3;
 
 import java.io.File;
-import java.io.IOException;
 
 class Main {
     public static void main(String[] args) {
@@ -13,8 +12,8 @@ class Main {
             var matrix = new Matrix(input);
             var inverse = MatrixMathematics.inverse(matrix);
             InputOutput.print(inverse.getData());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
         }
     }
 }

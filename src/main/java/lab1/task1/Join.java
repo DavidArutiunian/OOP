@@ -1,6 +1,9 @@
 package lab1.task1;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 class Join {
@@ -18,7 +21,7 @@ class Join {
             try {
                 copyfile(file, output);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         });
     }

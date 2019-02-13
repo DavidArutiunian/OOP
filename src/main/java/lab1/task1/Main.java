@@ -1,31 +1,25 @@
 package lab1.task1;
 
+import io.BaseInputOutput;
+
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        if (args.length == 0) {
-            System.err.println("No arguments provided!");
-            return;
-        }
-        var length = args.length - 1; // the last is output
-        List<File> files = new ArrayList<>();
-        for (int i = 0; i < length; i++) {
-            try {
-                files.add(new FileManager(args[i]).create());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        final var output = new FileManager(args[args.length - 1]);
         try {
+            BaseInputOutput.validate(args);
+            var length = args.length - 1; // the last is output
+            List<File> files = new ArrayList<>();
+            for (int i = 0; i < length; i++) {
+                files.add(new FileManager(args[i]).create());
+            }
+            final var output = new FileManager(args[args.length - 1]);
             final var join = new Join(files, output.create());
             join.process();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
     }
 }

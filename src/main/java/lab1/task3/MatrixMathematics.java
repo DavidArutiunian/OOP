@@ -17,13 +17,13 @@ class MatrixMathematics {
         return transposed;
     }
 
-    static Matrix inverse(final Matrix matrix) throws RuntimeException {
+    static Matrix inverse(final Matrix matrix) {
         return (transpose(cofactor(matrix)).multiply(1.0 / determinant(matrix)));
     }
 
-    static double determinant(final Matrix matrix) throws RuntimeException {
+    static double determinant(final Matrix matrix) {
         if (!matrix.isSquare())
-            throw new RuntimeException("Matrix must be square!");
+            throw new ArithmeticException("Matrix must be square!");
         if (matrix.size() == 1) {
             return matrix.getValueAt(0, 0);
         }
@@ -63,7 +63,7 @@ class MatrixMathematics {
         return mat;
     }
 
-    static Matrix cofactor(final Matrix matrix) throws RuntimeException {
+    static Matrix cofactor(final Matrix matrix) {
         var mat = new Matrix(matrix.getRows(), matrix.getCols());
         for (int i = 0; i < matrix.getRows(); i++) {
             for (int j = 0; j < matrix.getCols(); j++) {

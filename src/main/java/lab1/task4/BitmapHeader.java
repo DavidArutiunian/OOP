@@ -3,7 +3,6 @@ package lab1.task4;
 class BitmapHeader {
     static int OFFSET = 14;
     static int BMP_TYPE = 0x4D42;
-
     private int headerSize;
     private int width;
     private int height;
@@ -102,5 +101,20 @@ class BitmapHeader {
 
     void setNumOfImportantColors(int numOfImportantColors) {
         this.numOfImportantColors = numOfImportantColors;
+    }
+
+    enum ECompressionType {
+        RLE_8(1),
+        RLE_4(2);
+
+        private final int value;
+
+        ECompressionType(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 }

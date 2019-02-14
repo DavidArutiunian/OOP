@@ -3,11 +3,10 @@ package lab1.task3;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class MatrixMathematicsTest {
-    private static double CLOSE_TO_ZERO = 1e-5;
+    private static double CLOSE_TO_ZERO = 1e-3;
 
     @Test
     public void testTranspose1() {
@@ -107,6 +106,26 @@ public class MatrixMathematicsTest {
                 assertTrue(NaN(inverse.getValueAt(i, j)));
             }
         }
+    }
+
+    @Test
+    public void testInverse3() {
+        var matrix = new Matrix(new double[][]{{3, 4, 8}, {2.4, -1, 11}, {7, -3.2, 0}});
+        var inverse = MatrixMathematics.inverse(matrix);
+        assertTrue(0.086 - inverse.getValueAt(0, 0) < CLOSE_TO_ZERO);
+        assertTrue(-0.063 + inverse.getValueAt(0, 1) < CLOSE_TO_ZERO);
+        assertTrue(0.127 - inverse.getValueAt(0, 2) < CLOSE_TO_ZERO);
+        assertTrue(0.189 - inverse.getValueAt(1, 0) < CLOSE_TO_ZERO);
+        assertTrue(-0.137 + inverse.getValueAt(1, 1) < CLOSE_TO_ZERO);
+        assertTrue(-0.034 + inverse.getValueAt(1, 2) < CLOSE_TO_ZERO);
+        assertTrue(-0.002 + inverse.getValueAt(2, 0) < CLOSE_TO_ZERO);
+        assertTrue(0.092 - inverse.getValueAt(2, 1) < CLOSE_TO_ZERO);
+        assertTrue(-0.031 + inverse.getValueAt(2, 2) < CLOSE_TO_ZERO);
+    }
+
+    @Test
+    public void testInverse4() {
+        assertThrows(IllegalArgumentException.class, () -> new Matrix(new double[][]{}));
     }
 
     private boolean NaN(double value) {

@@ -17,10 +17,10 @@ class Main {
             System.out.println("Number of colors: " + header.getNumOfColors());
             System.out.println("Image size: " + header.getImageSize());
             if (header.getCompressionType() != 0) {
-                if (header.getCompressionType() == 1) {
+                if (header.getCompressionType() == BitmapHeader.ECompressionType.RLE_8.getValue()) {
                     System.out.println("Compression type: RLE-8");
                 }
-                if (header.getCompressionType() == 2) {
+                if (header.getCompressionType() == BitmapHeader.ECompressionType.RLE_4.getValue()) {
                     System.out.println("Compression type: RLE-4");
                 }
             }

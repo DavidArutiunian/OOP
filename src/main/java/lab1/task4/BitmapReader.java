@@ -1,9 +1,6 @@
 package lab1.task4;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 
 class BitmapReader {
     // Big Endian by default, need to read in Little Endian
@@ -11,6 +8,9 @@ class BitmapReader {
     private final BitmapHeader header = new BitmapHeader();
 
     BitmapReader(final File file) throws IOException {
+        if (!file.exists()) {
+            throw new FileNotFoundException("File \"" + file.getPath() + "\" not found!");
+        }
         this.raf = new RandomAccessFile(file, "r");
         init();
     }

@@ -6,6 +6,9 @@ class Matrix {
     private double[][] data;
 
     Matrix(double[][] data) {
+        if (data.length == 0) {
+            throw new IllegalArgumentException("Matrix is empty!");
+        }
         this.data = data;
         this.rows = data.length;
         this.cols = data[0].length;

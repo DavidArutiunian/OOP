@@ -6,7 +6,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import java.io.*;
 
 class InputOutput extends BaseInputOutput {
-    static int MATRIX_SIZE = 3;
+    public static int MATRIX_SIZE = 3;
     private static String DELIMITER = "\t";
 
     public InputOutput() {
@@ -26,7 +26,7 @@ class InputOutput extends BaseInputOutput {
                 array = line.split(DELIMITER);
                 for (String num : array) {
                     if (!NumberUtils.isCreatable(num)) {
-                        break;
+                        throw new IOException("Incorrect matrix!");
                     }
                     matrix[i][j] = Double.parseDouble(num);
                     j++;

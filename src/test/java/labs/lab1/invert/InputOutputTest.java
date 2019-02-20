@@ -1,6 +1,6 @@
-package lab1.task3;
+package labs.lab1.invert;
 
-import io.FileManager;
+import lib.io.FileManager;
 import org.junit.Test;
 
 import java.io.IOException;

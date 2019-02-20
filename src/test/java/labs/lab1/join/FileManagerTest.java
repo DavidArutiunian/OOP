@@ -1,6 +1,6 @@
-package lab1.task1;
+package labs.lab1.join;
 
-import io.FileManager;
+import lib.io.FileManager;
 import org.junit.Assert;
 import org.junit.Test;
 

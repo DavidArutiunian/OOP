@@ -1,4 +1,4 @@
-package lab1.task3;
+package labs.lab1.invert;
 
 class Matrix {
     private int rows;

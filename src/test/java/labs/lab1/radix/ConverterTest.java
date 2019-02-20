@@ -1,4 +1,4 @@
-package lab1.task2;
+package labs.lab1.radix;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,6 +1,6 @@
-package lab1.task4;
+package labs.lab1.bmpinfo;
 
-import io.FileManager;
+import lib.io.FileManager;
 import org.junit.Test;
 
 import java.io.*;

@@ -1,4 +1,4 @@
-package lab1.task4;
+package labs.lab1.bmpinfo;
 
 class BitmapHeader {
     static int OFFSET = 14;

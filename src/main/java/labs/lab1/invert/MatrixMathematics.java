@@ -1,4 +1,4 @@
-package lab1.task3;
+package labs.lab1.invert;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;

@@ -1,4 +1,4 @@
-package lab1.task1;
+package labs.lab1.join;
 
 import java.io.File;
 import java.io.FileInputStream;

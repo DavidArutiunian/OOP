@@ -1,6 +1,8 @@
 
 input*.*
+!input*.java
 output*.*
+!output*.java
 target/
 
 # Created by https://www.gitignore.io/api/java,macos,linux,windows,intellij+all

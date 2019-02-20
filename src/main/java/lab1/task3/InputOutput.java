@@ -32,6 +32,9 @@ class InputOutput extends BaseInputOutput {
                     j++;
                 }
                 i++;
+                if (i != MATRIX_SIZE || j != MATRIX_SIZE) {
+                    throw new IOException("Incorrect matrix size!");
+                }
                 j = 0;
             }
         }

@@ -7,9 +7,12 @@ class BitmapReader {
     private final RandomAccessFile raf;
     private final BitmapHeader header = new BitmapHeader();
 
-    BitmapReader(final File file) throws IOException {
-        if (!file.exists()) {
+    BitmapReader(final File file) throws Exception {
+        if (!file.exists() || !file.canRead()) {
             throw new FileNotFoundException("File \"" + file.getPath() + "\" not found!");
+        }
+        if (file.length() == 0) {
+            throw new EOFException("File is empty!");
         }
         this.raf = new RandomAccessFile(file, "r");
         init();
@@ -37,6 +40,7 @@ class BitmapReader {
     private void init() throws IOException {
         int type = BitmapReader.readCharLittleEndian(raf);
         if (type != BitmapHeader.BMP_TYPE) {
+            raf.close();
             throw new UnsupportedEncodingException("File is not supported!");
         }
         raf.seek(BitmapHeader.OFFSET);

@@ -2,85 +2,75 @@ package labs.lab2.vector;
 
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 
 public class ProcessVectorTest {
-    @Test
-    public void testReadWorks() throws IOException {
-        setSystemInput("1.1 2.2 3.3");
-        final String[] arguments = readSystemInput();
-        assertEquals("1.1", arguments[0]);
-        assertEquals("2.2", arguments[1]);
-        assertEquals("3.3", arguments[2]);
-    }
+    private static float DELTA = 0.005f;
 
     @Test
-    public void testReadThrowsIOException() {
-        setSystemInput("\n");
-        final Scanner in = new Scanner(System.in);
-        assertThrows(IOException.class, () -> ProcessVector.read(in));
+    public void testGetAverage1() {
+        final List<Float> input = Arrays.asList(6.7f, 3.8f, 68.4f, 127.f, -1.28f);
+        final var pv = new ProcessVector(input);
+        assertEquals(40.924f, pv.getAverage(), DELTA);
     }
 
     @Test
-    public void testParseWorks() throws IOException {
-        setSystemInput("1.1 2.2 3.3");
-        final String[] arguments = readSystemInput();
-        final List<Float> input = ProcessVector.parse(arguments);
-        assertEquals(Float.valueOf(1.1f), input.get(0));
-        assertEquals(Float.valueOf(2.2f), input.get(1));
-        assertEquals(Float.valueOf(3.3f), input.get(2));
+    public void testGetAverage2() {
+        final List<Float> input = Arrays.asList(0.f, 0.f, 0.f, 0.f, 0.f);
+        final var pv = new ProcessVector(input);
+        assertEquals(0.f, pv.getAverage(), DELTA);
     }
 
     @Test
-    public void testParseThrowsIOException() throws IOException {
-        setSystemInput("1.1 2.2a 3.3");
-        final String[] arguments = readSystemInput();
-        assertThrows(IOException.class, () -> ProcessVector.parse(arguments));
+    public void testGetAverage3() {
+        final List<Float> input = Arrays.asList(Float.MAX_VALUE, Float.MAX_VALUE);
+        final var pv = new ProcessVector(input);
+        assertEquals(Float.POSITIVE_INFINITY, pv.getAverage(), DELTA);
     }
 
     @Test
-    public void testPrintWorks() throws IOException {
-        final var mock = new OutputMock();
-        setSystemInput("1.1 2.2 3.3");
-        final String[] arguments = readSystemInput();
-        final List<Float> input = ProcessVector.parse(arguments);
-        ProcessVector.print(input);
-        assertEquals("1.100 2.200 3.300", mock.getInput().strip());
-        mock.destruct();
+    public void testGetAverage4() {
+        final List<Float> input = Arrays.asList(Float.MAX_VALUE, Float.MIN_VALUE);
+        final var pv = new ProcessVector(input);
+        assertEquals(1.7014117e38f, pv.getAverage(), DELTA);
     }
 
-    private void setSystemInput(final String input) {
-        final var in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
+    @Test
+    public void testProcessingWorks1() {
+        final List<Float> input = Arrays.asList(6.7f, 3.8f, 68.4f, 127.f, -1.28f);
+        final var pv = new ProcessVector(input);
+        final List<Float> actual = pv.call();
+        assertThat(actual, is(input));
     }
 
-    private String[] readSystemInput() throws IOException {
-        final Scanner in = new Scanner(System.in);
-        return ProcessVector.read(in);
+    @Test
+    public void testProcessingWorks2() {
+        final List<Float> input = Arrays.asList(6.7f, 3.8f, 68.4f, 127.f, -1.28f);
+        final var pv = new ProcessVector(input);
+        final List<Float> actual = pv.call(pv.getAverage());
+        final List<Float> expected = Arrays.asList(47.624f, 44.724f, 109.324005f, 167.924f, 39.644f);
+        assertThat(actual, is(expected));
     }
 
-    private class OutputMock {
-        private final PrintStream original = System.out;
-        private final ByteArrayOutputStream mock = new ByteArrayOutputStream();
+    @Test
+    public void testProcessingWorks3() {
+        final List<Float> input = Arrays.asList(6.7f, 3.8f, 68.4f, 127.f, -1.28f);
+        final var pv = new ProcessVector(input);
+        final List<Float> actual = pv.call(Float.MAX_VALUE);
+        final List<Float> expected = Arrays.asList(3.4028235e38f, 3.4028235e38f, 3.4028235e38f, 3.4028235e38f, 3.4028235e38f);
+        assertThat(actual, is(expected));
+    }
 
-        OutputMock() {
-            System.setOut(new PrintStream(mock));
-        }
-
-        String getInput() {
-            return mock.toString();
-        }
-
-        void destruct() {
-            System.setOut(original);
-        }
+    @Test
+    public void testProcessingWorks4() {
+        final List<Float> input = Arrays.asList(6.7f, 3.8f, 68.4f, 127.f, -1.28f);
+        final var pv = new ProcessVector(input);
+        final List<Float> actual = pv.call(Float.MIN_VALUE);
+        assertThat(actual, is(input));
     }
 }

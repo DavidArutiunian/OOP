@@ -1,42 +1,33 @@
 package labs.lab2.vector;
 
-import org.apache.commons.lang3.math.NumberUtils;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 
 class ProcessVector {
-    private static char SPACE = ' ';
-    private List<Float> items = new ArrayList<>();
+    private final List<Float> items;
 
-    static List<Float> parse(final String[] args) throws IOException {
-        List<Float> parsed = new ArrayList<>();
-        for (String arg : args) {
-            if (!NumberUtils.isCreatable(arg)) {
-                throw new IOException("Cannot parse \"" + arg + "\"!");
-            }
-            parsed.add(Float.parseFloat(arg));
-        }
-        Collections.sort(parsed);
-        return parsed;
+    ProcessVector(final List<Float> items) {
+        this.items = items;
     }
 
-    static String[] read(final Scanner in) throws IOException {
-        final String input = in.nextLine();
-        if (input == null) {
-            throw new IOException("Empty input!");
-        }
-        if (input.length() == 0) {
-            throw new IOException("Empty input!");
-        }
-        return input.split(" ");
+    List<Float> call(final float average) {
+        List<Float> array = new ArrayList<>();
+        items.forEach(num -> array.add(num + average));
+        return array;
     }
 
-    static void print(final List<Float> items) {
-        items.forEach(item -> System.out.printf("%.3f%c", item, SPACE));
-        System.out.println();
+    List<Float> call() {
+        return call(0);
+    }
+
+    float getAverage() {
+        float average = 0;
+        if (!items.isEmpty()) {
+            AtomicReference<Float> sum = new AtomicReference<>(0.f);
+            items.forEach(num -> sum.updateAndGet(v -> v + num));
+            average = sum.get() / items.size();
+        }
+        return average;
     }
 }

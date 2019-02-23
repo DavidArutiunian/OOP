@@ -26,7 +26,7 @@ class Main {
     public static void main(String[] args) {
         try {
             final Scanner in = new Scanner(System.in);
-            final String[] arguments = InputOutput.read(in);
+            final String[] arguments = InputOutput.read(in).split(InputOutput.DELIMITER);
             final List<Float> input = InputOutput.parse(arguments);
             final var pv = new ProcessVector(input);
             final List<Float> output = pv.call(pv.getAverage());

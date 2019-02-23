@@ -74,7 +74,7 @@ public class InputOutputTest {
 
     private String[] readSystemInput() throws IOException {
         final Scanner in = new Scanner(System.in);
-        return InputOutput.read(in);
+        return InputOutput.read(in).split(InputOutput.DELIMITER);
     }
 
     private class OutputMock {

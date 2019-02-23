@@ -6,7 +6,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import java.io.*;
 
 class InputOutput extends BaseInputOutput {
-    public static int MATRIX_SIZE = 3;
+    static int MATRIX_SIZE = 3;
     private static String DELIMITER = "\t";
 
     public InputOutput() {

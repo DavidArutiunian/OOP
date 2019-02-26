@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.UUID;
 
 public class FileManagerTest {
@@ -18,7 +20,7 @@ public class FileManagerTest {
         Assert.assertTrue(file.exists());
         manager.getFileInstance();
         Assert.assertTrue(file.exists());
-        file.delete();
+        Files.delete(Path.of(file.getAbsolutePath()));
     }
 
     @Test
@@ -26,6 +28,6 @@ public class FileManagerTest {
         final var manager = new FileManager().write("Hello, World!");
         final var actual = manager.read();
         Assert.assertEquals("Hello, World!", actual.strip());
-        manager.getFileInstance().delete();
+        Files.delete(Path.of(manager.getFileInstance().getAbsolutePath()));
     }
 }

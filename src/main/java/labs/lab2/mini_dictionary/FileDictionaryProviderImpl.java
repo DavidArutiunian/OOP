@@ -51,8 +51,7 @@ class FileDictionaryProviderImpl implements FileDictionaryProvider {
     @Override
     public void save() throws IOException {
         final File file = manager.getFileInstance();
-        final var path = Path.of(file.getAbsolutePath());
-        Files.delete(path);
+        Files.delete(Path.of(file.getAbsolutePath()));
         try (final var writer = new FileWriter(file)) {
             dictionary.traverse((key, values) -> {
                 try {

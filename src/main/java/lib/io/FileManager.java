@@ -38,13 +38,11 @@ public class FileManager {
 
     public FileManager write(String string) throws IOException {
         final List<String> lines = Collections.singletonList(string);
-        final Path path = Path.of(file.getAbsolutePath());
-        Files.write(path, lines, Charset.forName("UTF-8"));
+        Files.write(Path.of(file.getAbsolutePath()), lines, Charset.forName("UTF-8"));
         return this;
     }
 
     public String read() throws IOException {
-        final Path path = Path.of(file.getAbsolutePath());
-        return Files.readString(path);
+        return Files.readString(Path.of(file.getAbsolutePath()));
     }
 }

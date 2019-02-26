@@ -26,8 +26,7 @@ public class FileDictionaryProviderImplTest {
     @AfterClass
     public static void tearDown() throws Exception {
         final var manager = new FileManager("dictionary.tsv");
-        final var path = Path.of(manager.getFileInstance().getAbsolutePath());
-        Files.delete(path);
+        Files.delete(Path.of(manager.getFileInstance().getAbsolutePath()));
     }
 
     @Test

@@ -23,13 +23,17 @@ public class FileManager {
     }
 
     public File getFileInstance() throws IOException {
+        create();
+        return file;
+    }
+
+    public void create() throws IOException {
         if (!file.exists()) {
             final boolean isCreated = file.createNewFile();
             if (!isCreated) {
                 throw new IOException("Cannot create input file!");
             }
         }
-        return file;
     }
 
     public FileManager write(String string) throws IOException {

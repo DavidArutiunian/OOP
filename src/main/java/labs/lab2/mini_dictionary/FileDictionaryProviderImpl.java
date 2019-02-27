@@ -1,6 +1,7 @@
 package labs.lab2.mini_dictionary;
 
 import lib.io.FileManager;
+import lib.io.FileManagerImpl;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -19,14 +20,14 @@ class FileDictionaryProviderImpl implements FileDictionaryProvider {
 
     FileDictionaryProviderImpl(final Dictionary dictionary) throws IOException {
         this.dictionary = dictionary;
-        this.manager = new FileManager(pathToDictFile);
+        this.manager = new FileManagerImpl(pathToDictFile);
         this.manager.create();
     }
 
     FileDictionaryProviderImpl(final Dictionary dictionary, final String pathToDictFile) throws IOException {
         this.pathToDictFile = pathToDictFile;
         this.dictionary = dictionary;
-        this.manager = new FileManager(pathToDictFile);
+        this.manager = new FileManagerImpl(pathToDictFile);
         this.manager.create();
     }
 

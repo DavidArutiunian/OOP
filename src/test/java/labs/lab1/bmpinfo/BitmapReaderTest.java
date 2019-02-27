@@ -1,6 +1,6 @@
 package labs.lab1.bmpinfo;
 
-import lib.io.FileManager;
+import lib.io.FileManagerImpl;
 import org.junit.Test;
 
 import java.io.*;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThrows;
 public class BitmapReaderTest {
     @Test
     public void testGetHeader1() throws Exception {
-        final var manager = new FileManager("./src/test/assets/test.1.bmp");
+        final var manager = new FileManagerImpl("./src/test/assets/test.1.bmp");
         final var reader = new BitmapReader(manager.getFileInstance());
         final var header = reader.getHeader();
         final var expectedWidth = 300;
@@ -28,7 +28,7 @@ public class BitmapReaderTest {
 
     @Test
     public void testGetHeader2() throws Exception {
-        final var manager = new FileManager("./src/test/assets/test.2.bmp");
+        final var manager = new FileManagerImpl("./src/test/assets/test.2.bmp");
         final var reader = new BitmapReader(manager.getFileInstance());
         final var header = reader.getHeader();
         final var expectedWidth = 640;
@@ -44,14 +44,14 @@ public class BitmapReaderTest {
 
     @Test
     public void testGetHeaderThrowsEOFException() throws IOException {
-        final var file = new FileManager().getFileInstance();
+        final var file = new FileManagerImpl().getFileInstance();
         assertThrows(EOFException.class, () -> new BitmapReader(file));
         Files.delete(Path.of(file.getAbsolutePath()));
     }
 
     @Test
     public void testGetHeaderThrowsUnsupportedEncodingException() throws IOException {
-        final var manager = new FileManager().write("Hello, World!");
+        final var manager = new FileManagerImpl().write("Hello, World!");
         final var file = manager.getFileInstance();
         assertThrows(UnsupportedEncodingException.class, () -> new BitmapReader(file));
         Files.delete(Path.of(file.getAbsolutePath()));

@@ -1,6 +1,6 @@
 package labs.lab2.mini_dictionary;
 
-import lib.io.FileManager;
+import lib.io.FileManagerImpl;
 import org.junit.AfterClass;
 import org.junit.Test;
 
@@ -25,14 +25,14 @@ public class FileDictionaryProviderImplTest {
 
     @AfterClass
     public static void tearDown() throws Exception {
-        final var manager = new FileManager("dictionary.tsv");
+        final var manager = new FileManagerImpl("dictionary.tsv");
         Files.delete(Path.of(manager.getFileInstance().getAbsolutePath()));
     }
 
     @Test
     public void testSaveWorks() throws IOException {
         provider.save();
-        final var manager = new FileManager("dictionary.tsv");
+        final var manager = new FileManagerImpl("dictionary.tsv");
         final var file = manager.getFileInstance();
         assertTrue(file.exists());
         final String expected = "hi\tworld\nhello\tworld\nhello\tuser";

@@ -4,10 +4,15 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 class PrimeNumbersGeneratorImpl implements PrimeNumbersGenerator {
+    private static final int MIN_UPPER_BOUND = 2;
+
     private boolean[] primes;
 
-    PrimeNumbersGeneratorImpl(int n) {
-        primes = new boolean[n + 1];
+    PrimeNumbersGeneratorImpl(int upperBound) {
+        if (upperBound < MIN_UPPER_BOUND) {
+            throw new IllegalArgumentException("Upper bound must be more then \"" + MIN_UPPER_BOUND + "\"");
+        }
+        primes = new boolean[upperBound + 1];
     }
 
     @Override

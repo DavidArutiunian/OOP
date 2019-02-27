@@ -34,10 +34,11 @@ class InteractionObserverImpl implements InteractionObserver {
             for (final String string : splitted) {
                 provider.getDictionary().add(word, string.trim());
             }
+            System.out.println("Слово(а) \"" + translation + "\" добавлено(ы) в словарь.");
         } else {
             provider.getDictionary().add(word, translation);
+            System.out.println("Слово(а) \"" + translation + "\" добавлено(ы) в словарь.");
         }
-        System.out.println("Слово(а) \"" + translation + "\" добавлено(ы) в словарь.");
     }
 
     @Override

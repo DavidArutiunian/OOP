@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
 public class DictionaryImplTest {
@@ -41,6 +41,14 @@ public class DictionaryImplTest {
         dictionary.traverse((key, values) -> count.getAndIncrement());
         final int expectedCount = 2;
         assertEquals(expectedCount, count.get());
+    }
+
+    @Test
+    public void testContainsWorks() {
+        assertTrue(dictionary.contains("hello"));
+        assertTrue(dictionary.contains("hi"));
+        assertFalse(dictionary.contains("test"));
+        assertFalse(dictionary.contains("world"));
     }
 
     @Test

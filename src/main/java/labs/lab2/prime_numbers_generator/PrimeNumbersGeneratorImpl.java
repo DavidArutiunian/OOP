@@ -8,14 +8,10 @@ class PrimeNumbersGeneratorImpl implements PrimeNumbersGenerator {
 
     PrimeNumbersGeneratorImpl(int n) {
         primes = new boolean[n + 1];
-        sieve();
     }
 
-    /**
-     * Perform Sieve of Eratosthenes algorithm.
-     * Fills 'primes' array of booleans.
-     */
-    private void sieve() {
+    @Override
+    public PrimeNumbersGenerator sieve() {
         Arrays.fill(primes, true);
         primes[0] = false;
         primes[1] = false;
@@ -26,6 +22,7 @@ class PrimeNumbersGeneratorImpl implements PrimeNumbersGenerator {
                 }
             }
         }
+        return this;
     }
 
     @Override

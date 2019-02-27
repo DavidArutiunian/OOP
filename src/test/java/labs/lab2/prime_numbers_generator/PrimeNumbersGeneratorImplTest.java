@@ -9,7 +9,7 @@ public class PrimeNumbersGeneratorImplTest {
     public void testGenerator1() {
         final int upperBound = 100_000_000;
         final PrimeNumbersGenerator primeNumbersGenerator = new PrimeNumbersGeneratorImpl(upperBound);
-        final int[] numbers = primeNumbersGenerator.primes();
+        final int[] numbers = primeNumbersGenerator.sieve().primes();
         final int expectedNumbersLength = 5_761_455;
         assertEquals(expectedNumbersLength, numbers.length);
     }
@@ -18,7 +18,7 @@ public class PrimeNumbersGeneratorImplTest {
     public void testGenerator2() {
         final int upperBound = 99_999_999;
         final PrimeNumbersGenerator primeNumbersGenerator = new PrimeNumbersGeneratorImpl(upperBound);
-        final int[] numbers = primeNumbersGenerator.primes();
+        final int[] numbers = primeNumbersGenerator.sieve().primes();
         final int expectedNumbersLength = 5_761_455;
         assertEquals(expectedNumbersLength, numbers.length);
     }
@@ -27,7 +27,7 @@ public class PrimeNumbersGeneratorImplTest {
     public void testGenerator3() {
         final int upperBound = 100;
         final PrimeNumbersGenerator primeNumbersGenerator = new PrimeNumbersGeneratorImpl(upperBound);
-        final int[] numbers = primeNumbersGenerator.primes();
+        final int[] numbers = primeNumbersGenerator.sieve().primes();
         final int expectedNumbersLength = 25;
         assertEquals(expectedNumbersLength, numbers.length);
     }

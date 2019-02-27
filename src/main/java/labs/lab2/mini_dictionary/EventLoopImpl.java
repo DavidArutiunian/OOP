@@ -5,6 +5,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 class EventLoopImpl implements EventLoop {
+    private static final String TERMINAL_STRING = "...";
+
     private final Scanner input;
     private final Dispatcher dispatcher;
     private boolean stop = false;
@@ -17,16 +19,16 @@ class EventLoopImpl implements EventLoop {
     @Override
     public void run(final Dictionary dictionary) throws IOException {
         while (!stop) {
-            final String in = input.nextLine();
-            if (in.isEmpty()) {
+            final String word = input.nextLine().toLowerCase();
+            if (word.isEmpty()) {
                 dispatcher.dispatch(InteractionEvents.EMPTY_INPUT);
-            } else if (Objects.equals(in, "...")) {
+            } else if (Objects.equals(word, TERMINAL_STRING)) {
                 dispatcher.dispatch(InteractionEvents.SAVE_DICT);
                 dispatcher.dispatch(InteractionEvents.EXIT, this::stop);
-            } else if (dictionary.contains(in)) {
-                dispatcher.dispatch(InteractionEvents.PRINT_WORD, in);
+            } else if (dictionary.contains(word)) {
+                dispatcher.dispatch(InteractionEvents.PRINT_WORD, word);
             } else {
-                dispatcher.dispatch(InteractionEvents.UNKNOWN_WORD, in);
+                dispatcher.dispatch(InteractionEvents.UNKNOWN_WORD, word);
             }
         }
     }

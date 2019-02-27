@@ -24,32 +24,14 @@ jobs:
 
             - run: mvn package
 
+            - run:
+                name: Copy JARs
+                command: |
+                    mkdir target/jars
+                    cp target/*.jar target/jars
+
             - store_test_results:
                   path: target/surefire-reports
 
             - store_artifacts:
-                  path: target/bmpinfo.jar
-
-            - store_artifacts:
-                  path: target/html_decoder.jar
-
-            - store_artifacts:
-                  path: target/invert.jar
-
-            - store_artifacts:
-                  path: target/join.jar
-
-            - store_artifacts:
-                  path: target/mini_dictionary.jar
-
-            - store_artifacts:
-                  path: target/prime_numbers_generator.jar
-
-            - store_artifacts:
-                  path: target/radix.jar
-
-            - store_artifacts:
-                  path: target/url_parser.jar
-
-            - store_artifacts:
-                  path: target/vector.jar
+                  path: target/jars

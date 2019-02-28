@@ -50,7 +50,7 @@ public class EventLoopStateTest {
         final String word = "\n";
         state.onEmptyInput(word.trim());
         final int wantedNumberOfInvocations = 1;
-        verify(controller, times(wantedNumberOfInvocations)).onEmptyInput(word.trim());
+        verify(controller, times(wantedNumberOfInvocations)).onEmptyInput();
         final String expectedMessage = "Пусто. Введите заново.";
         assertEquals(expectedMessage, mock.toString().strip());
     }
@@ -100,7 +100,7 @@ public class EventLoopStateTest {
         state.onEmptyInput(word.trim());
         state.onInputWord(word.trim());
         final int wantedNumberOfInvocations = 1;
-        verify(controller, times(wantedNumberOfInvocations)).onEmptyInput(word.trim());
+        verify(controller, times(wantedNumberOfInvocations)).onEmptyInput();
         final String expectedMessage = "Пусто. Введите заново.";
         assertEquals(
             expectedMessage.replace("\n", "").replace("\r", ""),

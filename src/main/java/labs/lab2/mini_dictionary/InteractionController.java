@@ -21,7 +21,7 @@ class InteractionController {
         System.out.println("Изменения сохранены. До свидания.");
     }
 
-    void onEmptyInput(final String word) {
+    void onEmptyInput() {
         System.out.println("Пусто. Введите заново.");
     }
 
@@ -35,9 +35,9 @@ class InteractionController {
         if (translation.isEmpty()) {
             System.out.println("Слово \"" + word + "\" проигнорировано.");
         } else if (translation.contains(",")) {
-            final String[] splitted = translation.split(",");
-            for (final String string : splitted) {
-                dictionary.add(word, string.trim());
+            final String[] translations = translation.split(",");
+            for (final String translatedWord : translations) {
+                dictionary.add(word, translatedWord.trim());
             }
             System.out.println("Слово(а) \"" + translation + "\" добавлено(ы) в словарь.");
         } else {
@@ -48,9 +48,9 @@ class InteractionController {
 
     boolean onSaveDict() throws IOException {
         System.out.println("В словарь были внесены изменения. Введите Y или y для сохранения перед выходом.");
-        Scanner inputY = new Scanner(System.in);
-        String inY = inputY.nextLine();
-        if (Objects.equals(inY, SAVE_DICT_ACCEPT_CAPITAL) || Objects.equals(inY, SAVE_DICT_ACCEPT_LOW)) {
+        final Scanner input = new Scanner(System.in);
+        final String word = input.nextLine();
+        if (Objects.equals(word, SAVE_DICT_ACCEPT_CAPITAL) || Objects.equals(word, SAVE_DICT_ACCEPT_LOW)) {
             provider.save();
             return true;
         } else {

@@ -17,7 +17,7 @@ class EventLoopState implements EventLoopDelegate {
         if (!word.isEmpty()) {
             return;
         }
-        controller.onEmptyInput(word);
+        controller.onEmptyInput();
     }
 
     @Override

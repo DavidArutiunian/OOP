@@ -9,29 +9,29 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 class Dictionary {
-    private final Map<String, List<String>> dict = new HashMap<>();
+    private final Map<String, List<String>> dictionary = new HashMap<>();
 
     public void add(final String word, final String translation) {
-        if (dict.containsKey(word)) {
-            final List<String> list = dict.get(word);
-            list.add(translation);
+        if (dictionary.containsKey(word)) {
+            final List<String> translations = dictionary.get(word);
+            translations.add(translation);
         } else {
-            final List<String> list = new ArrayList<>();
-            list.add(translation);
-            dict.put(word, list);
+            final List<String> translations = new ArrayList<>();
+            translations.add(translation);
+            dictionary.put(word, translations);
         }
     }
 
     @Nullable
     List<String> get(final String word) {
-        return dict.get(word);
+        return dictionary.get(word);
     }
 
     void traverse(BiConsumer<String, List<String>> consumer) {
-        dict.forEach(consumer);
+        dictionary.forEach(consumer);
     }
 
     boolean contains(String word) {
-        return dict.containsKey(word);
+        return dictionary.containsKey(word);
     }
 }

@@ -6,15 +6,15 @@ import java.util.Scanner;
 class EventLoop {
     private final Scanner input;
     private final EventLoopDelegate delegate;
-    private boolean stop = false;
+    private boolean running = false;
 
-    EventLoop(final Scanner input, EventLoopDelegate delegate) {
+    EventLoop(final Scanner input, final EventLoopDelegate delegate) {
         this.input = input;
         this.delegate = delegate;
     }
 
     void run() throws IOException {
-        while (!stop) {
+        while (!running) {
             final String word = input.nextLine();
             delegate.onEmptyInput(word);
             delegate.onFinishWord(word, this::stop);
@@ -23,6 +23,6 @@ class EventLoop {
     }
 
     private void stop() {
-        stop = true;
+        running = true;
     }
 }

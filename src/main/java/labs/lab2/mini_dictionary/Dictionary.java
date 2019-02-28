@@ -2,21 +2,36 @@ package labs.lab2.mini_dictionary;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-interface Dictionary {
-    void add(final String key, final String value);
+class Dictionary {
+    private final Map<String, List<String>> dict = new HashMap<>();
+
+    public void add(final String word, final String translation) {
+        if (dict.containsKey(word)) {
+            final List<String> list = dict.get(word);
+            list.add(translation);
+        } else {
+            final List<String> list = new ArrayList<>();
+            list.add(translation);
+            dict.put(word, list);
+        }
+    }
 
     @Nullable
-    List<String> get(final String key);
+    List<String> get(final String word) {
+        return dict.get(word);
+    }
 
-    void traverse(final BiConsumer<String, List<String>> consumer);
+    void traverse(BiConsumer<String, List<String>> consumer) {
+        dict.forEach(consumer);
+    }
 
-    void clear();
-
-    Map<String, List<String>> getMap();
-
-    boolean contains(final String key);
+    boolean contains(String word) {
+        return dict.containsKey(word);
+    }
 }

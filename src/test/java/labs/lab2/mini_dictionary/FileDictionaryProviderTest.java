@@ -7,17 +7,20 @@ import org.junit.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class FileDictionaryProviderImplTest {
-    private final Dictionary dictionary = new DictionaryImpl();
-    private final FileDictionaryProvider provider = new FileDictionaryProviderImpl(dictionary);
+public class FileDictionaryProviderTest {
+    private Dictionary dictionary = new Dictionary();
+    private FileDictionaryProvider provider = new FileDictionaryProvider(dictionary);
 
-    public FileDictionaryProviderImplTest() throws IOException {
+    public FileDictionaryProviderTest() throws IOException {
         dictionary.add("hello", "world");
         dictionary.add("hello", "user");
         dictionary.add("hi", "world");
@@ -42,12 +45,17 @@ public class FileDictionaryProviderImplTest {
 
     @Test
     public void testLoadWorks() throws IOException {
-        dictionary.clear();
+        dictionary = new Dictionary();
+        provider = new FileDictionaryProvider(dictionary);
         provider.load();
-        final var expected = new DictionaryImpl();
-        expected.add("hello", "world");
-        expected.add("hello", "user");
-        expected.add("hi", "world");
-        assertThat(expected.getMap(), is(provider.getDictionary().getMap()));
+        final var expectedDict = new Dictionary();
+        expectedDict.add("hello", "world");
+        expectedDict.add("hello", "user");
+        expectedDict.add("hi", "world");
+        Map<String, List<String>> expectedMap = new HashMap<>();
+        expectedDict.traverse(expectedMap::put);
+        Map<String, List<String>> actualMap = new HashMap<>();
+        dictionary.traverse(actualMap::put);
+        assertThat(expectedMap, is(actualMap));
     }
 }

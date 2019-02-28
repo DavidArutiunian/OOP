@@ -13,19 +13,19 @@ import java.util.Scanner;
 class Main {
     public static void main(String[] args) {
         try {
-            final Scanner scanner = new Scanner(System.in);
-            final Dictionary dictionary = new DictionaryImpl();
+            final var scanner = new Scanner(System.in);
+            final var dictionary = new Dictionary();
             FileDictionaryProvider provider;
             if (args.length != 0) {
-                provider = new FileDictionaryProviderImpl(dictionary, args[0]);
+                provider = new FileDictionaryProvider(dictionary, args[0]);
             } else {
-                provider = new FileDictionaryProviderImpl(dictionary);
+                provider = new FileDictionaryProvider(dictionary);
             }
             provider.load();
-            final InteractionObserver observer = new InteractionObserverImpl(provider);
-            final Dispatcher dispatcher = new DispatcherImpl(observer);
-            final EventLoop loop = new EventLoopImpl(scanner, dispatcher);
-            loop.run(dictionary);
+            final var controller = new InteractionController(dictionary, provider);
+            final var state = new EventLoopState(controller);
+            final EventLoop loop = new EventLoop(scanner, state);
+            loop.run();
         } catch (Exception e) {
             if (e.getMessage() == null) {
                 System.err.println("Программная ошибка!");

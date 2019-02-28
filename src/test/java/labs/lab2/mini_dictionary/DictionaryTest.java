@@ -11,10 +11,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 
 
-public class DictionaryImplTest {
-    private final Dictionary dictionary = new DictionaryImpl();
+public class DictionaryTest {
+    private Dictionary dictionary = new Dictionary();
 
-    public DictionaryImplTest() {
+    public DictionaryTest() {
         dictionary.add("hello", "world");
         dictionary.add("hello", "user");
         dictionary.add("hi", "world");
@@ -53,7 +53,7 @@ public class DictionaryImplTest {
 
     @Test
     public void testClearWorks() {
-        dictionary.clear();
+        dictionary = new Dictionary();
         final var count = new AtomicInteger();
         dictionary.traverse((key, values) -> count.getAndIncrement());
         final int expectedCount = 0;

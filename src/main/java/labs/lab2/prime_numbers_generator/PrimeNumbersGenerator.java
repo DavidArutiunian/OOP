@@ -1,11 +1,35 @@
 package labs.lab2.prime_numbers_generator;
 
-public interface PrimeNumbersGenerator {
-    /**
-     * Perform Sieve of Eratosthenes algorithm.
-     * Fills 'primes' array of booleans.
-     */
-    PrimeNumbersGenerator sieve();
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
-    int[] primes();
+class PrimeNumbersGenerator {
+    private static final int MIN_UPPER_BOUND = 2;
+
+    private boolean[] primes;
+
+    PrimeNumbersGenerator(int upperBound) {
+        if (upperBound < MIN_UPPER_BOUND) {
+            throw new IllegalArgumentException("Upper bound must be more then \"" + MIN_UPPER_BOUND + "\"");
+        }
+        primes = new boolean[upperBound + 1];
+    }
+
+    PrimeNumbersGenerator sieve() {
+        Arrays.fill(primes, true);
+        primes[0] = false;
+        primes[1] = false;
+        for (int i = 2; i < primes.length; ++i) {
+            if (primes[i]) {
+                for (int j = 2; i * j < primes.length; ++j) {
+                    primes[i * j] = false;
+                }
+            }
+        }
+        return this;
+    }
+
+    int[] primes() {
+        return IntStream.range(0, primes.length).filter(value -> primes[value]).toArray();
+    }
 }

@@ -1,6 +1,6 @@
 package labs.lab1.join;
 
-import lib.io.FileManagerImpl;
+import lib.io.FileManager;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,10 +14,10 @@ public class JoinTest {
     @Test
     public void testProcessingWorks() throws IOException {
         final List<File> files = new ArrayList<>(Arrays.asList(
-            new FileManagerImpl().write("Hello").getFileInstance(),
-            new FileManagerImpl().write("World").getFileInstance()
+            new FileManager().write("Hello").getFileInstance(),
+            new FileManager().write("World").getFileInstance()
         ));
-        final var output = new FileManagerImpl();
+        final var output = new FileManager();
         final var join = new Join(files, output.getFileInstance());
         join.process();
         final var actual = output.read().strip().replaceAll("\\s", "");

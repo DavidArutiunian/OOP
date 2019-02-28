@@ -11,7 +11,7 @@
 package labs.lab1.join;
 
 import lib.io.BaseInputOutput;
-import lib.io.FileManagerImpl;
+import lib.io.FileManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,9 +24,9 @@ public class Main {
             var length = args.length - 1; // the last is output
             List<File> files = new ArrayList<>();
             for (int i = 0; i < length; i++) {
-                files.add(new FileManagerImpl(args[i]).getFileInstance());
+                files.add(new FileManager(args[i]).getFileInstance());
             }
-            final var output = new FileManagerImpl(args[args.length - 1]);
+            final var output = new FileManager(args[args.length - 1]);
             final var join = new Join(files, output.getFileInstance());
             join.process();
         } catch (Exception e) {

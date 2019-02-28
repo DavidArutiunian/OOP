@@ -1,6 +1,6 @@
 package labs.lab1.join;
 
-import lib.io.FileManagerImpl;
+import lib.io.FileManager;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public class FileManagerTest {
         final var pathname = UUID.randomUUID().toString();
         final var file = new File(pathname);
         Assert.assertFalse(file.exists());
-        final var manager = new FileManagerImpl(pathname);
+        final var manager = new FileManager(pathname);
         Assert.assertTrue(file.exists());
         manager.getFileInstance();
         Assert.assertTrue(file.exists());
@@ -25,7 +25,7 @@ public class FileManagerTest {
 
     @Test
     public void testWriteReadWorks() throws IOException {
-        final var manager = new FileManagerImpl().write("Hello, World!");
+        final var manager = new FileManager().write("Hello, World!");
         final var actual = manager.read();
         Assert.assertEquals("Hello, World!", actual.strip());
         Files.delete(Path.of(manager.getFileInstance().getAbsolutePath()));

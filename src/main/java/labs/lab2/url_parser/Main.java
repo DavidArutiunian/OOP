@@ -28,7 +28,7 @@ class Main {
         try {
             final var scanner = new Scanner(System.in);
             final var input = BaseInputOutput.read(scanner);
-            final var parser = new URLParserImpl(input);
+            final var parser = new URLParser(input);
             System.out.println(parser.parse().print());
         } catch (Exception e) {
             System.err.println(e.getMessage());

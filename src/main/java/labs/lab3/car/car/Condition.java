@@ -1,6 +1,6 @@
 package labs.lab3.car.car;
 
-import labs.lab3.car.Conditional;
+import labs.lab3.car.shared.Conditional;
 
 import java.util.function.Predicate;
 

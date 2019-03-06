@@ -1,9 +1,9 @@
 package labs.lab3.car.car;
 
-import labs.lab3.car.Conditional;
 import labs.lab3.car.engine.Engine;
 import labs.lab3.car.engine.EngineIsOffException;
 import labs.lab3.car.engine.EngineState;
+import labs.lab3.car.shared.Conditional;
 import labs.lab3.car.transmission.Gear;
 import labs.lab3.car.transmission.Transmission;
 

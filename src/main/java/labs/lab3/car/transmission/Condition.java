@@ -1,6 +1,6 @@
 package labs.lab3.car.transmission;
 
-import labs.lab3.car.Conditional;
+import labs.lab3.car.shared.Conditional;
 
 class Condition implements Conditional<Double> {
     private final double from;

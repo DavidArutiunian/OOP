@@ -1,7 +1,7 @@
 package labs.lab3.car.transmission;
 
-import labs.lab3.car.Conditional;
 import labs.lab3.car.engine.EngineState;
+import labs.lab3.car.shared.Conditional;
 
 import java.util.EnumMap;
 import java.util.Map;

@@ -93,4 +93,13 @@ class Main {
         final double speed = scanner.nextDouble();
         car.setSpeed(speed);
     }
+
+    private enum Command {
+        INFO,
+        ENGINE_ON,
+        ENGINE_OFF,
+        SET_GEAR,
+        SET_SPEED,
+        EXIT
+    }
 }

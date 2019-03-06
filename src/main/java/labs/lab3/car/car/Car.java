@@ -1,20 +1,23 @@
 package labs.lab3.car.car;
 
-import labs.lab3.car.engine.*;
-import labs.lab3.car.transmission.*;
+import labs.lab3.car.engine.Engine;
+import labs.lab3.car.engine.EngineIsOff;
+import labs.lab3.car.engine.EngineIsOn;
+import labs.lab3.car.engine.EngineState;
+import labs.lab3.car.transmission.Gear;
+import labs.lab3.car.transmission.IllegalTransmissionStateChange;
+import labs.lab3.car.transmission.Transmission;
 
-public class Car implements SetGear, GetGear, SetSpeed, GetSpeed, TurnOffEngine, TurnOnEngine {
+public class Car {
     private double speed = 0;
     private Engine engine = new Engine();
     private Transmission transmission = new Transmission();
 
-    @Override
-    public Gear getGear() {
+    Gear getGear() {
         return transmission.getGear();
     }
 
-    @Override
-    public void setGear(final Gear nextGear) throws IllegalTransmissionStateChange {
+    void setGear(final Gear nextGear) throws IllegalTransmissionStateChange {
         if (engine.getState() == EngineState.ON) {
             transmission.setGear(nextGear, speed);
         } else {
@@ -22,13 +25,11 @@ public class Car implements SetGear, GetGear, SetSpeed, GetSpeed, TurnOffEngine,
         }
     }
 
-    @Override
-    public double getSpeed() {
+    double getSpeed() {
         return speed;
     }
 
-    @Override
-    public void setSpeed(double nextSpeed) throws IllegalSpeedChange, EngineIsOff {
+    void setSpeed(double nextSpeed) throws IllegalSpeedChange, EngineIsOff {
         if (engine.getState() == EngineState.OFF) {
             throw new EngineIsOff("Engine is not turned on!");
         }
@@ -38,13 +39,11 @@ public class Car implements SetGear, GetGear, SetSpeed, GetSpeed, TurnOffEngine,
         speed = nextSpeed;
     }
 
-    @Override
-    public void turnOffEngine() throws EngineIsOff {
+    void turnOffEngine() throws EngineIsOff {
         engine.off();
     }
 
-    @Override
-    public void turnOnEngine() throws EngineIsOn {
+    void turnOnEngine() throws EngineIsOn {
         engine.on();
     }
 }

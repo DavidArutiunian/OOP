@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class TransmissionState implements GetGear, SetGearWithSpeed, SetGearWithEngine {
+class TransmissionState {
     private List<TransmissionTransition> transitions = new ArrayList<>(Arrays.asList(
         new TransmissionTransition(
             Gear.REVERSE,
@@ -39,13 +39,11 @@ class TransmissionState implements GetGear, SetGearWithSpeed, SetGearWithEngine 
     ));
     private Gear gear = Gear.NEUTRAL;
 
-    @Override
-    public Gear getGear() {
+    Gear getGear() {
         return gear;
     }
 
-    @Override
-    public void setGear(final Gear nextGear, final double currentSpeed) throws IllegalTransmissionStateChange {
+    void setGear(final Gear nextGear, final double currentSpeed) throws IllegalTransmissionStateChange {
         for (final TransmissionTransition transition : transitions) {
             if (transition.getGear() != nextGear) {
                 continue;
@@ -57,8 +55,7 @@ class TransmissionState implements GetGear, SetGearWithSpeed, SetGearWithEngine 
         }
     }
 
-    @Override
-    public void setGear(final Gear nextGear, final EngineState engineState) throws IllegalTransmissionStateChange {
+    void setGear(final Gear nextGear, final EngineState engineState) throws IllegalTransmissionStateChange {
         if (engineState == EngineState.ON) {
             throw new IllegalTransmissionStateChange("Speed is not provided!");
         }

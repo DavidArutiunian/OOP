@@ -1,6 +1,6 @@
 package labs.lab3.car.transmission;
 
-class TransmissionTransition implements GetGear {
+class TransmissionTransition {
     private final Gear gear;
     private final TransmissionCondition condition;
 
@@ -13,8 +13,7 @@ class TransmissionTransition implements GetGear {
         return condition.test(currentSpeed);
     }
 
-    @Override
-    public Gear getGear() {
+    Gear getGear() {
         return gear;
     }
 }

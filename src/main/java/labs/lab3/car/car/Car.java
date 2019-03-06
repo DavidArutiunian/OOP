@@ -1,9 +1,9 @@
-package labs.lab3.car;
+package labs.lab3.car.car;
 
 import labs.lab3.car.engine.*;
 import labs.lab3.car.transmission.*;
 
-class Car implements SetGear, GetGear, SetSpeed, GetSpeed, TurnOffEngine, TurnOnEngine {
+public class Car implements SetGear, GetGear, SetSpeed, GetSpeed, TurnOffEngine, TurnOnEngine {
     private double speed = 0;
     private Engine engine = new Engine();
     private Transmission transmission = new Transmission();

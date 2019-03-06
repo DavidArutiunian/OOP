@@ -1,4 +1,4 @@
-package labs.lab3.car;
+package labs.lab3.car.car;
 
 import labs.lab3.car.engine.EngineIsOff;
 import labs.lab3.car.engine.EngineIsOn;

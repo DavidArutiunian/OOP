@@ -1,29 +1,26 @@
 package labs.lab3.car.car;
 
+import labs.lab3.car.Conditional;
 import labs.lab3.car.engine.Engine;
 import labs.lab3.car.engine.EngineIsOffException;
 import labs.lab3.car.transmission.Gear;
 import labs.lab3.car.transmission.Transmission;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 class State {
-    private final List<Condition> conditions = new ArrayList<>();
+    private final Map<CarStateException, Conditional<Double>> conditions = new LinkedHashMap<>();
     private double speed = 0;
 
     State(final Transmission transmission, final Engine engine) {
-        conditions.add(
-            new Condition(
-                nextSpeed -> engine.isOn(),
-                new EngineIsOffException("Engine is not turned on!")
-            )
+        conditions.put(
+            new EngineIsOffException("Engine is not turned on!"),
+            new Condition(nextSpeed -> engine.isOn())
         );
-        conditions.add(
-            new Condition(
-                nextSpeed -> !transmission.is(Gear.NEUTRAL) || nextSpeed <= speed,
-                new IllegalSpeedChangeException("Cannot increase speed on neutral gear!")
-            )
+        conditions.put(
+            new IllegalSpeedChangeException("Cannot increase speed on neutral gear!"),
+            new Condition(nextSpeed -> transmission.getGear() != Gear.NEUTRAL || nextSpeed <= speed)
         );
     }
 
@@ -32,9 +29,9 @@ class State {
     }
 
     void setSpeed(final double nextSpeed) throws CarStateException {
-        for (final Condition condition : conditions) {
-            if (!condition.test(nextSpeed)) {
-                throw condition.getException();
+        for (final var condition : conditions.entrySet()) {
+            if (!condition.getValue().test(nextSpeed)) {
+                throw condition.getKey();
             }
         }
         speed = nextSpeed;

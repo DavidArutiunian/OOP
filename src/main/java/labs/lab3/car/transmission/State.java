@@ -21,22 +21,18 @@ class State {
         conditions.put(Gear.FIFTH, new Condition(50, 150));
     }
 
-    Gear getGear() {
+    Gear getState() {
         return gear;
-    }
-
-    private void setGear(final Gear nextGear) {
-        gear = nextGear;
     }
 
     void setGear(final Gear nextGear, final double speed) throws IllegalStateChangeException {
         if (engine.isOff()) {
-            setGear(nextGear);
+            gear = nextGear;
             return;
         }
         if (!conditions.get(nextGear).test(speed)) {
             throw new IllegalStateChangeException("Cannot change gear!");
         }
-        setGear(nextGear);
+        gear = nextGear;
     }
 }

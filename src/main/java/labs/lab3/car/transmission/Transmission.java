@@ -10,14 +10,10 @@ public class Transmission {
     }
 
     public Gear getGear() {
-        return state.getGear();
+        return state.getState();
     }
 
     public void setGear(final Gear nextGear, final double speed) throws IllegalStateChangeException {
         state.setGear(nextGear, speed);
-    }
-
-    public boolean is(final Gear gear) {
-        return state.getGear() == gear;
     }
 }

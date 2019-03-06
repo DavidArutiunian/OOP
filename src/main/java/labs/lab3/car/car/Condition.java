@@ -1,21 +1,18 @@
 package labs.lab3.car.car;
 
+import labs.lab3.car.Conditional;
+
 import java.util.function.Predicate;
 
-class Condition {
+class Condition implements Conditional<Double> {
     private final Predicate<Double> predicate;
-    private final CarStateException exception;
 
-    Condition(final Predicate<Double> predicate, final CarStateException exception) {
+    Condition(final Predicate<Double> predicate) {
         this.predicate = predicate;
-        this.exception = exception;
     }
 
-    boolean test(final double speed) {
+    @Override
+    public boolean test(final Double speed) {
         return predicate.test(speed);
-    }
-
-    CarStateException getException() {
-        return exception;
     }
 }

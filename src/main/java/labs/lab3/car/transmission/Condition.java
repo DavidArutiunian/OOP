@@ -1,6 +1,8 @@
 package labs.lab3.car.transmission;
 
-class Condition {
+import labs.lab3.car.Conditional;
+
+class Condition implements Conditional<Double> {
     private final double from;
     private final double to;
 
@@ -9,7 +11,8 @@ class Condition {
         this.to = to;
     }
 
-    boolean test(final Double current) {
+    @Override
+    public boolean test(final Double current) {
         return current >= from && current <= to;
     }
 }

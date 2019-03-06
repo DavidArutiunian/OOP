@@ -1,5 +1,6 @@
 package labs.lab3.car.engine;
 
+import labs.lab3.car.transmission.Gear;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +27,7 @@ public class EngineTest {
         } catch (Exception e) {
             // noop
         }
-        engine.off();
+        engine.off(Gear.NEUTRAL, 0);
         assertEquals(EngineState.OFF, engine.getState());
     }
 
@@ -43,10 +44,30 @@ public class EngineTest {
     @Test
     public void testThrowsIfAlreadyOff() {
         try {
-            engine.off();
+            engine.off(Gear.NEUTRAL, 0);
         } catch (Exception e) {
             // noop
         }
-        assertThrows(EngineIsOffException.class, engine::off);
+        assertThrows(EngineIsOffException.class, () -> engine.off(Gear.NEUTRAL, 0));
+    }
+
+    @Test
+    public void testThrowsIfOffOnSpeed() {
+        try {
+            engine.on();
+        } catch (Exception e) {
+            // noop
+        }
+        assertThrows(EngineIsOffException.class, () -> engine.off(Gear.NEUTRAL, 10));
+    }
+
+    @Test
+    public void testThrowsIfOffOnGear() {
+        try {
+            engine.on();
+        } catch (Exception e) {
+            // noop
+        }
+        assertThrows(EngineIsOffException.class, () -> engine.off(Gear.FIRST, 0));
     }
 }

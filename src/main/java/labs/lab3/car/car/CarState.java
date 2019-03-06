@@ -3,24 +3,25 @@ package labs.lab3.car.car;
 import labs.lab3.car.Conditional;
 import labs.lab3.car.engine.Engine;
 import labs.lab3.car.engine.EngineIsOffException;
+import labs.lab3.car.engine.EngineState;
 import labs.lab3.car.transmission.Gear;
 import labs.lab3.car.transmission.Transmission;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-class State {
+class CarState {
     private final Map<CarStateException, Conditional<Double>> conditions = new LinkedHashMap<>();
     private double speed = 0;
 
-    State(final Transmission transmission, final Engine engine) {
+    CarState(final Transmission transmission, final Engine engine) {
         conditions.put(
-            new EngineIsOffException("Engine is not turned on!"),
-            new Condition(nextSpeed -> engine.isOn())
+            new EngineIsOffException("Engine is OFF!"),
+            new Condition(nextSpeed -> engine.getState() == EngineState.ON)
         );
         conditions.put(
             new IllegalSpeedChangeException("Cannot increase speed on neutral gear!"),
-            new Condition(nextSpeed -> transmission.getGear() != Gear.NEUTRAL || nextSpeed <= speed)
+            new Condition(nextSpeed -> transmission.getGear() != Gear.NEUTRAL || Math.abs(nextSpeed) <= Math.abs(speed))
         );
     }
 

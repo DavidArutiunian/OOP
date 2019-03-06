@@ -1,9 +1,11 @@
 package labs.lab3.car.engine;
 
+import labs.lab3.car.transmission.Gear;
+
 public class Engine {
     private EngineState state = EngineState.OFF;
 
-    EngineState getState() {
+    public EngineState getState() {
         return state;
     }
 
@@ -14,18 +16,16 @@ public class Engine {
         state = EngineState.ON;
     }
 
-    public void off() throws EngineIsOffException {
+    public void off(final Gear gear, final double speed) throws EngineIsOffException {
         if (state == EngineState.OFF) {
             throw new EngineIsOffException("Engine is already off!");
         }
+        if (speed != 0) {
+            throw new EngineIsOffException("Cannot OFF engine when moving!");
+        }
+        if (gear != Gear.NEUTRAL) {
+            throw new EngineIsOffException("Cannot OFF engine on non-neutral gear!");
+        }
         state = EngineState.OFF;
-    }
-
-    public boolean isOn() {
-        return state == EngineState.ON;
-    }
-
-    public boolean isOff() {
-        return state == EngineState.OFF;
     }
 }

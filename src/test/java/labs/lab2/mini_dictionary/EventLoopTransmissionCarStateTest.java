@@ -16,7 +16,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-public class EventLoopStateTest {
+public class EventLoopTransmissionCarStateTest {
     private PrintStream original = System.out;
     private Dictionary dictionary = new Dictionary();
     private FileDictionaryProvider provider = new FileDictionaryProvider(dictionary);
@@ -24,7 +24,7 @@ public class EventLoopStateTest {
     private EventLoopDelegate state = new EventLoopState(controller);
     private ByteArrayOutputStream mock = new ByteArrayOutputStream();
 
-    public EventLoopStateTest() throws IOException {
+    public EventLoopTransmissionCarStateTest() throws IOException {
     }
 
     @AfterClass

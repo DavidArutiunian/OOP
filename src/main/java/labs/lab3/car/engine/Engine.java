@@ -3,7 +3,7 @@ package labs.lab3.car.engine;
 public class Engine {
     private EngineState state = EngineState.OFF;
 
-    public EngineState getState() {
+    EngineState getState() {
         return state;
     }
 
@@ -19,5 +19,13 @@ public class Engine {
             throw new EngineIsOffException("Engine is already off!");
         }
         state = EngineState.OFF;
+    }
+
+    public boolean isOn() {
+        return state == EngineState.ON;
+    }
+
+    public boolean isOff() {
+        return state == EngineState.OFF;
     }
 }

@@ -1,8 +1,8 @@
 package labs.lab3.car.transmission;
 
 class Condition {
-    private double from;
-    private double to;
+    private final double from;
+    private final double to;
 
     Condition(final double from, final double to) {
         this.from = from;

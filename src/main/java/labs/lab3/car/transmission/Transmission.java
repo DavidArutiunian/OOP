@@ -1,9 +1,13 @@
 package labs.lab3.car.transmission;
 
-import labs.lab3.car.engine.EngineState;
+import labs.lab3.car.engine.Engine;
 
 public class Transmission {
-    private final State state = new State();
+    private final State state;
+
+    public Transmission(final Engine engine) {
+        state = new State(engine);
+    }
 
     public Gear getGear() {
         return state.getGear();
@@ -13,7 +17,7 @@ public class Transmission {
         state.setGear(nextGear, speed);
     }
 
-    public void setGear(final Gear nextGear, final EngineState engineState) throws IllegalStateChangeException {
-        state.setGear(nextGear, engineState);
+    public boolean is(final Gear gear) {
+        return state.getGear() == gear;
     }
 }

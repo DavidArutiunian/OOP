@@ -1,12 +1,28 @@
 package labs.lab3.car.transmission;
 
+import labs.lab3.car.engine.Engine;
+import labs.lab3.car.engine.EngineIsOffException;
+import labs.lab3.car.engine.EngineIsOnException;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 public class TransmissionTest {
-    private final Transmission transmission = new Transmission();
+    private final Engine engine = new Engine();
+    private final Transmission transmission = new Transmission(engine);
+
+    @Before
+    public void setUp() throws EngineIsOnException {
+        engine.on();
+    }
+
+    @After
+    public void tearDown() throws EngineIsOffException {
+        engine.off();
+    }
 
     // NEUTRAL
 

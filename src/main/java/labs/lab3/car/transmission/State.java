@@ -1,15 +1,17 @@
 package labs.lab3.car.transmission;
 
-import labs.lab3.car.engine.EngineState;
+import labs.lab3.car.engine.Engine;
 
 import java.util.EnumMap;
 import java.util.Map;
 
 class State {
-    private Map<Gear, Condition> conditions = new EnumMap<>(Gear.class);
+    private final Engine engine;
+    private final Map<Gear, Condition> conditions = new EnumMap<>(Gear.class);
     private Gear gear = Gear.NEUTRAL;
 
-    State() {
+    State(final Engine engine) {
+        this.engine = engine;
         conditions.put(Gear.REVERSE, new Condition(0, 0));
         conditions.put(Gear.NEUTRAL, new Condition(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY));
         conditions.put(Gear.FIRST, new Condition(0, 30));
@@ -28,15 +30,12 @@ class State {
     }
 
     void setGear(final Gear nextGear, final double speed) throws IllegalStateChangeException {
+        if (engine.isOff()) {
+            setGear(nextGear);
+            return;
+        }
         if (!conditions.get(nextGear).test(speed)) {
             throw new IllegalStateChangeException("Cannot change gear!");
-        }
-        setGear(nextGear);
-    }
-
-    void setGear(final Gear nextGear, final EngineState engineState) throws IllegalStateChangeException {
-        if (engineState == EngineState.ON) {
-            throw new IllegalStateChangeException("Speed is not provided!");
         }
         setGear(nextGear);
     }

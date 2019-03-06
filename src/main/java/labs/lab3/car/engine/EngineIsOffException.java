@@ -1,6 +1,8 @@
 package labs.lab3.car.engine;
 
-public class EngineIsOffException extends Exception {
+import labs.lab3.car.car.CarStateException;
+
+public class EngineIsOffException extends CarStateException {
     public EngineIsOffException(String message) {
         super(message);
     }

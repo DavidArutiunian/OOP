@@ -89,14 +89,14 @@ public class CarTest {
     }
 
     @Test
-    public void testCantIncreaseSpeedOnNeutral() throws IllegalSpeedChangeException, IllegalStateChangeException, EngineIsOffException {
+    public void testCantIncreaseSpeedOnNeutral() throws Exception {
         car.setSpeed(15);
         car.setGear(Gear.NEUTRAL);
         assertThrows(IllegalSpeedChangeException.class, () -> car.setSpeed(20));
     }
 
     @Test
-    public void testCanDecreaseSpeedOnNeutral() throws IllegalSpeedChangeException, IllegalStateChangeException, EngineIsOffException {
+    public void testCanDecreaseSpeedOnNeutral() throws CarStateException, IllegalStateChangeException {
         car.setSpeed(15);
         car.setGear(Gear.NEUTRAL);
         car.setSpeed(10);
@@ -130,14 +130,14 @@ public class CarTest {
     }
 
     @Test
-    public void testSetSecondGear() throws IllegalStateChangeException, IllegalSpeedChangeException, EngineIsOffException {
+    public void testSetSecondGear() throws IllegalStateChangeException, CarStateException {
         car.setSpeed(20);
         car.setGear(Gear.SECOND);
         assertEquals(Gear.SECOND, car.getGear());
     }
 
     @Test
-    public void testSetSecondGearThrows() throws IllegalStateChangeException, IllegalSpeedChangeException, EngineIsOffException {
+    public void testSetSecondGearThrows() throws IllegalStateChangeException, CarStateException {
         car.setSpeed(19);
         car.setGear(Gear.FIRST);
         assertThrows(IllegalStateChangeException.class, () -> car.setGear(Gear.SECOND));
@@ -145,14 +145,14 @@ public class CarTest {
     }
 
     @Test
-    public void testSetThirdGear() throws IllegalStateChangeException, IllegalSpeedChangeException, EngineIsOffException {
+    public void testSetThirdGear() throws IllegalStateChangeException, CarStateException {
         car.setSpeed(30);
         car.setGear(Gear.THIRD);
         assertEquals(Gear.THIRD, car.getGear());
     }
 
     @Test
-    public void testSetThirdGearThrows() throws IllegalStateChangeException, IllegalSpeedChangeException, EngineIsOffException {
+    public void testSetThirdGearThrows() throws IllegalStateChangeException, CarStateException {
         car.setSpeed(29);
         car.setGear(Gear.SECOND);
         assertThrows(IllegalStateChangeException.class, () -> car.setGear(Gear.THIRD));
@@ -160,14 +160,14 @@ public class CarTest {
     }
 
     @Test
-    public void testSetFourthGear() throws IllegalStateChangeException, IllegalSpeedChangeException, EngineIsOffException {
+    public void testSetFourthGear() throws IllegalStateChangeException, CarStateException {
         car.setSpeed(40);
         car.setGear(Gear.FOURTH);
         assertEquals(Gear.FOURTH, car.getGear());
     }
 
     @Test
-    public void testSetFourthGearThrows() throws IllegalStateChangeException, IllegalSpeedChangeException, EngineIsOffException {
+    public void testSetFourthGearThrows() throws IllegalStateChangeException, CarStateException {
         car.setSpeed(39);
         car.setGear(Gear.THIRD);
         assertThrows(IllegalStateChangeException.class, () -> car.setGear(Gear.FOURTH));
@@ -175,14 +175,14 @@ public class CarTest {
     }
 
     @Test
-    public void testSetFifthGear() throws IllegalStateChangeException, IllegalSpeedChangeException, EngineIsOffException {
+    public void testSetFifthGear() throws IllegalStateChangeException, CarStateException {
         car.setSpeed(50);
         car.setGear(Gear.FOURTH);
         assertEquals(Gear.FOURTH, car.getGear());
     }
 
     @Test
-    public void testSetFifthGearThrows() throws IllegalStateChangeException, IllegalSpeedChangeException, EngineIsOffException {
+    public void testSetFifthGearThrows() throws IllegalStateChangeException, CarStateException {
         car.setSpeed(49);
         car.setGear(Gear.FOURTH);
         assertThrows(IllegalStateChangeException.class, () -> car.setGear(Gear.FIFTH));

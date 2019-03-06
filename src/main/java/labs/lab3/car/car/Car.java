@@ -25,7 +25,8 @@ public class Car {
         return state.getSpeed();
     }
 
-    public void setSpeed(final double nextSpeed) throws CarStateException {
+    public void setSpeed(final double nextSpeed) throws CarStateException, IllegalStateChangeException {
+        transmission.testConditionsForSpeed(nextSpeed);
         state.setSpeed(nextSpeed);
     }
 

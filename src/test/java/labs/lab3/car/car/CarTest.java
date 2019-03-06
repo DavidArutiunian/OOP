@@ -198,4 +198,29 @@ public class CarTest {
         assertThrows(IllegalStateChangeException.class, () -> car.setGear(Gear.FIFTH));
         assertEquals(Gear.THIRD, car.getGear());
     }
+
+    @Test
+    public void testCantSetReverseGearAgainWhenMovingReverse() throws IllegalStateChangeException, CarStateException {
+        car.setGear(Gear.REVERSE);
+        car.setSpeed(-10);
+        car.setGear(Gear.NEUTRAL);
+        assertThrows(IllegalStateChangeException.class, () -> car.setGear(Gear.REVERSE));
+        assertEquals(Gear.NEUTRAL, car.getGear());
+        car.setSpeed(0);
+        car.setGear(Gear.REVERSE);
+        assertEquals(Gear.REVERSE, car.getGear());
+    }
+
+    @Test
+    public void testCantOffEngineOnNonZeroSpeedAndNonNeutralGear() throws IllegalStateChangeException, CarStateException {
+        car.setGear(Gear.FIRST);
+        car.setSpeed(10);
+        assertThrows(EngineIsOffException.class, car::turnOffEngine);
+        assertEquals(Gear.FIRST, car.getGear());
+        car.setSpeed(0);
+        assertThrows(EngineIsOffException.class, car::turnOffEngine);
+        assertEquals(Gear.FIRST, car.getGear());
+        car.setGear(Gear.NEUTRAL);
+        car.turnOffEngine();
+    }
 }

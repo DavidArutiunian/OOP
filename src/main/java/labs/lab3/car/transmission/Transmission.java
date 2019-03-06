@@ -12,4 +12,8 @@ public class Transmission {
     public void setGear(final Gear nextGear, final EngineState engineState, final double speed) throws IllegalStateChangeException {
         state.setGear(nextGear, engineState, speed);
     }
+
+    public void testConditionsForSpeed(final double speed) throws IllegalStateChangeException {
+        state.testConditionsForGearAndSpeed(state.getGear(), speed);
+    }
 }

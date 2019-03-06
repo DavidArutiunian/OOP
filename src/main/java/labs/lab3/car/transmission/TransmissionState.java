@@ -29,12 +29,16 @@ class TransmissionState {
             gear = nextGear;
             return;
         }
-        if (!conditions.get(nextGear).test(speed)) {
-            throw new IllegalStateChangeException("Incorrect speed for current gear range!");
-        }
+        testConditionsForGearAndSpeed(nextGear, speed);
         if (nextGear == Gear.REVERSE && speed != 0) {
-            throw new IllegalStateChangeException("Reverse gear can be set only on 0 speed!");
+            throw new IllegalStateChangeException(nextGear.name() + " gear can be set only on 0 speed!");
         }
         gear = nextGear;
+    }
+
+    void testConditionsForGearAndSpeed(final Gear gear, final double speed) throws IllegalStateChangeException {
+        if (!conditions.get(gear).test(speed)) {
+            throw new IllegalStateChangeException("Incorrect speed for " + gear.name() + " gear range!");
+        }
     }
 }

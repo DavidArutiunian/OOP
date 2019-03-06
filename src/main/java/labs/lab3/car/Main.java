@@ -67,21 +67,21 @@ class Main {
                 running = false;
                 break;
             default:
-                break;
+                throw new IOException("Unknown command!");
         }
         return running;
     }
 
     private static void printCarInfo(final Car car) {
         System.out.println("Engine is: " + car.getEngineState().name());
-        if (car.getSpeed() != 0) {
-            System.out.println("Moving: " + (car.getSpeed() > 0 ? "FORWARD" : "BACKWARD"));
-        }
+        final String direction = car.getSpeed() > 0 ? "FORWARD" : "BACKWARD";
+        System.out.println("Moving: " + (car.getSpeed() == 0 ? "IDLE" : direction));
         System.out.println("Speed: " + car.getSpeed());
         System.out.println("Gear: " + car.getGear().name());
     }
 
     private static void setCarGear(final Car car, final Scanner scanner) throws IOException, IllegalStateChangeException {
+        // Increment cause enums start from 0 and REVERSE is -1 by design
         final int gear = scanner.nextInt() + 1;
         if (gear < Gear.REVERSE.ordinal() || gear > Gear.FIFTH.ordinal()) {
             throw new IOException("Unsupported gear value!");
@@ -89,7 +89,7 @@ class Main {
         car.setGear(Gear.values()[gear]);
     }
 
-    private static void setCarSpeed(final Car car, final Scanner scanner) throws CarStateException {
+    private static void setCarSpeed(final Car car, final Scanner scanner) throws CarStateException, IllegalStateChangeException {
         final double speed = scanner.nextDouble();
         car.setSpeed(speed);
     }

@@ -20,8 +20,8 @@ class CarState {
             new Condition(nextSpeed -> engine.getState() == EngineState.ON)
         );
         conditions.put(
-            new IllegalSpeedChangeException("Cannot increase speed on neutral gear!"),
-            new Condition(nextSpeed -> transmission.getGear() != Gear.NEUTRAL || Math.abs(nextSpeed) <= Math.abs(speed))
+            new IllegalSpeedChangeException("Speed can be set only closer to zero on " + Gear.NEUTRAL.name() + " gear!"),
+            new Condition(nextSpeed -> transmission.getGear() != Gear.NEUTRAL || (nextSpeed >= 0 && nextSpeed <= Math.abs(speed)))
         );
     }
 

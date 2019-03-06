@@ -7,16 +7,16 @@ public class Engine {
         return state;
     }
 
-    public void on() throws EngineIsOn {
+    public void on() throws EngineIsOnException {
         if (state == EngineState.ON) {
-            throw new EngineIsOn("Engine is already on!");
+            throw new EngineIsOnException("Engine is already on!");
         }
         state = EngineState.ON;
     }
 
-    public void off() throws EngineIsOff {
+    public void off() throws EngineIsOffException {
         if (state == EngineState.OFF) {
-            throw new EngineIsOff("Engine is already off!");
+            throw new EngineIsOffException("Engine is already off!");
         }
         state = EngineState.OFF;
     }

@@ -14,13 +14,13 @@ public class EngineTest {
     }
 
     @Test
-    public void testIsOn() throws EngineIsOn {
+    public void testIsOn() throws EngineIsOnException {
         engine.on();
         assertEquals(EngineState.ON, engine.getState());
     }
 
     @Test
-    public void testIsOff() throws EngineIsOff {
+    public void testIsOff() throws EngineIsOffException {
         try {
             engine.on();
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class EngineTest {
         } catch (Exception e) {
             // noop
         }
-        assertThrows(EngineIsOn.class, engine::on);
+        assertThrows(EngineIsOnException.class, engine::on);
     }
 
     @Test
@@ -47,6 +47,6 @@ public class EngineTest {
         } catch (Exception e) {
             // noop
         }
-        assertThrows(EngineIsOff.class, engine::off);
+        assertThrows(EngineIsOffException.class, engine::off);
     }
 }

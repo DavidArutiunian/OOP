@@ -21,7 +21,16 @@ class CarState {
         );
         conditions.put(
             new IllegalSpeedChangeException("Speed can be set only closer to zero on " + Gear.NEUTRAL.name() + " gear!"),
-            new Condition(nextSpeed -> transmission.getGear() != Gear.NEUTRAL || (nextSpeed >= 0 && nextSpeed <= Math.abs(speed)))
+            new Condition(nextSpeed -> {
+                if (transmission.getGear() != Gear.NEUTRAL) {
+                    return true;
+                }
+                if (speedsHaveSameSigns(speed, nextSpeed)) {
+                    final var delta = Math.abs(speed) - Math.abs(nextSpeed);
+                    return delta <= Math.abs(speed) && delta >= 0;
+                }
+                return false;
+            })
         );
     }
 
@@ -36,5 +45,9 @@ class CarState {
             }
         }
         speed = nextSpeed;
+    }
+
+    private boolean speedsHaveSameSigns(final double left, final double right) {
+        return left * right >= 0;
     }
 }

@@ -161,6 +161,24 @@ public class CarTest {
         assertEquals(Gear.FIRST, car.getGear());
     }
 
+    @Test
+    public void carCantSetPositiveSpeedOnMovingReverseOnNeutralGear() throws IllegalStateChangeException, CarStateException, EngineIsOnException {
+        setSpeedOnReverseGearAndLeaveOnNeutralGear(-10);
+        assertThrows(IllegalSpeedChangeException.class, () -> car.setSpeed(1));
+    }
+
+    @Test
+    public void carCanSetNegativeSpeedOnMovingReverseOnNeutralGear1() throws IllegalStateChangeException, CarStateException, EngineIsOnException {
+        setSpeedOnReverseGearAndLeaveOnNeutralGear(-10);
+        car.setSpeed(-5);
+    }
+
+    @Test
+    public void carCanSetNegativeSpeedOnMovingReverseOnNeutralGear2() throws IllegalStateChangeException, CarStateException, EngineIsOnException {
+        setSpeedOnReverseGearAndLeaveOnNeutralGear(-10);
+        car.setSpeed(0);
+    }
+
     private void turnOnEngine() throws EngineIsOnException {
         car.turnOnEngine();
     }

@@ -25,38 +25,38 @@ public class EngineTest {
     }
 
     @Test
-    public void engineIsOn() throws EngineIsOnException {
+    public void setEngineStateOn() throws EngineIsOnException {
         turnOnEngine();
         assertEquals(EngineState.ON, state.getEngineState());
     }
 
     @Test
-    public void engineIsOff() throws EngineIsOffException, EngineIsOnException {
+    public void setEngineStateOff() throws EngineIsOffException, EngineIsOnException {
         turnOnEngine();
         engine.off();
         assertEquals(EngineState.OFF, state.getEngineState());
     }
 
     @Test
-    public void engineThrowsIfAlreadyOn() throws EngineIsOnException {
+    public void throwsIfAlreadyOn() throws EngineIsOnException {
         turnOnEngine();
         assertThrows(EngineIsOnException.class, engine::on);
     }
 
     @Test
-    public void engineThrowsIfAlreadyOff() {
+    public void throwsIfAlreadyOff() {
         assertThrows(EngineIsOffException.class, () -> engine.off());
     }
 
     @Test
-    public void engineThrowsIfOffOnSpeed() throws EngineIsOnException, CarStateException {
+    public void throwsIfOffOnSpeed() throws EngineIsOnException, CarStateException {
         turnOnEngine();
         setSpeedAndGear(Gear.FIRST, 10);
         assertThrows(EngineIsOffException.class, () -> engine.off());
     }
 
     @Test
-    public void engineThrowsIfOffOnGear() throws EngineIsOnException, CarStateException {
+    public void throwsIfOffOnGear() throws EngineIsOnException, CarStateException {
         turnOnEngine();
         setSpeedAndGear(Gear.FIRST, 10);
         assertThrows(EngineIsOffException.class, () -> engine.off());

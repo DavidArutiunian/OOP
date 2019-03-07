@@ -3,7 +3,7 @@ package labs.lab2.prime_numbers_generator;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PrimeNumbersGeneratorTest {
     @Test

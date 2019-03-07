@@ -7,7 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class URLParserTest {
     @Test

@@ -3,7 +3,9 @@ package labs.lab1.invert;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MatrixMathematicsTest {
     private static double CLOSE_TO_ZERO = 1e-3;

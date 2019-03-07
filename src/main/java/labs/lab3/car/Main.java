@@ -76,7 +76,7 @@ class Main {
         System.out.println("Engine is: " + car.getEngineState().name());
         final String direction = car.getSpeed() > 0 ? "FORWARD" : "BACKWARD";
         System.out.println("Moving: " + (car.getSpeed() == 0 ? "IDLE" : direction));
-        System.out.println("Speed: " + car.getSpeed());
+        System.out.println("Speed: " + Math.abs(car.getSpeed()));
         System.out.println("Gear: " + car.getGear().name());
     }
 
@@ -90,7 +90,10 @@ class Main {
     }
 
     private static void setCarSpeed(final Car car, final Scanner scanner) throws CarStateException, IllegalStateChangeException {
-        final double speed = scanner.nextDouble();
+        double speed = scanner.nextDouble();
+        if (car.getGear() == Gear.REVERSE) {
+            speed = speed * -1;
+        }
         car.setSpeed(speed);
     }
 

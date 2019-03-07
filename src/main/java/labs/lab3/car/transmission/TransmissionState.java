@@ -25,9 +25,8 @@ class TransmissionState {
     }
 
     void setGear(final Gear nextGear, final EngineState engineState, final double speed) throws IllegalStateChangeException {
-        if (engineState == EngineState.OFF) {
-            gear = nextGear;
-            return;
+        if (engineState == EngineState.OFF && nextGear != Gear.NEUTRAL) {
+            throw new IllegalStateChangeException("Cant set " + nextGear.name() + " when engine is " + engineState.name() + "!");
         }
         testConditionsForGearAndSpeed(nextGear, speed);
         if (nextGear == Gear.REVERSE && speed != 0) {

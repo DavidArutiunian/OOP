@@ -26,7 +26,8 @@ public class TransmissionTest {
     }
 
     @Test
-    public void transmissionNeutralGear() throws IllegalStateChangeException {
+    public void transmissionNeutralGear() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.NEUTRAL, engine.getState(), 0);
         assertEquals(Gear.NEUTRAL, transmission.getGear());
         transmission.setGear(Gear.NEUTRAL, engine.getState(), 10);
@@ -39,22 +40,35 @@ public class TransmissionTest {
         assertEquals(Gear.NEUTRAL, transmission.getGear());
     }
 
+    @Test
+    public void transmissionCantSetNeutralGearWhenEngineIsOff() {
+        assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.FIRST, engine.getState(), 0));
+        assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.SECOND, engine.getState(), 0));
+        assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.THIRD, engine.getState(), 0));
+        assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.FOURTH, engine.getState(), 0));
+        assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.FIFTH, engine.getState(), 0));
+        assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.REVERSE, engine.getState(), 0));
+    }
+
     // FIRST
 
     @Test
-    public void transmissionFirstGear1() throws IllegalStateChangeException {
+    public void transmissionFirstGear1() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.FIRST, engine.getState(), 0);
         assertEquals(Gear.FIRST, transmission.getGear());
     }
 
     @Test
-    public void transmissionFirstGear2() throws IllegalStateChangeException {
+    public void transmissionFirstGear2() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.FIRST, engine.getState(), 15);
         assertEquals(Gear.FIRST, transmission.getGear());
     }
 
     @Test
-    public void transmissionFirstGear3() throws IllegalStateChangeException {
+    public void transmissionFirstGear3() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.FIRST, engine.getState(), 30);
         assertEquals(Gear.FIRST, transmission.getGear());
     }
@@ -68,19 +82,22 @@ public class TransmissionTest {
     // SECOND
 
     @Test
-    public void transmissionSecondGear1() throws IllegalStateChangeException {
+    public void transmissionSecondGear1() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.SECOND, engine.getState(), 20);
         assertEquals(Gear.SECOND, transmission.getGear());
     }
 
     @Test
-    public void transmissionSecondGear2() throws IllegalStateChangeException {
+    public void transmissionSecondGear2() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.SECOND, engine.getState(), 35);
         assertEquals(Gear.SECOND, transmission.getGear());
     }
 
     @Test
-    public void transmissionSecondGear3() throws IllegalStateChangeException {
+    public void transmissionSecondGear3() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.SECOND, engine.getState(), 50);
         assertEquals(Gear.SECOND, transmission.getGear());
     }
@@ -100,19 +117,22 @@ public class TransmissionTest {
     // THIRD
 
     @Test
-    public void transmissionThirdGear1() throws IllegalStateChangeException {
+    public void transmissionThirdGear1() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.THIRD, engine.getState(), 30);
         assertEquals(Gear.THIRD, transmission.getGear());
     }
 
     @Test
-    public void transmissionThirdGear2() throws IllegalStateChangeException {
+    public void transmissionThirdGear2() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.THIRD, engine.getState(), 45);
         assertEquals(Gear.THIRD, transmission.getGear());
     }
 
     @Test
-    public void transmissionThirdGear3() throws IllegalStateChangeException {
+    public void transmissionThirdGear3() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.THIRD, engine.getState(), 60);
         assertEquals(Gear.THIRD, transmission.getGear());
     }
@@ -132,19 +152,22 @@ public class TransmissionTest {
     // FOURTH
 
     @Test
-    public void transmissionFourthGear1() throws IllegalStateChangeException {
+    public void transmissionFourthGear1() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.FOURTH, engine.getState(), 40);
         assertEquals(Gear.FOURTH, transmission.getGear());
     }
 
     @Test
-    public void transmissionFourthGear2() throws IllegalStateChangeException {
+    public void transmissionFourthGear2() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.FOURTH, engine.getState(), 75);
         assertEquals(Gear.FOURTH, transmission.getGear());
     }
 
     @Test
-    public void transmissionFourthGear3() throws IllegalStateChangeException {
+    public void transmissionFourthGear3() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.FOURTH, engine.getState(), 90);
         assertEquals(Gear.FOURTH, transmission.getGear());
     }
@@ -164,19 +187,22 @@ public class TransmissionTest {
     // FIFTH
 
     @Test
-    public void transmissionFifthGear1() throws IllegalStateChangeException {
+    public void transmissionFifthGear1() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.FIFTH, engine.getState(), 50);
         assertEquals(Gear.FIFTH, transmission.getGear());
     }
 
     @Test
-    public void transmissionFifthGear2() throws IllegalStateChangeException {
+    public void transmissionFifthGear2() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.FIFTH, engine.getState(), 100);
         assertEquals(Gear.FIFTH, transmission.getGear());
     }
 
     @Test
-    public void transmissionFifthGear3() throws IllegalStateChangeException {
+    public void transmissionFifthGear3() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.FIFTH, engine.getState(), 150);
         assertEquals(Gear.FIFTH, transmission.getGear());
     }
@@ -196,7 +222,8 @@ public class TransmissionTest {
     // REVERSE
 
     @Test
-    public void transmissionReverseGear1() throws IllegalStateChangeException {
+    public void transmissionReverseGear1() throws IllegalStateChangeException, EngineIsOnException {
+        turnOnEngine();
         transmission.setGear(Gear.REVERSE, engine.getState(), 0);
         assertEquals(Gear.REVERSE, transmission.getGear());
     }

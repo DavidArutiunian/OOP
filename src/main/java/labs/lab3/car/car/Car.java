@@ -9,20 +9,20 @@ import labs.lab3.car.transmission.IllegalStateChangeException;
 import labs.lab3.car.transmission.Transmission;
 
 public class Car {
-    private final Engine engine = new Engine();
-    private final Transmission transmission = new Transmission();
-    private final CarState state = new CarState(transmission, engine);
+    private final CarState state = new CarState();
+    private final Engine engine = new Engine(state);
+    private final Transmission transmission = new Transmission(state);
 
     public Gear getGear() {
-        return transmission.getGear();
+        return state.getTransmissionGear();
     }
 
     public void setGear(final Gear nextGear) throws IllegalStateChangeException {
-        transmission.setGear(nextGear, engine.getState(), state.getSpeed());
+        transmission.setGear(nextGear);
     }
 
     public double getSpeed() {
-        return state.getSpeed();
+        return state.getCarSeed();
     }
 
     public void setSpeed(final double nextSpeed) throws CarStateException, IllegalStateChangeException {
@@ -31,7 +31,7 @@ public class Car {
     }
 
     public void turnOffEngine() throws EngineIsOffException {
-        engine.off(transmission.getGear(), state.getSpeed());
+        engine.off();
     }
 
     public void turnOnEngine() throws EngineIsOnException {
@@ -39,6 +39,6 @@ public class Car {
     }
 
     public EngineState getEngineState() {
-        return engine.getState();
+        return state.getEngineState();
     }
 }

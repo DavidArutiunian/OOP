@@ -1,19 +1,19 @@
 package labs.lab3.car.transmission;
 
-import labs.lab3.car.engine.EngineState;
-
 public class Transmission {
-    private final TransmissionState state = new TransmissionState();
+    private final TransmissionMediator mediator;
+    private final TransmissionState state;
 
-    public Gear getGear() {
-        return state.getGear();
+    public Transmission(final TransmissionMediator mediator) {
+        this.mediator = mediator;
+        this.state = new TransmissionState(mediator);
     }
 
-    public void setGear(final Gear nextGear, final EngineState engineState, final double speed) throws IllegalStateChangeException {
-        state.setGear(nextGear, engineState, speed);
+    public void setGear(final Gear nextGear) throws IllegalStateChangeException {
+        state.setGear(nextGear);
     }
 
     public void testConditionsForSpeed(final double speed) throws IllegalStateChangeException {
-        state.testConditionsForGearAndSpeed(state.getGear(), speed);
+        state.testConditionsForGearAndSpeed(mediator.getTransmissionGear(), speed);
     }
 }

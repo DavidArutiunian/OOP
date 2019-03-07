@@ -1,31 +1,32 @@
 package labs.lab3.car.engine;
 
 import labs.lab3.car.transmission.Gear;
+import labs.lab3.car.transmission.TransmissionMediator;
 
 public class Engine {
-    private EngineState state = EngineState.OFF;
+    private final TransmissionMediator mediator;
 
-    public EngineState getState() {
-        return state;
+    public Engine(final TransmissionMediator mediator) {
+        this.mediator = mediator;
     }
 
     public void on() throws EngineIsOnException {
-        if (state == EngineState.ON) {
+        if (mediator.getEngineState() == EngineState.ON) {
             throw new EngineIsOnException("Engine is already on!");
         }
-        state = EngineState.ON;
+        mediator.setEngineState(EngineState.ON);
     }
 
-    public void off(final Gear gear, final double speed) throws EngineIsOffException {
-        if (state == EngineState.OFF) {
+    public void off() throws EngineIsOffException {
+        if (mediator.getEngineState() == EngineState.OFF) {
             throw new EngineIsOffException("Engine is already off!");
         }
-        if (speed != 0) {
+        if (mediator.getCarSeed() != 0) {
             throw new EngineIsOffException("Cannot OFF engine when moving!");
         }
-        if (gear != Gear.NEUTRAL) {
+        if (mediator.getTransmissionGear() != Gear.NEUTRAL) {
             throw new EngineIsOffException("Cannot OFF engine on non-neutral gear!");
         }
-        state = EngineState.OFF;
+        mediator.setEngineState(EngineState.OFF);
     }
 }

@@ -1,5 +1,6 @@
 package labs.lab3.car.engine;
 
+import labs.lab3.car.car.CarState;
 import labs.lab3.car.transmission.Gear;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,29 +9,31 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 public class EngineTest {
-    private Engine engine = new Engine();
+    private CarState state = new CarState();
+    private Engine engine = new Engine(state);
 
     @Before
     public void setUp() {
-        engine = new Engine();
+        state = new CarState();
+        engine = new Engine(state);
     }
 
     @Test
     public void engineIsOffOnInit() {
-        assertEquals(EngineState.OFF, engine.getState());
+        assertEquals(EngineState.OFF, state.getEngineState());
     }
 
     @Test
     public void engineIsOn() throws EngineIsOnException {
         turnOnEngine();
-        assertEquals(EngineState.ON, engine.getState());
+        assertEquals(EngineState.ON, state.getEngineState());
     }
 
     @Test
     public void engineIsOff() throws EngineIsOffException, EngineIsOnException {
         turnOnEngine();
-        engine.off(Gear.NEUTRAL, 0);
-        assertEquals(EngineState.OFF, engine.getState());
+        engine.off();
+        assertEquals(EngineState.OFF, state.getEngineState());
     }
 
     @Test
@@ -41,22 +44,29 @@ public class EngineTest {
 
     @Test
     public void engineThrowsIfAlreadyOff() {
-        assertThrows(EngineIsOffException.class, () -> engine.off(Gear.NEUTRAL, 0));
+        assertThrows(EngineIsOffException.class, () -> engine.off());
     }
 
     @Test
     public void engineThrowsIfOffOnSpeed() throws EngineIsOnException {
         turnOnEngine();
-        assertThrows(EngineIsOffException.class, () -> engine.off(Gear.NEUTRAL, 10));
+        setSpeedAndGear(Gear.FIRST, 10);
+        assertThrows(EngineIsOffException.class, () -> engine.off());
     }
 
     @Test
     public void engineThrowsIfOffOnGear() throws EngineIsOnException {
         turnOnEngine();
-        assertThrows(EngineIsOffException.class, () -> engine.off(Gear.FIRST, 0));
+        setSpeedAndGear(Gear.FIRST, 10);
+        assertThrows(EngineIsOffException.class, () -> engine.off());
     }
 
     private void turnOnEngine() throws EngineIsOnException {
         engine.on();
+    }
+
+    private void setSpeedAndGear(final Gear gear, final double speed) {
+        state.setTransmissionGear(gear);
+        state.setCarSpeed(speed);
     }
 }

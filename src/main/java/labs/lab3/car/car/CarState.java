@@ -1,28 +1,30 @@
 package labs.lab3.car.car;
 
-import labs.lab3.car.engine.Engine;
 import labs.lab3.car.engine.EngineIsOffException;
+import labs.lab3.car.engine.EngineMediator;
 import labs.lab3.car.engine.EngineState;
 import labs.lab3.car.shared.Conditional;
 import labs.lab3.car.transmission.Gear;
-import labs.lab3.car.transmission.Transmission;
+import labs.lab3.car.transmission.TransmissionMediator;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-class CarState {
+public class CarState implements EngineMediator, TransmissionMediator, SpeedMediator {
     private final Map<CarStateException, Conditional<Double>> conditions = new LinkedHashMap<>();
     private double speed = 0;
+    private EngineState engineState = EngineState.OFF;
+    private Gear gear = Gear.NEUTRAL;
 
-    CarState(final Transmission transmission, final Engine engine) {
+    public CarState() {
         conditions.put(
             new EngineIsOffException("Engine is OFF!"),
-            new Condition(nextSpeed -> engine.getState() == EngineState.ON)
+            new Condition(nextSpeed -> engineState == EngineState.ON)
         );
         conditions.put(
             new IllegalSpeedChangeException("Speed can be set only closer to zero on " + Gear.NEUTRAL.name() + " gear!"),
             new Condition(nextSpeed -> {
-                if (transmission.getGear() != Gear.NEUTRAL) {
+                if (gear != Gear.NEUTRAL) {
                     return true;
                 }
                 if (speedsHaveSameSigns(speed, nextSpeed)) {
@@ -32,10 +34,6 @@ class CarState {
                 return false;
             })
         );
-    }
-
-    double getSpeed() {
-        return speed;
     }
 
     void setSpeed(final double nextSpeed) throws CarStateException {
@@ -49,5 +47,35 @@ class CarState {
 
     private boolean speedsHaveSameSigns(final double left, final double right) {
         return left * right >= 0;
+    }
+
+    @Override
+    public EngineState getEngineState() {
+        return engineState;
+    }
+
+    @Override
+    public void setEngineState(final EngineState nextEngineState) {
+        engineState = nextEngineState;
+    }
+
+    @Override
+    public Gear getTransmissionGear() {
+        return gear;
+    }
+
+    @Override
+    public void setTransmissionGear(final Gear nextGear) {
+        gear = nextGear;
+    }
+
+    @Override
+    public double getCarSeed() {
+        return speed;
+    }
+
+    @Override
+    public void setCarSpeed(double nextSpeed) {
+        speed = nextSpeed;
     }
 }

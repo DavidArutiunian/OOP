@@ -8,9 +8,10 @@ import java.util.Map;
 
 class TransmissionState {
     private final Map<Gear, Conditional<Double>> conditions = new EnumMap<>(Gear.class);
-    private Gear gear = Gear.NEUTRAL;
+    private final TransmissionMediator mediator;
 
-    TransmissionState() {
+    TransmissionState(final TransmissionMediator mediator) {
+        this.mediator = mediator;
         conditions.put(Gear.REVERSE, new Condition(-20, 0));
         conditions.put(Gear.NEUTRAL, new Condition(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY));
         conditions.put(Gear.FIRST, new Condition(0, 30));
@@ -20,19 +21,15 @@ class TransmissionState {
         conditions.put(Gear.FIFTH, new Condition(50, 150));
     }
 
-    Gear getGear() {
-        return gear;
-    }
-
-    void setGear(final Gear nextGear, final EngineState engineState, final double speed) throws IllegalStateChangeException {
-        if (engineState == EngineState.OFF && nextGear != Gear.NEUTRAL) {
-            throw new IllegalStateChangeException("Cant set " + nextGear.name() + " when engine is " + engineState.name() + "!");
+    void setGear(final Gear nextGear) throws IllegalStateChangeException {
+        if (mediator.getEngineState() == EngineState.OFF && nextGear != Gear.NEUTRAL) {
+            throw new IllegalStateChangeException("Cant set " + nextGear.name() + " when engine is " + mediator.getEngineState().name() + "!");
         }
-        testConditionsForGearAndSpeed(nextGear, speed);
-        if (nextGear == Gear.REVERSE && speed != 0) {
+        testConditionsForGearAndSpeed(nextGear, mediator.getCarSeed());
+        if (nextGear == Gear.REVERSE && mediator.getCarSeed() != 0) {
             throw new IllegalStateChangeException(nextGear.name() + " gear can be set only on 0 speed!");
         }
-        gear = nextGear;
+        mediator.setTransmissionGear(nextGear);
     }
 
     void testConditionsForGearAndSpeed(final Gear gear, final double speed) throws IllegalStateChangeException {

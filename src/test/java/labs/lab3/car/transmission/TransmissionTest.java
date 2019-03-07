@@ -1,9 +1,7 @@
 package labs.lab3.car.transmission;
 
 import labs.lab3.car.engine.Engine;
-import labs.lab3.car.engine.EngineIsOffException;
 import labs.lab3.car.engine.EngineIsOnException;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,17 +9,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 public class TransmissionTest {
-    private final Engine engine = new Engine();
-    private final Transmission transmission = new Transmission();
+    private Engine engine = new Engine();
+    private Transmission transmission = new Transmission();
 
     @Before
-    public void setUp() throws EngineIsOnException {
-        engine.on();
-    }
-
-    @After
-    public void tearDown() throws EngineIsOffException {
-        engine.off(Gear.NEUTRAL, 0);
+    public void setUp() {
+        engine = new Engine();
+        transmission = new Transmission();
     }
 
     // NEUTRAL
@@ -66,7 +60,8 @@ public class TransmissionTest {
     }
 
     @Test
-    public void testFirstGearFails() {
+    public void testFirstGearFails() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.FIRST, engine.getState(), 31));
     }
 
@@ -91,12 +86,14 @@ public class TransmissionTest {
     }
 
     @Test
-    public void testSecondGearFails1() {
+    public void testSecondGearFails1() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.SECOND, engine.getState(), 19));
     }
 
     @Test
-    public void testSecondGearFails2() {
+    public void testSecondGearFails2() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.SECOND, engine.getState(), 51));
     }
 
@@ -121,12 +118,14 @@ public class TransmissionTest {
     }
 
     @Test
-    public void testThirdGearFails1() {
+    public void testThirdGearFails1() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.THIRD, engine.getState(), 29));
     }
 
     @Test
-    public void testThirdGearFails2() {
+    public void testThirdGearFails2() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.THIRD, engine.getState(), 61));
     }
 
@@ -151,12 +150,14 @@ public class TransmissionTest {
     }
 
     @Test
-    public void testFourthGearFails1() {
+    public void testFourthGearFails1() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.FOURTH, engine.getState(), 39));
     }
 
     @Test
-    public void testFourthGearFails2() {
+    public void testFourthGearFails2() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.FOURTH, engine.getState(), 91));
     }
 
@@ -181,12 +182,14 @@ public class TransmissionTest {
     }
 
     @Test
-    public void testFifthGearFails1() {
+    public void testFifthGearFails1() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.FIFTH, engine.getState(), 49));
     }
 
     @Test
-    public void testFifthGearFails2() {
+    public void testFifthGearFails2() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.FIFTH, engine.getState(), 151));
     }
 
@@ -199,27 +202,36 @@ public class TransmissionTest {
     }
 
     @Test
-    public void testReverseGearFails1() {
+    public void testReverseGearFails1() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.REVERSE, engine.getState(), -21));
     }
 
     @Test
-    public void testReverseGearFails2() {
+    public void testReverseGearFails2() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.REVERSE, engine.getState(), 1));
     }
 
     @Test
-    public void testReverseGearFails3() {
+    public void testReverseGearFails3() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.REVERSE, engine.getState(), 20));
     }
 
     @Test
-    public void testReverseGearFails4() {
+    public void testReverseGearFails4() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.REVERSE, engine.getState(), -1));
     }
 
     @Test
-    public void testReverseGearFails5() {
+    public void testReverseGearFails5() throws EngineIsOnException {
+        turnOnEngine();
         assertThrows(IllegalStateChangeException.class, () -> transmission.setGear(Gear.REVERSE, engine.getState(), -20));
+    }
+
+    private void turnOnEngine() throws EngineIsOnException {
+        engine.on();
     }
 }

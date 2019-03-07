@@ -1,16 +1,17 @@
 package labs.lab3.car.car;
 
 import labs.lab3.car.engine.EngineIsOffException;
-import labs.lab3.car.engine.EngineMediator;
 import labs.lab3.car.engine.EngineState;
+import labs.lab3.car.engine.EngineStateMediator;
 import labs.lab3.car.shared.Conditional;
+import labs.lab3.car.shared.StateMediator;
 import labs.lab3.car.transmission.Gear;
-import labs.lab3.car.transmission.TransmissionMediator;
+import labs.lab3.car.transmission.TransmissionStateMediator;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CarState implements EngineMediator, TransmissionMediator, SpeedMediator {
+public class CarState implements StateMediator, TransmissionStateMediator, EngineStateMediator {
     private final Map<CarStateException, Conditional<Double>> conditions = new LinkedHashMap<>();
     private double speed = 0;
     private EngineState engineState = EngineState.OFF;
@@ -34,15 +35,6 @@ public class CarState implements EngineMediator, TransmissionMediator, SpeedMedi
                 return false;
             })
         );
-    }
-
-    void setSpeed(final double nextSpeed) throws CarStateException {
-        for (final var condition : conditions.entrySet()) {
-            if (!condition.getValue().test(nextSpeed)) {
-                throw condition.getKey();
-            }
-        }
-        speed = nextSpeed;
     }
 
     private boolean speedsHaveSameSigns(final double left, final double right) {
@@ -74,8 +66,12 @@ public class CarState implements EngineMediator, TransmissionMediator, SpeedMedi
         return speed;
     }
 
-    @Override
-    public void setCarSpeed(double nextSpeed) {
+    public void setCarSpeed(double nextSpeed) throws CarStateException {
+        for (final var condition : conditions.entrySet()) {
+            if (!condition.getValue().test(nextSpeed)) {
+                throw condition.getKey();
+            }
+        }
         speed = nextSpeed;
     }
 }

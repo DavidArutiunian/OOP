@@ -1,10 +1,12 @@
 package labs.lab3.car.transmission;
 
+import labs.lab3.car.shared.StateMediator;
+
 public class Transmission {
-    private final TransmissionMediator mediator;
+    private final StateMediator mediator;
     private final TransmissionState state;
 
-    public Transmission(final TransmissionMediator mediator) {
+    public Transmission(final TransmissionStateMediator mediator) {
         this.mediator = mediator;
         this.state = new TransmissionState(mediator);
     }

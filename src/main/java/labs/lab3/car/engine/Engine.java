@@ -1,12 +1,11 @@
 package labs.lab3.car.engine;
 
 import labs.lab3.car.transmission.Gear;
-import labs.lab3.car.transmission.TransmissionMediator;
 
 public class Engine {
-    private final TransmissionMediator mediator;
+    private final EngineStateMediator mediator;
 
-    public Engine(final TransmissionMediator mediator) {
+    public Engine(final EngineStateMediator mediator) {
         this.mediator = mediator;
     }
 

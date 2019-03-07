@@ -1,6 +1,7 @@
 package labs.lab3.car.engine;
 
 import labs.lab3.car.car.CarState;
+import labs.lab3.car.car.CarStateException;
 import labs.lab3.car.transmission.Gear;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,14 +49,14 @@ public class EngineTest {
     }
 
     @Test
-    public void engineThrowsIfOffOnSpeed() throws EngineIsOnException {
+    public void engineThrowsIfOffOnSpeed() throws EngineIsOnException, CarStateException {
         turnOnEngine();
         setSpeedAndGear(Gear.FIRST, 10);
         assertThrows(EngineIsOffException.class, () -> engine.off());
     }
 
     @Test
-    public void engineThrowsIfOffOnGear() throws EngineIsOnException {
+    public void engineThrowsIfOffOnGear() throws EngineIsOnException, CarStateException {
         turnOnEngine();
         setSpeedAndGear(Gear.FIRST, 10);
         assertThrows(EngineIsOffException.class, () -> engine.off());
@@ -65,7 +66,7 @@ public class EngineTest {
         engine.on();
     }
 
-    private void setSpeedAndGear(final Gear gear, final double speed) {
+    private void setSpeedAndGear(final Gear gear, final double speed) throws CarStateException {
         state.setTransmissionGear(gear);
         state.setCarSpeed(speed);
     }

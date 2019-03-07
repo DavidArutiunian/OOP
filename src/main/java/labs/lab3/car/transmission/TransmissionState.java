@@ -8,9 +8,9 @@ import java.util.Map;
 
 class TransmissionState {
     private final Map<Gear, Conditional<Double>> conditions = new EnumMap<>(Gear.class);
-    private final TransmissionMediator mediator;
+    private final TransmissionStateMediator mediator;
 
-    TransmissionState(final TransmissionMediator mediator) {
+    TransmissionState(final TransmissionStateMediator mediator) {
         this.mediator = mediator;
         conditions.put(Gear.REVERSE, new Condition(-20, 0));
         conditions.put(Gear.NEUTRAL, new Condition(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY));

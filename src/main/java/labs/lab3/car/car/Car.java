@@ -27,7 +27,7 @@ public class Car {
 
     public void setSpeed(final double nextSpeed) throws CarStateException, IllegalStateChangeException {
         transmission.testConditionsForSpeed(nextSpeed);
-        state.setSpeed(nextSpeed);
+        state.setCarSpeed(nextSpeed);
     }
 
     public void turnOffEngine() throws EngineIsOffException {

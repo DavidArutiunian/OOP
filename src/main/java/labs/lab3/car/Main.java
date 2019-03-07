@@ -91,7 +91,9 @@ class Main {
 
     private static void setCarSpeed(final Car car, final Scanner scanner) throws CarStateException, IllegalStateChangeException {
         double speed = scanner.nextDouble();
-        if (car.getGear() == Gear.REVERSE) {
+        boolean isMovingReverseAndNeutralGear = car.getSpeed() < 0 && car.getGear() == Gear.NEUTRAL;
+        boolean isReverseGear = car.getGear() == Gear.REVERSE;
+        if (isReverseGear || isMovingReverseAndNeutralGear) {
             speed = speed * -1;
         }
         car.setSpeed(speed);

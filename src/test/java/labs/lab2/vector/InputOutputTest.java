@@ -63,7 +63,7 @@ public class InputOutputTest {
         final String[] arguments = readSystemInput();
         final List<Float> input = InputOutput.parse(arguments);
         InputOutput.print(input);
-        assertEquals("1.100 2.200 3.300", mock.getInput().strip());
+        assertEquals("1.100 2.200 3.300", mock.read().strip());
         mock.destruct();
     }
 
@@ -85,7 +85,7 @@ public class InputOutputTest {
             System.setOut(new PrintStream(mock));
         }
 
-        String getInput() {
+        String read() {
             return mock.toString();
         }
 

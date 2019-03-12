@@ -7,13 +7,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 import lombok.val;
 
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
 @UtilityClass
-public class CommandLineParser {
-    public void parseCommandLine(final List<IShape> shapes, final Scanner scanner) {
+class CommandLineParser {
+    void parseCommandLine(final List<IShape> shapes, final Scanner scanner) throws IOException {
+        if (!scanner.hasNext()) {
+            throw new IOException("No input found!");
+        }
         while (scanner.hasNext()) {
             val shape = scanner.next();
             if (EShape.RECTANGLE.getType().equals(shape)) {
@@ -50,11 +54,11 @@ public class CommandLineParser {
         }
     }
 
-    public IShape getShapeWithMaxArea(final List<IShape> shapes) {
+    IShape getShapeWithMaxArea(final List<IShape> shapes) {
         return shapes.stream().max(Comparator.comparing(IShape::getArea)).orElseThrow();
     }
 
-    public IShape getShapeWithMinPerimeter(final List<IShape> shapes) {
+    IShape getShapeWithMinPerimeter(final List<IShape> shapes) {
         return shapes.stream().min(Comparator.comparing(IShape::getPerimeter)).orElseThrow();
     }
 

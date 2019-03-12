@@ -1,7 +1,6 @@
 package labs.lab4;
 
 import com.github.javafaker.Faker;
-import labs.lab4.factory.ShapeFactory;
 import labs.lab4.point.CPoint;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;

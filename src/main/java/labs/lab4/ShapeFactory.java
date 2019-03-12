@@ -1,4 +1,4 @@
-package labs.lab4.factory;
+package labs.lab4;
 
 import labs.lab4.circle.CCircle;
 import labs.lab4.line_segment.CLineSegment;

@@ -1,6 +1,6 @@
 package labs.lab4.triangle;
 
-import labs.lab4.factory.ShapeFactory;
+import labs.lab4.ShapeFactory;
 import labs.lab4.point.CPoint;
 import labs.lab4.shape.ISolidShape;
 import lombok.Value;

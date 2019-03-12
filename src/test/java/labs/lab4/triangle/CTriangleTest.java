@@ -1,7 +1,7 @@
 package labs.lab4.triangle;
 
+import labs.lab4.ShapeFactory;
 import labs.lab4.TestUtils;
-import labs.lab4.factory.ShapeFactory;
 import lombok.val;
 import org.junit.Test;
 

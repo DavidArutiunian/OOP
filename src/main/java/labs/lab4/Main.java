@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    // TODO: delegate to other class
     public static void main(String... args) {
         try {
             final List<IShape> shapes = new ArrayList<>();
@@ -50,10 +50,19 @@ public class Main {
                     shapes.add(triangle);
                 }
             }
-            shapes.forEach(shape -> System.out.println('\n' + shape.toString()));
+            System.out.println("Max area has shape:\n" + getShapeWithMaxArea(shapes).toString());
+            System.out.println("Min perimeter has shape:\n" + getShapeWithMinPerimeter(shapes).toString());
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    private static IShape getShapeWithMaxArea(final List<IShape> shapes) {
+        return shapes.stream().max(Comparator.comparing(IShape::getArea)).orElseThrow();
+    }
+
+    private static IShape getShapeWithMinPerimeter(final List<IShape> shapes) {
+        return shapes.stream().min(Comparator.comparing(IShape::getPerimeter)).orElseThrow();
     }
 
     @RequiredArgsConstructor

@@ -25,10 +25,12 @@ public class CLineSegment implements IShape {
 
     @Override
     public String ToString() {
-        return "CLineSegment{" +
-            "start=" + start +
-            ", end=" + end +
-            '}';
+        return "Line:\n" +
+            "start:\n" + start.ToString(4) +
+            "end:\n" + end.ToString(4) +
+            "outlineColor = " + Integer.toHexString(outlineColor) + '\n' +
+            "area = " + GetArea() + '\n' +
+            "perimeter = " + GetPerimeter() + '\n';
     }
 
     @Override

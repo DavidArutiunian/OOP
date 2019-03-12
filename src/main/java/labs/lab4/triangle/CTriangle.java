@@ -38,13 +38,14 @@ public class CTriangle implements ISolidShape {
 
     @Override
     public String ToString() {
-        return "CTriangle{" +
-            "vertex1=" + vertex1 +
-            ", vertex2=" + vertex2 +
-            ", vertex3=" + vertex3 +
-            ", outlineColor=" + outlineColor +
-            ", fillColor=" + fillColor +
-            '}';
+        return "Triangle:\n" +
+            "vertex 1:\n" + vertex1.ToString(4) +
+            "vertex 2:\n" + vertex2.ToString(4) +
+            "vertex 3:\n" + vertex3.ToString(4) +
+            "fillColor = " + Integer.toHexString(fillColor) + '\n' +
+            "outlineColor = " + Integer.toHexString(outlineColor) + '\n' +
+            "area = " + GetArea() + '\n' +
+            "perimeter = " + GetPerimeter() + '\n';
     }
 
     @Override

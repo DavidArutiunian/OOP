@@ -20,7 +20,7 @@ public class ShapeFactory {
     }
 
     public CCircle CreateCircle(final CPoint center, final double radius) {
-        return CreateCircle(center, radius, EColor.WHITE.getValue(), EColor.BLACK.getValue());
+        return CreateCircle(center, radius, EColor.WHITE.getColor(), EColor.BLACK.getColor());
     }
 
     public CLineSegment CreateLineSegment(final CPoint start, final CPoint end, final int outlineColor) {
@@ -28,7 +28,7 @@ public class ShapeFactory {
     }
 
     public CLineSegment CreateLineSegment(final CPoint start, final CPoint end) {
-        return CreateLineSegment(start, end, EColor.WHITE.getValue());
+        return CreateLineSegment(start, end, EColor.WHITE.getColor());
     }
 
     public CRectangle CreateRectangle(final CPoint leftTop, final CPoint rightBottom, final double width, final double height, final int outlineColor, final int fillColor) {
@@ -36,7 +36,7 @@ public class ShapeFactory {
     }
 
     public CRectangle CreateRectangle(final CPoint leftTop, final CPoint rightBottom, final double width, final double height) {
-        return CreateRectangle(leftTop, rightBottom, width, height, EColor.WHITE.getValue(), EColor.BLACK.getValue());
+        return CreateRectangle(leftTop, rightBottom, width, height, EColor.WHITE.getColor(), EColor.BLACK.getColor());
     }
 
     public CTriangle CreateTriangle(final CPoint vertex1, final CPoint vertex2, final CPoint vertex3, final int outlineColor, final int fillColor) {
@@ -44,7 +44,7 @@ public class ShapeFactory {
     }
 
     public CTriangle CreateTriangle(final CPoint vertex1, final CPoint vertex2, final CPoint vertex3) {
-        return CreateTriangle(vertex1, vertex2, vertex3, EColor.WHITE.getValue(), EColor.BLACK.getValue());
+        return CreateTriangle(vertex1, vertex2, vertex3, EColor.WHITE.getColor(), EColor.BLACK.getColor());
     }
 
     @RequiredArgsConstructor
@@ -52,6 +52,6 @@ public class ShapeFactory {
         BLACK(0x000000),
         WHITE(0xFFFFFF);
         @Getter
-        private final int value;
+        private final int color;
     }
 }

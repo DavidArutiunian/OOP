@@ -28,12 +28,13 @@ public class CCircle implements ISolidShape {
 
     @Override
     public String ToString() {
-        return "CCircle{" +
-            "center=" + center +
-            ", radius=" + radius +
-            ", fillColor=" + fillColor +
-            ", outlineColor=" + outlineColor +
-            '}';
+        return "Circle:\n" +
+            "center:\n" + center.ToString(4) +
+            "radius = " + radius + '\n' +
+            "fillColor = " + Integer.toHexString(fillColor) + '\n' +
+            "outlineColor = " + Integer.toHexString(outlineColor) + '\n' +
+            "area = " + GetArea() + '\n' +
+            "perimeter = " + GetPerimeter() + '\n';
     }
 
     @Override

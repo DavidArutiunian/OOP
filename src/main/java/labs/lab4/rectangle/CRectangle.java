@@ -30,14 +30,15 @@ public class CRectangle implements ISolidShape {
 
     @Override
     public String ToString() {
-        return "CRectangle{" +
-            "leftTop=" + leftTop +
-            ", rightBottom=" + rightBottom +
-            ", width=" + width +
-            ", height=" + height +
-            ", outlineColor=" + outlineColor +
-            ", fillColor=" + fillColor +
-            '}';
+        return "Rectangle:\n" +
+            "leftTop:\n" + leftTop.ToString(4) +
+            "rightBottom:\n" + rightBottom.ToString(4) +
+            "width = " + width + '\n' +
+            "height = " + height + '\n' +
+            "outlineColor = " + Integer.toHexString(outlineColor) + '\n' +
+            "fillColor = " + Integer.toHexString(fillColor) + '\n' +
+            "area = " + GetArea() + '\n' +
+            "perimeter = " + GetPerimeter() + '\n';
     }
 
     @Override

@@ -8,4 +8,6 @@ public interface IShape {
     String toString();
 
     int getOutlineColor();
+
+    void setOutlineColor(final int color);
 }

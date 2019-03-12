@@ -2,14 +2,19 @@ package labs.lab4.circle;
 
 import labs.lab4.point.CPoint;
 import labs.lab4.shape.ISolidShape;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Setter;
 
-@Value
+@Data
+@AllArgsConstructor
 public class CCircle implements ISolidShape {
     private final CPoint center;
     private final double radius;
-    private final int fillColor;
-    private final int outlineColor;
+    @Setter
+    private int fillColor;
+    @Setter
+    private int outlineColor;
 
     @Override
     public double getArea() {

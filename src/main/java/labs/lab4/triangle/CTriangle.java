@@ -3,16 +3,21 @@ package labs.lab4.triangle;
 import labs.lab4.ShapeFactory;
 import labs.lab4.point.CPoint;
 import labs.lab4.shape.ISolidShape;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Setter;
 import lombok.val;
 
-@Value
+@Data
+@AllArgsConstructor
 public class CTriangle implements ISolidShape {
     private final CPoint vertex1;
     private final CPoint vertex2;
     private final CPoint vertex3;
-    private final int outlineColor;
-    private final int fillColor;
+    @Setter
+    private int outlineColor;
+    @Setter
+    private int fillColor;
 
     @Override
     public double getArea() {

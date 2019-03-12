@@ -2,16 +2,21 @@ package labs.lab4.rectangle;
 
 import labs.lab4.point.CPoint;
 import labs.lab4.shape.ISolidShape;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Setter;
 
-@Value
+@Data
+@AllArgsConstructor
 public class CRectangle implements ISolidShape {
     private final CPoint leftTop;
     private final CPoint rightBottom;
     private final double width;
     private final double height;
-    private final int outlineColor;
-    private final int fillColor;
+    @Setter
+    private int outlineColor;
+    @Setter
+    private int fillColor;
 
     @Override
     public double getArea() {

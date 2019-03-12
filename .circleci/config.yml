@@ -22,7 +22,7 @@ jobs:
 
             - run: mvn test
 
-            - run: mvn package
+            - run: mvn -Dmaven.test.skip=true package
 
             - run:
                 name: Copy JARs

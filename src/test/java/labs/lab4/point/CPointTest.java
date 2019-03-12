@@ -1,6 +1,6 @@
 package labs.lab4.point;
 
-import com.github.javafaker.Faker;
+import labs.lab4.TestUtils;
 import lombok.val;
 import org.junit.Test;
 
@@ -8,22 +8,19 @@ import static org.junit.Assert.assertEquals;
 
 
 public class CPointTest {
-    private static final double DELTA = 5e-5;
-    private final Faker faker = new Faker();
-
     @Test
     public void checkXCorrect() {
-        val x = faker.random().nextDouble();
-        val y = faker.random().nextDouble();
+        val x = TestUtils.getFaker().random().nextDouble();
+        val y = TestUtils.getFaker().random().nextDouble();
         val point = new CPoint(x, y);
-        assertEquals(x, point.x, DELTA);
+        assertEquals(x, point.x, TestUtils.DELTA);
     }
 
     @Test
     public void checkYCorrect() {
-        val x = faker.random().nextDouble();
-        val y = faker.random().nextDouble();
+        val x = TestUtils.getFaker().random().nextDouble();
+        val y = TestUtils.getFaker().random().nextDouble();
         val point = new CPoint(x, y);
-        assertEquals(y, point.y, DELTA);
+        assertEquals(y, point.y, TestUtils.DELTA);
     }
 }

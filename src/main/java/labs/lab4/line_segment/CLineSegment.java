@@ -11,12 +11,6 @@ public class CLineSegment implements IShape {
     private final CPoint end;
     private final int outlineColor;
 
-    public CLineSegment(CPoint start, CPoint end) {
-        this.start = start;
-        this.end = end;
-        outlineColor = 0x000000;
-    }
-
     @Override
     public double GetArea() {
         return 0;

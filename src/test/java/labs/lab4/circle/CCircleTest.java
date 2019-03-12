@@ -1,6 +1,7 @@
 package labs.lab4.circle;
 
 import com.github.javafaker.Faker;
+import labs.lab4.factory.ShapeFactory;
 import labs.lab4.point.CPoint;
 import lombok.val;
 import org.junit.Test;
@@ -77,7 +78,7 @@ public class CCircleTest {
     }
 
     private CPoint getRandomPoint() {
-        return new CPoint(faker.random().nextDouble(), faker.random().nextDouble());
+        return ShapeFactory.CreatePoint(faker.random().nextDouble(), faker.random().nextDouble());
     }
 
     private int getRandomHex() {

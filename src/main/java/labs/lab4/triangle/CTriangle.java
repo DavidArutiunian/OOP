@@ -1,6 +1,6 @@
 package labs.lab4.triangle;
 
-import labs.lab4.line_segment.CLineSegment;
+import labs.lab4.factory.ShapeFactory;
 import labs.lab4.point.CPoint;
 import labs.lab4.shape.ISolidShape;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +30,9 @@ public class CTriangle implements ISolidShape {
 
     @Override
     public double GetPerimeter() {
-        val edge1 = new CLineSegment(vertex1, vertex2);
-        val edge2 = new CLineSegment(vertex2, vertex3);
-        val edge3 = new CLineSegment(vertex3, vertex1);
+        val edge1 = ShapeFactory.CreateLineSegment(vertex1, vertex2);
+        val edge2 = ShapeFactory.CreateLineSegment(vertex2, vertex3);
+        val edge3 = ShapeFactory.CreateLineSegment(vertex3, vertex1);
         return edge1.GetPerimeter() + edge2.GetPerimeter() + edge3.GetPerimeter();
     }
 

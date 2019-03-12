@@ -1,7 +1,7 @@
 package labs.lab4.triangle;
 
 import com.github.javafaker.Faker;
-import labs.lab4.line_segment.CLineSegment;
+import labs.lab4.factory.ShapeFactory;
 import labs.lab4.point.CPoint;
 import lombok.val;
 import org.junit.Test;
@@ -45,9 +45,9 @@ public class CTriangleTest {
         val outlineColor = getRandomHex();
         val fillColor = getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-        val edge1 = new CLineSegment(vertex1, vertex2);
-        val edge2 = new CLineSegment(vertex2, vertex3);
-        val edge3 = new CLineSegment(vertex3, vertex1);
+        val edge1 = ShapeFactory.CreateLineSegment(vertex1, vertex2);
+        val edge2 = ShapeFactory.CreateLineSegment(vertex2, vertex3);
+        val edge3 = ShapeFactory.CreateLineSegment(vertex3, vertex1);
         val expected = edge1.GetPerimeter() + edge2.GetPerimeter() + edge3.GetPerimeter();
         assertEquals(expected, triangle.GetPerimeter(), DELTA);
     }
@@ -97,7 +97,7 @@ public class CTriangleTest {
     }
 
     private CPoint getRandomPoint() {
-        return new CPoint(faker.random().nextDouble(), faker.random().nextDouble());
+        return ShapeFactory.CreatePoint(faker.random().nextDouble(), faker.random().nextDouble());
     }
 
     private int getRandomHex() {

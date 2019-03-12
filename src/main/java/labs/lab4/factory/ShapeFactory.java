@@ -11,40 +11,40 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class ShapeFactory {
-    public CPoint CreatePoint(final double x, final double y) {
+    public CPoint createPoint(final double x, final double y) {
         return new CPoint(x, y);
     }
 
-    public CCircle CreateCircle(final CPoint center, final double radius, final int outlineColor, final int fillColor) {
+    public CCircle createCircle(final CPoint center, final double radius, final int outlineColor, final int fillColor) {
         return new CCircle(center, radius, fillColor, outlineColor);
     }
 
-    public CCircle CreateCircle(final CPoint center, final double radius) {
-        return CreateCircle(center, radius, EColor.WHITE.getColor(), EColor.BLACK.getColor());
+    public CCircle createCircle(final CPoint center, final double radius) {
+        return createCircle(center, radius, EColor.WHITE.getColor(), EColor.BLACK.getColor());
     }
 
-    public CLineSegment CreateLineSegment(final CPoint start, final CPoint end, final int outlineColor) {
+    public CLineSegment createLineSegment(final CPoint start, final CPoint end, final int outlineColor) {
         return new CLineSegment(start, end, outlineColor);
     }
 
-    public CLineSegment CreateLineSegment(final CPoint start, final CPoint end) {
-        return CreateLineSegment(start, end, EColor.WHITE.getColor());
+    public CLineSegment createLineSegment(final CPoint start, final CPoint end) {
+        return createLineSegment(start, end, EColor.WHITE.getColor());
     }
 
-    public CRectangle CreateRectangle(final CPoint leftTop, final CPoint rightBottom, final double width, final double height, final int outlineColor, final int fillColor) {
+    public CRectangle createRectangle(final CPoint leftTop, final CPoint rightBottom, final double width, final double height, final int outlineColor, final int fillColor) {
         return new CRectangle(leftTop, rightBottom, width, height, outlineColor, fillColor);
     }
 
-    public CRectangle CreateRectangle(final CPoint leftTop, final CPoint rightBottom, final double width, final double height) {
-        return CreateRectangle(leftTop, rightBottom, width, height, EColor.WHITE.getColor(), EColor.BLACK.getColor());
+    public CRectangle createRectangle(final CPoint leftTop, final CPoint rightBottom, final double width, final double height) {
+        return createRectangle(leftTop, rightBottom, width, height, EColor.WHITE.getColor(), EColor.BLACK.getColor());
     }
 
-    public CTriangle CreateTriangle(final CPoint vertex1, final CPoint vertex2, final CPoint vertex3, final int outlineColor, final int fillColor) {
+    public CTriangle createTriangle(final CPoint vertex1, final CPoint vertex2, final CPoint vertex3, final int outlineColor, final int fillColor) {
         return new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
     }
 
-    public CTriangle CreateTriangle(final CPoint vertex1, final CPoint vertex2, final CPoint vertex3) {
-        return CreateTriangle(vertex1, vertex2, vertex3, EColor.WHITE.getColor(), EColor.BLACK.getColor());
+    public CTriangle createTriangle(final CPoint vertex1, final CPoint vertex2, final CPoint vertex3) {
+        return createTriangle(vertex1, vertex2, vertex3, EColor.WHITE.getColor(), EColor.BLACK.getColor());
     }
 
     @RequiredArgsConstructor

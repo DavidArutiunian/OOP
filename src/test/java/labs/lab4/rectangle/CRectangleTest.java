@@ -23,7 +23,7 @@ public class CRectangleTest {
         val width = faker.random().nextDouble();
         val height = faker.random().nextDouble();
         val rectangle = new CRectangle(leftTop, rightBottom, width, height, outlineColor, fillColor);
-        assertEquals(fillColor, rectangle.GetFillColor());
+        assertEquals(fillColor, rectangle.getFillColor());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class CRectangleTest {
         val height = faker.random().nextDouble();
         val rectangle = new CRectangle(leftTop, rightBottom, width, height, outlineColor, fillColor);
         val expected = width * height;
-        assertEquals(expected, rectangle.GetArea(), DELTA);
+        assertEquals(expected, rectangle.getArea(), DELTA);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class CRectangleTest {
         val height = faker.random().nextDouble();
         val rectangle = new CRectangle(leftTop, rightBottom, width, height, outlineColor, fillColor);
         val expected = 2 * width + 2 * height;
-        assertEquals(expected, rectangle.GetPerimeter(), DELTA);
+        assertEquals(expected, rectangle.getPerimeter(), DELTA);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class CRectangleTest {
         val width = faker.random().nextDouble();
         val height = faker.random().nextDouble();
         val rectangle = new CRectangle(leftTop, rightBottom, width, height, outlineColor, fillColor);
-        assertEquals(outlineColor, rectangle.GetOutlineColor());
+        assertEquals(outlineColor, rectangle.getOutlineColor());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class CRectangleTest {
         val width = faker.random().nextDouble();
         val height = faker.random().nextDouble();
         val rectangle = new CRectangle(leftTop, rightBottom, width, height, outlineColor, fillColor);
-        assertThat(rectangle.GetLeftTop(), is(leftTop));
+        assertThat(rectangle.getLeftTop(), is(leftTop));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class CRectangleTest {
         val width = faker.random().nextDouble();
         val height = faker.random().nextDouble();
         val rectangle = new CRectangle(leftTop, rightBottom, width, height, outlineColor, fillColor);
-        assertThat(rectangle.GetRightBottom(), is(rightBottom));
+        assertThat(rectangle.getRightBottom(), is(rightBottom));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class CRectangleTest {
         val width = faker.random().nextDouble();
         val height = faker.random().nextDouble();
         val rectangle = new CRectangle(leftTop, rightBottom, width, height, outlineColor, fillColor);
-        assertEquals(width, rectangle.GetWidth(), DELTA);
+        assertEquals(width, rectangle.getWidth(), DELTA);
     }
 
     @Test
@@ -109,11 +109,11 @@ public class CRectangleTest {
         val width = faker.random().nextDouble();
         val height = faker.random().nextDouble();
         val rectangle = new CRectangle(leftTop, rightBottom, width, height, outlineColor, fillColor);
-        assertEquals(height, rectangle.GetHeight(), DELTA);
+        assertEquals(height, rectangle.getHeight(), DELTA);
     }
 
     private CPoint getRandomPoint() {
-        return ShapeFactory.CreatePoint(faker.random().nextDouble(), faker.random().nextDouble());
+        return ShapeFactory.createPoint(faker.random().nextDouble(), faker.random().nextDouble());
     }
 
     private int getRandomHex() {

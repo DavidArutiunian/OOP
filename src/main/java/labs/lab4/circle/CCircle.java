@@ -2,9 +2,9 @@ package labs.lab4.circle;
 
 import labs.lab4.point.CPoint;
 import labs.lab4.shape.ISolidShape;
-import lombok.RequiredArgsConstructor;
+import lombok.Value;
 
-@RequiredArgsConstructor
+@Value
 public class CCircle implements ISolidShape {
     private final CPoint center;
     private final double radius;
@@ -12,41 +12,23 @@ public class CCircle implements ISolidShape {
     private final int outlineColor;
 
     @Override
-    public int GetFillColor() {
-        return fillColor;
-    }
-
-    @Override
-    public double GetArea() {
+    public double getArea() {
         return Math.PI * Math.pow(radius, 2);
     }
 
     @Override
-    public double GetPerimeter() {
+    public double getPerimeter() {
         return 2 * Math.PI * radius;
     }
 
     @Override
-    public String ToString() {
+    public String toString() {
         return "Circle:\n" +
-            "center:\n" + center.ToString(4) +
+            "center:\n" + center.toString(4) +
             "radius = " + radius + '\n' +
             "fillColor = " + Integer.toHexString(fillColor) + '\n' +
             "outlineColor = " + Integer.toHexString(outlineColor) + '\n' +
-            "area = " + GetArea() + '\n' +
-            "perimeter = " + GetPerimeter() + '\n';
-    }
-
-    @Override
-    public int GetOutlineColor() {
-        return outlineColor;
-    }
-
-    CPoint GetCenter() {
-        return center;
-    }
-
-    double GetRadius() {
-        return radius;
+            "area = " + getArea() + '\n' +
+            "perimeter = " + getPerimeter() + '\n';
     }
 }

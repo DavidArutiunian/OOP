@@ -12,7 +12,7 @@ public class CPointTest {
     private final Faker faker = new Faker();
 
     @Test
-    public void getX() {
+    public void checkXCorrect() {
         val x = faker.random().nextDouble();
         val y = faker.random().nextDouble();
         val point = new CPoint(x, y);
@@ -20,7 +20,7 @@ public class CPointTest {
     }
 
     @Test
-    public void getY() {
+    public void checkYCorrect() {
         val x = faker.random().nextDouble();
         val y = faker.random().nextDouble();
         val point = new CPoint(x, y);

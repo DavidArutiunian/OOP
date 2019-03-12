@@ -1,11 +1,11 @@
 package labs.lab4.shape;
 
 public interface IShape {
-    double GetArea();
+    double getArea();
 
-    double GetPerimeter();
+    double getPerimeter();
 
-    String ToString();
+    String toString();
 
-    int GetOutlineColor();
+    int getOutlineColor();
 }

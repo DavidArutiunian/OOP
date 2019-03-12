@@ -22,7 +22,7 @@ public class CTriangleTest {
         val outlineColor = getRandomHex();
         val fillColor = getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-        assertEquals(fillColor, triangle.GetFillColor());
+        assertEquals(fillColor, triangle.getFillColor());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class CTriangleTest {
         val fillColor = getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
         val expected = 0.5 * (vertex1.x * (vertex2.y - vertex3.y) + vertex2.x * (vertex3.y - vertex1.y) + vertex3.x * (vertex1.y - vertex2.y));
-        assertEquals(expected, triangle.GetArea(), DELTA);
+        assertEquals(expected, triangle.getArea(), DELTA);
     }
 
     @Test
@@ -45,11 +45,11 @@ public class CTriangleTest {
         val outlineColor = getRandomHex();
         val fillColor = getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-        val edge1 = ShapeFactory.CreateLineSegment(vertex1, vertex2);
-        val edge2 = ShapeFactory.CreateLineSegment(vertex2, vertex3);
-        val edge3 = ShapeFactory.CreateLineSegment(vertex3, vertex1);
-        val expected = edge1.GetPerimeter() + edge2.GetPerimeter() + edge3.GetPerimeter();
-        assertEquals(expected, triangle.GetPerimeter(), DELTA);
+        val edge1 = ShapeFactory.createLineSegment(vertex1, vertex2);
+        val edge2 = ShapeFactory.createLineSegment(vertex2, vertex3);
+        val edge3 = ShapeFactory.createLineSegment(vertex3, vertex1);
+        val expected = edge1.getPerimeter() + edge2.getPerimeter() + edge3.getPerimeter();
+        assertEquals(expected, triangle.getPerimeter(), DELTA);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class CTriangleTest {
         val outlineColor = getRandomHex();
         val fillColor = getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-        assertEquals(outlineColor, triangle.GetOutlineColor());
+        assertEquals(outlineColor, triangle.getOutlineColor());
     }
 
     @Test
@@ -71,7 +71,7 @@ public class CTriangleTest {
         val outlineColor = getRandomHex();
         val fillColor = getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-        assertThat(triangle.GetVertex1(), is(vertex1));
+        assertThat(triangle.getVertex1(), is(vertex1));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class CTriangleTest {
         val outlineColor = getRandomHex();
         val fillColor = getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-        assertThat(triangle.GetVertex2(), is(vertex2));
+        assertThat(triangle.getVertex2(), is(vertex2));
     }
 
     @Test
@@ -93,11 +93,11 @@ public class CTriangleTest {
         val outlineColor = getRandomHex();
         val fillColor = getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-        assertThat(triangle.GetVertex3(), is(vertex3));
+        assertThat(triangle.getVertex3(), is(vertex3));
     }
 
     private CPoint getRandomPoint() {
-        return ShapeFactory.CreatePoint(faker.random().nextDouble(), faker.random().nextDouble());
+        return ShapeFactory.createPoint(faker.random().nextDouble(), faker.random().nextDouble());
     }
 
     private int getRandomHex() {

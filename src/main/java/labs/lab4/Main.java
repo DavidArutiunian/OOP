@@ -18,38 +18,38 @@ public class Main {
             while (scanner.hasNext()) {
                 val shape = scanner.next();
                 if (EShape.RECTANGLE.getType().equals(shape)) {
-                    val leftTop = ShapeFactory.CreatePoint(scanner.nextDouble(), scanner.nextDouble());
+                    val leftTop = ShapeFactory.createPoint(scanner.nextDouble(), scanner.nextDouble());
                     val width = scanner.nextDouble();
                     val height = scanner.nextDouble();
-                    val rightBottom = ShapeFactory.CreatePoint(leftTop.x + width, leftTop.y + height);
+                    val rightBottom = ShapeFactory.createPoint(leftTop.x + width, leftTop.y + height);
                     val outlineColor = scanner.nextInt(ERadix.HEX.getRadix());
                     val fillColor = scanner.nextInt(ERadix.HEX.getRadix());
-                    val rectangle = ShapeFactory.CreateRectangle(leftTop, rightBottom, width, height, outlineColor, fillColor);
+                    val rectangle = ShapeFactory.createRectangle(leftTop, rightBottom, width, height, outlineColor, fillColor);
                     shapes.add(rectangle);
                 } else if (EShape.CIRCLE.getType().equals(shape)) {
-                    val center = ShapeFactory.CreatePoint(scanner.nextDouble(), scanner.nextDouble());
+                    val center = ShapeFactory.createPoint(scanner.nextDouble(), scanner.nextDouble());
                     val radius = scanner.nextDouble();
                     val outlineColor = scanner.nextInt(ERadix.HEX.getRadix());
                     val fillColor = scanner.nextInt(ERadix.HEX.getRadix());
-                    val circle = ShapeFactory.CreateCircle(center, radius, outlineColor, fillColor);
+                    val circle = ShapeFactory.createCircle(center, radius, outlineColor, fillColor);
                     shapes.add(circle);
                 } else if (EShape.LINE.getType().equals(shape)) {
-                    val start = ShapeFactory.CreatePoint(scanner.nextDouble(), scanner.nextDouble());
-                    val end = ShapeFactory.CreatePoint(scanner.nextDouble(), scanner.nextDouble());
+                    val start = ShapeFactory.createPoint(scanner.nextDouble(), scanner.nextDouble());
+                    val end = ShapeFactory.createPoint(scanner.nextDouble(), scanner.nextDouble());
                     val outlineColor = scanner.nextInt(ERadix.HEX.getRadix());
-                    val line = ShapeFactory.CreateLineSegment(start, end, outlineColor);
+                    val line = ShapeFactory.createLineSegment(start, end, outlineColor);
                     shapes.add(line);
                 } else if (EShape.TRIANGLE.getType().equals(shape)) {
-                    val vertex1 = ShapeFactory.CreatePoint(scanner.nextDouble(), scanner.nextDouble());
-                    val vertex2 = ShapeFactory.CreatePoint(scanner.nextDouble(), scanner.nextDouble());
-                    val vertex3 = ShapeFactory.CreatePoint(scanner.nextDouble(), scanner.nextDouble());
+                    val vertex1 = ShapeFactory.createPoint(scanner.nextDouble(), scanner.nextDouble());
+                    val vertex2 = ShapeFactory.createPoint(scanner.nextDouble(), scanner.nextDouble());
+                    val vertex3 = ShapeFactory.createPoint(scanner.nextDouble(), scanner.nextDouble());
                     val outlineColor = scanner.nextInt(ERadix.HEX.getRadix());
                     val fillColor = scanner.nextInt(ERadix.HEX.getRadix());
-                    val triangle = ShapeFactory.CreateTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
+                    val triangle = ShapeFactory.createTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
                     shapes.add(triangle);
                 }
             }
-            shapes.forEach(shape -> System.out.println('\n' + shape.ToString()));
+            shapes.forEach(shape -> System.out.println('\n' + shape.toString()));
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

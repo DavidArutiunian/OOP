@@ -3,10 +3,10 @@ package labs.lab4.triangle;
 import labs.lab4.factory.ShapeFactory;
 import labs.lab4.point.CPoint;
 import labs.lab4.shape.ISolidShape;
-import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.val;
 
-@RequiredArgsConstructor
+@Value
 public class CTriangle implements ISolidShape {
     private final CPoint vertex1;
     private final CPoint vertex2;
@@ -15,12 +15,7 @@ public class CTriangle implements ISolidShape {
     private final int fillColor;
 
     @Override
-    public int GetFillColor() {
-        return fillColor;
-    }
-
-    @Override
-    public double GetArea() {
+    public double getArea() {
         double a = vertex1.x * (vertex2.y - vertex3.y);
         double b = vertex2.x * (vertex3.y - vertex1.y);
         double c = vertex3.x * (vertex1.y - vertex2.y);
@@ -29,39 +24,22 @@ public class CTriangle implements ISolidShape {
     }
 
     @Override
-    public double GetPerimeter() {
-        val edge1 = ShapeFactory.CreateLineSegment(vertex1, vertex2);
-        val edge2 = ShapeFactory.CreateLineSegment(vertex2, vertex3);
-        val edge3 = ShapeFactory.CreateLineSegment(vertex3, vertex1);
-        return edge1.GetPerimeter() + edge2.GetPerimeter() + edge3.GetPerimeter();
+    public double getPerimeter() {
+        val edge1 = ShapeFactory.createLineSegment(vertex1, vertex2);
+        val edge2 = ShapeFactory.createLineSegment(vertex2, vertex3);
+        val edge3 = ShapeFactory.createLineSegment(vertex3, vertex1);
+        return edge1.getPerimeter() + edge2.getPerimeter() + edge3.getPerimeter();
     }
 
     @Override
-    public String ToString() {
+    public String toString() {
         return "Triangle:\n" +
-            "vertex 1:\n" + vertex1.ToString(4) +
-            "vertex 2:\n" + vertex2.ToString(4) +
-            "vertex 3:\n" + vertex3.ToString(4) +
+            "vertex 1:\n" + vertex1.toString(4) +
+            "vertex 2:\n" + vertex2.toString(4) +
+            "vertex 3:\n" + vertex3.toString(4) +
             "fillColor = " + Integer.toHexString(fillColor) + '\n' +
             "outlineColor = " + Integer.toHexString(outlineColor) + '\n' +
-            "area = " + GetArea() + '\n' +
-            "perimeter = " + GetPerimeter() + '\n';
-    }
-
-    @Override
-    public int GetOutlineColor() {
-        return outlineColor;
-    }
-
-    CPoint GetVertex1() {
-        return vertex1;
-    }
-
-    CPoint GetVertex2() {
-        return vertex2;
-    }
-
-    CPoint GetVertex3() {
-        return vertex3;
+            "area = " + getArea() + '\n' +
+            "perimeter = " + getPerimeter() + '\n';
     }
 }

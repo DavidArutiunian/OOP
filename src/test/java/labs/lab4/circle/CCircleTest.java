@@ -22,7 +22,7 @@ public class CCircleTest {
         val radius = faker.random().nextDouble();
         val center = getRandomPoint();
         val circle = new CCircle(center, radius, fillColor, outlineColor);
-        assertEquals(fillColor, circle.GetFillColor());
+        assertEquals(fillColor, circle.getFillColor());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class CCircleTest {
         val center = getRandomPoint();
         val circle = new CCircle(center, radius, fillColor, outlineColor);
         val expected = Math.PI * Math.pow(radius, 2);
-        assertEquals(expected, circle.GetArea(), DELTA);
+        assertEquals(expected, circle.getArea(), DELTA);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class CCircleTest {
         val center = getRandomPoint();
         val circle = new CCircle(center, radius, fillColor, outlineColor);
         val expected = 2 * Math.PI * radius;
-        assertEquals(expected, circle.GetPerimeter(), DELTA);
+        assertEquals(expected, circle.getPerimeter(), DELTA);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class CCircleTest {
         val radius = faker.random().nextDouble();
         val center = getRandomPoint();
         val circle = new CCircle(center, radius, fillColor, outlineColor);
-        assertEquals(outlineColor, circle.GetOutlineColor());
+        assertEquals(outlineColor, circle.getOutlineColor());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class CCircleTest {
         val radius = faker.random().nextDouble();
         val center = getRandomPoint();
         val circle = new CCircle(center, radius, fillColor, outlineColor);
-        assertThat(circle.GetCenter(), is(center));
+        assertThat(circle.getCenter(), is(center));
     }
 
     @Test
@@ -74,11 +74,11 @@ public class CCircleTest {
         val radius = faker.random().nextDouble();
         val center = getRandomPoint();
         val circle = new CCircle(center, radius, fillColor, outlineColor);
-        assertEquals(radius, circle.GetRadius(), DELTA);
+        assertEquals(radius, circle.getRadius(), DELTA);
     }
 
     private CPoint getRandomPoint() {
-        return ShapeFactory.CreatePoint(faker.random().nextDouble(), faker.random().nextDouble());
+        return ShapeFactory.createPoint(faker.random().nextDouble(), faker.random().nextDouble());
     }
 
     private int getRandomHex() {

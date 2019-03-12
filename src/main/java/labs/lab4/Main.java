@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    // TODO: delegate to other class
     public static void main(String... args) {
         try {
             final List<IShape> shapes = new ArrayList<>();

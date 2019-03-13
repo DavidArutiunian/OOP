@@ -267,7 +267,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>labs.lab4.Main</mainClass>
+                                    <mainClass>labs.lab4.shapes.Main</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

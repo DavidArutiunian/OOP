@@ -1,9 +1,12 @@
 package labs.lab4.shapes.triangle;
 
+import labs.lab4.shapes.canvas.ICanvas;
 import labs.lab4.shapes.line_segment.CLineSegment;
 import labs.lab4.shapes.point.CPoint;
 import labs.lab4.shapes.shape.ISolidShape;
 import lombok.*;
+
+import java.util.Arrays;
 
 @Data
 @AllArgsConstructor
@@ -44,5 +47,13 @@ public class CTriangle implements ISolidShape {
             "outlineColor = " + Integer.toHexString(outlineColor) + '\n' +
             "area = " + getArea() + '\n' +
             "perimeter = " + getPerimeter() + '\n';
+    }
+
+    @Override
+    public void draw(final ICanvas canvas) {
+        canvas.drawLine(vertex1, vertex2, outlineColor);
+        canvas.drawLine(vertex2, vertex3, outlineColor);
+        canvas.drawLine(vertex3, vertex1, outlineColor);
+        canvas.fillPolygon(Arrays.asList(vertex1, vertex2, vertex3), fillColor);
     }
 }

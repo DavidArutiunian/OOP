@@ -1,5 +1,6 @@
 package labs.lab4.shapes.line_segment;
 
+import labs.lab4.shapes.canvas.ICanvas;
 import labs.lab4.shapes.point.CPoint;
 import labs.lab4.shapes.shape.IShape;
 import lombok.*;
@@ -33,5 +34,10 @@ public class CLineSegment implements IShape {
             "outlineColor = " + Integer.toHexString(outlineColor) + '\n' +
             "area = " + getArea() + '\n' +
             "perimeter = " + getPerimeter() + '\n';
+    }
+
+    @Override
+    public void draw(final ICanvas canvas) {
+        canvas.drawLine(startPoint, endPoint, outlineColor);
     }
 }

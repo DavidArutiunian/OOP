@@ -41,7 +41,7 @@ public class CShapeFactory {
         if (parameters.getFillColor() != null) {
             shape.setFillColor(parameters.getFillColor());
         } else {
-            shape.setFillColor(EColor.BLACK.getColor());
+            shape.setFillColor(EColor.WHITE.getColor());
         }
     }
 
@@ -49,7 +49,7 @@ public class CShapeFactory {
         if (parameters.getOutlineColor() != null) {
             shape.setOutlineColor(parameters.getOutlineColor());
         } else {
-            shape.setOutlineColor(EColor.WHITE.getColor());
+            shape.setOutlineColor(EColor.BLACK.getColor());
         }
     }
 

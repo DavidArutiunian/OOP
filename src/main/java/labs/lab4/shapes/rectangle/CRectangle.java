@@ -1,11 +1,11 @@
 package labs.lab4.shapes.rectangle;
 
+import labs.lab4.shapes.canvas.ICanvas;
 import labs.lab4.shapes.point.CPoint;
 import labs.lab4.shapes.shape.ISolidShape;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.Arrays;
 
 @Data
 @AllArgsConstructor
@@ -41,5 +41,16 @@ public class CRectangle implements ISolidShape {
             "fillColor = " + Integer.toHexString(fillColor) + '\n' +
             "area = " + getArea() + '\n' +
             "perimeter = " + getPerimeter() + '\n';
+    }
+
+    @Override
+    public void draw(final ICanvas canvas) {
+        val rightTop = new CPoint(rightBottom.x, leftTop.y);
+        val leftBottom = new CPoint(leftTop.x, rightBottom.y);
+        canvas.drawLine(leftTop, rightTop, outlineColor);
+        canvas.drawLine(rightTop, rightBottom, outlineColor);
+        canvas.drawLine(rightBottom, leftBottom, outlineColor);
+        canvas.drawLine(leftBottom, leftTop, outlineColor);
+        canvas.fillPolygon(Arrays.asList(leftTop, rightTop, rightBottom, leftBottom), fillColor);
     }
 }

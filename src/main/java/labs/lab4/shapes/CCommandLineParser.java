@@ -58,6 +58,8 @@ class CCommandLineParser {
                 appendColorsIfExist(scanner, parameters);
                 val triangle = factory.createShape(parameters);
                 shapes.add(triangle);
+            } else {
+                throw new IOException("Bad input!");
             }
         }
     }

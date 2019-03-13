@@ -1,6 +1,8 @@
 package labs.lab4.shapes.shape;
 
-public interface IShape {
+import labs.lab4.shapes.canvas.ICanvasDrawable;
+
+public interface IShape extends ICanvasDrawable {
     double getArea();
 
     double getPerimeter();

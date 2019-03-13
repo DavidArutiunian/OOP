@@ -1,5 +1,6 @@
 package labs.lab4.shapes.circle;
 
+import labs.lab4.shapes.canvas.ICanvas;
 import labs.lab4.shapes.point.CPoint;
 import labs.lab4.shapes.shape.ISolidShape;
 import lombok.AllArgsConstructor;
@@ -37,5 +38,11 @@ public class CCircle implements ISolidShape {
             "outlineColor = " + Integer.toHexString(outlineColor) + '\n' +
             "area = " + getArea() + '\n' +
             "perimeter = " + getPerimeter() + '\n';
+    }
+
+    @Override
+    public void draw(final ICanvas canvas) {
+        canvas.drawCircle(center, radius, outlineColor);
+        canvas.fillCircle(center, radius, fillColor);
     }
 }

@@ -2,13 +2,11 @@ package labs.lab4.line_segment;
 
 import labs.lab4.point.CPoint;
 import labs.lab4.shape.IShape;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Setter;
-import lombok.val;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class CLineSegment implements IShape {
     private final CPoint startPoint;
     private final CPoint endPoint;

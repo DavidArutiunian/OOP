@@ -1,15 +1,13 @@
 package labs.lab4.triangle;
 
-import labs.lab4.ShapeFactory;
+import labs.lab4.line_segment.CLineSegment;
 import labs.lab4.point.CPoint;
 import labs.lab4.shape.ISolidShape;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Setter;
-import lombok.val;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class CTriangle implements ISolidShape {
     private final CPoint vertex1;
     private final CPoint vertex2;
@@ -30,9 +28,9 @@ public class CTriangle implements ISolidShape {
 
     @Override
     public double getPerimeter() {
-        val edge1 = ShapeFactory.createLineSegment(vertex1, vertex2);
-        val edge2 = ShapeFactory.createLineSegment(vertex2, vertex3);
-        val edge3 = ShapeFactory.createLineSegment(vertex3, vertex1);
+        val edge1 = new CLineSegment(vertex1, vertex2);
+        val edge2 = new CLineSegment(vertex2, vertex3);
+        val edge3 = new CLineSegment(vertex3, vertex1);
         return edge1.getPerimeter() + edge2.getPerimeter() + edge3.getPerimeter();
     }
 

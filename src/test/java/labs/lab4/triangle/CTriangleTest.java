@@ -1,7 +1,7 @@
 package labs.lab4.triangle;
 
-import labs.lab4.ShapeFactory;
 import labs.lab4.TestUtils;
+import labs.lab4.line_segment.CLineSegment;
 import lombok.val;
 import org.junit.Test;
 
@@ -41,9 +41,9 @@ public class CTriangleTest {
         val outlineColor = TestUtils.getRandomHex();
         val fillColor = TestUtils.getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-        val edge1 = ShapeFactory.createLineSegment(vertex1, vertex2);
-        val edge2 = ShapeFactory.createLineSegment(vertex2, vertex3);
-        val edge3 = ShapeFactory.createLineSegment(vertex3, vertex1);
+        val edge1 = new CLineSegment(vertex1, vertex2);
+        val edge2 = new CLineSegment(vertex2, vertex3);
+        val edge3 = new CLineSegment(vertex3, vertex1);
         val expected = edge1.getPerimeter() + edge2.getPerimeter() + edge3.getPerimeter();
         assertEquals(expected, triangle.getPerimeter(), TestUtils.DELTA);
     }

@@ -1,5 +1,8 @@
 package labs.lab4;
 
+import labs.lab4.factory.CShapeFactory;
+import labs.lab4.factory.parameters.*;
+import labs.lab4.point.CPoint;
 import labs.lab4.shape.IShape;
 import lombok.val;
 import org.junit.Test;
@@ -13,7 +16,9 @@ import java.util.Scanner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CommandLineParserTest {
+public class CCommandLineParserTest {
+    private final CShapeFactory factory = new CShapeFactory();
+
     @Test
     public void parseCommandLine() throws IOException {
         val expected = getExpectedResults();
@@ -23,7 +28,7 @@ public class CommandLineParserTest {
             "line 10.3 20.15 30.7 40.4 ff0000\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        CommandLineParser.parseCommandLine(actual, scanner);
+        CCommandLineParser.parseCommandLine(actual, scanner);
         for (int i = 0; i < actual.size(); ++i) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
         }
@@ -38,7 +43,7 @@ public class CommandLineParserTest {
             "line 10.3 20.15 30.7 40.4\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        CommandLineParser.parseCommandLine(actual, scanner);
+        CCommandLineParser.parseCommandLine(actual, scanner);
         for (int i = 0; i < actual.size(); ++i) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
         }
@@ -49,7 +54,7 @@ public class CommandLineParserTest {
         setSystemInput("");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        assertThrows(IOException.class, () -> CommandLineParser.parseCommandLine(actual, scanner));
+        assertThrows(IOException.class, () -> CCommandLineParser.parseCommandLine(actual, scanner));
     }
 
     @Test
@@ -57,20 +62,20 @@ public class CommandLineParserTest {
         setSystemInput("rectangle 10.3 20.15\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        assertThrows(IOException.class, () -> CommandLineParser.parseCommandLine(actual, scanner));
+        assertThrows(IOException.class, () -> CCommandLineParser.parseCommandLine(actual, scanner));
     }
 
     @Test
     public void getShapeWithMaxArea() {
         val expected = getExpectedResults();
-        val actual = CommandLineParser.getShapeWithMaxArea(expected);
+        val actual = CCommandLineParser.getShapeWithMaxArea(expected);
         assertEquals(expected.get(0), actual);
     }
 
     @Test
     public void getShapeWithMinPerimeter() {
         val expected = getExpectedResults();
-        val actual = CommandLineParser.getShapeWithMinPerimeter(expected);
+        val actual = CCommandLineParser.getShapeWithMinPerimeter(expected);
         assertEquals(expected.get(3), actual);
     }
 
@@ -83,50 +88,55 @@ public class CommandLineParserTest {
         {
             val width = 30.7;
             val height = 40.4;
-            val leftTop = ShapeFactory.createPoint(10.3, 20.15);
-            val rightBottom = ShapeFactory.createPoint(leftTop.x + width, leftTop.y + height);
-            IShape rectangle;
-            if (isShortForm) {
-                rectangle = ShapeFactory.createRectangle(leftTop, rightBottom, width, height);
-            } else {
-                rectangle = ShapeFactory.createRectangle(leftTop, rightBottom, width, height, 0xFF0000, 0x00FF00);
+            val leftTop = new CPoint(10.3, 20.15);
+            val rightBottom = new CPoint(leftTop.x + width, leftTop.y + height);
+            val parameters = new CRectangleParameters(leftTop, rightBottom, width, height);
+            if (!isShortForm) {
+                setParametersColors(parameters);
             }
+            val rectangle = factory.createShape(parameters);
             expected.add(rectangle);
         }
         {
-            val center = ShapeFactory.createPoint(12.5, 26.2);
-            IShape circle;
-            if (isShortForm) {
-                circle = ShapeFactory.createCircle(center, 13.4);
-            } else {
-                circle = ShapeFactory.createCircle(center, 13.4, 0xFF0000, 0x00FF00);
+            val center = new CPoint(12.5, 26.2);
+            val parameters = new CCircleParameters(center, 13.4);
+            if (!isShortForm) {
+                setParametersColors(parameters);
             }
+            val circle = factory.createShape(parameters);
             expected.add(circle);
         }
         {
-            val vertex1 = ShapeFactory.createPoint(10.3, 20.15);
-            val vertex2 = ShapeFactory.createPoint(30.7, 40.4);
-            val vertex3 = ShapeFactory.createPoint(12.5, 26.2);
-            IShape triangle;
-            if (isShortForm) {
-                triangle = ShapeFactory.createTriangle(vertex1, vertex2, vertex3);
-            } else {
-                triangle = ShapeFactory.createTriangle(vertex1, vertex2, vertex3, 0xFF0000, 0x00FF00);
+            val vertex1 = new CPoint(10.3, 20.15);
+            val vertex2 = new CPoint(30.7, 40.4);
+            val vertex3 = new CPoint(12.5, 26.2);
+            val parameters = new CTriangleParameters(vertex1, vertex2, vertex3);
+            if (!isShortForm) {
+                setParametersColors(parameters);
             }
+            val triangle = factory.createShape(parameters);
             expected.add(triangle);
         }
         {
-            val start = ShapeFactory.createPoint(10.3, 20.15);
-            val end = ShapeFactory.createPoint(30.7, 40.4);
-            IShape line;
-            if (isShortForm) {
-                line = ShapeFactory.createLineSegment(start, end);
-            } else {
-                line = ShapeFactory.createLineSegment(start, end, 0xFF0000);
+            val start = new CPoint(10.3, 20.15);
+            val end = new CPoint(30.7, 40.4);
+            val parameters = new CLineSegmentParameters(start, end);
+            if (!isShortForm) {
+                setParametersColors(parameters);
             }
+            val line = factory.createShape(parameters);
             expected.add(line);
         }
         return expected;
+    }
+
+    private void setParametersColors(final CShapeParameters parameters) {
+        parameters.setOutlineColor(0xFF0000);
+    }
+
+    private void setParametersColors(final CSolidShapeParameters parameters) {
+        setParametersColors((CShapeParameters) parameters);
+        parameters.setFillColor(0x00FF00);
     }
 
     private void setSystemInput(final String input) {

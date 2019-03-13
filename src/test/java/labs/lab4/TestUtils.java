@@ -12,7 +12,7 @@ public class TestUtils {
     private final Faker faker = new Faker();
 
     public CPoint getRandomPoint() {
-        return ShapeFactory.createPoint(faker.random().nextDouble(), faker.random().nextDouble());
+        return new CPoint(faker.random().nextDouble(), faker.random().nextDouble());
     }
 
     public int getRandomHex() {

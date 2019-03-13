@@ -12,9 +12,9 @@ public class Main {
         try {
             final List<IShape> shapes = new ArrayList<>();
             val scanner = new Scanner(System.in);
-            CommandLineParser.parseCommandLine(shapes, scanner);
-            System.out.println("Max area has shape:\n" + CommandLineParser.getShapeWithMaxArea(shapes).toString());
-            System.out.println("Min perimeter has shape:\n" + CommandLineParser.getShapeWithMinPerimeter(shapes).toString());
+            CCommandLineParser.parseCommandLine(shapes, scanner);
+            System.out.println("Max area has shape:\n" + CCommandLineParser.getShapeWithMaxArea(shapes).toString());
+            System.out.println("Min perimeter has shape:\n" + CCommandLineParser.getShapeWithMinPerimeter(shapes).toString());
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

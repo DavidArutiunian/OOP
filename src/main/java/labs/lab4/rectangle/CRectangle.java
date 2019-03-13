@@ -4,10 +4,12 @@ import labs.lab4.point.CPoint;
 import labs.lab4.shape.ISolidShape;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Data
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class CRectangle implements ISolidShape {
     private final CPoint leftTop;
     private final CPoint rightBottom;

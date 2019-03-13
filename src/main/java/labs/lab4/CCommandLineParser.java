@@ -1,8 +1,9 @@
 package labs.lab4;
 
+import labs.lab4.factory.CShapeFactory;
+import labs.lab4.factory.parameters.*;
 import labs.lab4.point.CPoint;
 import labs.lab4.shape.IShape;
-import labs.lab4.shape.ISolidShape;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
@@ -14,7 +15,9 @@ import java.util.List;
 import java.util.Scanner;
 
 @UtilityClass
-class CommandLineParser {
+class CCommandLineParser {
+    private CShapeFactory factory = new CShapeFactory();
+
     void parseCommandLine(final List<IShape> shapes, final Scanner scanner) throws IOException {
         if (!scanner.hasNext()) {
             throw new IOException("No input found!");
@@ -27,49 +30,50 @@ class CommandLineParser {
                 val width = scanner.nextDouble();
                 checkHasNextDouble(scanner);
                 val height = scanner.nextDouble();
-                val rightBottom = ShapeFactory.createPoint(leftTop.x + width, leftTop.y + height);
-                val rectangle = ShapeFactory.createRectangle(leftTop, rightBottom, width, height);
-                appendColorIfExist(scanner, rectangle);
+                val rightBottom = new CPoint(leftTop.x + width, leftTop.y + height);
+                val parameters = new CRectangleParameters(leftTop, rightBottom, width, height);
+                appendColorsIfExist(scanner, parameters);
+                val rectangle = factory.createShape(parameters);
                 shapes.add(rectangle);
             } else if (EShape.CIRCLE.getType().equals(shape)) {
                 val center = getNextPoint(scanner);
                 checkHasNextDouble(scanner);
                 val radius = scanner.nextDouble();
-                val circle = ShapeFactory.createCircle(center, radius);
-                appendColorIfExist(scanner, circle);
+                val parameters = new CCircleParameters(center, radius);
+                appendColorsIfExist(scanner, parameters);
+                val circle = factory.createShape(parameters);
                 shapes.add(circle);
             } else if (EShape.LINE.getType().equals(shape)) {
                 val start = getNextPoint(scanner);
                 val end = getNextPoint(scanner);
-                val line = ShapeFactory.createLineSegment(start, end);
-                appendColorIfExist(scanner, line);
+                val parameters = new CLineSegmentParameters(start, end);
+                appendColorsIfExist(scanner, parameters);
+                val line = factory.createShape(parameters);
                 shapes.add(line);
             } else if (EShape.TRIANGLE.getType().equals(shape)) {
                 val vertex1 = getNextPoint(scanner);
                 val vertex2 = getNextPoint(scanner);
                 val vertex3 = getNextPoint(scanner);
-                val triangle = ShapeFactory.createTriangle(vertex1, vertex2, vertex3);
-                appendColorIfExist(scanner, triangle);
+                val parameters = new CTriangleParameters(vertex1, vertex2, vertex3);
+                appendColorsIfExist(scanner, parameters);
+                val triangle = factory.createShape(parameters);
                 shapes.add(triangle);
             }
         }
     }
 
-    private <T extends IShape> void appendColorIfExist(final Scanner scanner, final T shape) {
+    private void appendColorsIfExist(final Scanner scanner, final CShapeParameters parameters) {
         if (scanner.hasNextInt(ERadix.HEX.getRadix())) {
             val outlineColor = getNextHex(scanner);
-            shape.setOutlineColor(outlineColor);
+            parameters.setOutlineColor(outlineColor);
         }
     }
 
-    private <T extends ISolidShape> void appendColorIfExist(final Scanner scanner, final T shape) {
-        if (scanner.hasNextInt(ERadix.HEX.getRadix())) {
-            val outlineColor = getNextHex(scanner);
-            shape.setOutlineColor(outlineColor);
-        }
+    private void appendColorsIfExist(final Scanner scanner, final CSolidShapeParameters parameters) {
+        appendColorsIfExist(scanner, (CShapeParameters) parameters);
         if (scanner.hasNextInt(ERadix.HEX.getRadix())) {
             val fillColor = getNextHex(scanner);
-            shape.setFillColor(fillColor);
+            parameters.setFillColor(fillColor);
         }
     }
 
@@ -93,7 +97,7 @@ class CommandLineParser {
         val x = scanner.nextDouble();
         checkHasNextDouble(scanner);
         val y = scanner.nextDouble();
-        return ShapeFactory.createPoint(x, y);
+        return new CPoint(x, y);
     }
 
     private int getNextHex(final Scanner scanner) {

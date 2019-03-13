@@ -1,12 +1,17 @@
 package labs.lab4.shapes.line_segment;
 
 import labs.lab4.shapes.TestUtils;
+import labs.lab4.shapes.canvas.ICanvas;
+import labs.lab4.shapes.point.CPoint;
 import lombok.val;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 
 public class CLineSegmentTest {
     @Test
@@ -56,5 +61,22 @@ public class CLineSegmentTest {
         val outlineColor = TestUtils.getRandomHex();
         val line = new CLineSegment(start, end, outlineColor);
         assertThat(line.getEndPoint(), is(end));
+    }
+
+    @Test
+    public void draw() {
+        val mock = mock(ICanvas.class);
+        val start = TestUtils.getRandomPoint();
+        val end = TestUtils.getRandomPoint();
+        val outlineColor = TestUtils.getRandomHex();
+        val startCaptor = ArgumentCaptor.forClass(CPoint.class);
+        val endCaptor = ArgumentCaptor.forClass(CPoint.class);
+        val lineColorCaptor = ArgumentCaptor.forClass(Integer.class);
+        val line = new CLineSegment(start, end, outlineColor);
+        doNothing().when(mock).drawLine(startCaptor.capture(), endCaptor.capture(), lineColorCaptor.capture());
+        line.draw(mock);
+        assertThat(startCaptor.getValue(), is(start));
+        assertThat(endCaptor.getValue(), is(end));
+        assertThat(lineColorCaptor.getValue(), is(outlineColor));
     }
 }

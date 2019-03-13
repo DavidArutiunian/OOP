@@ -1,14 +1,23 @@
 package labs.lab4.shapes.triangle;
 
 import labs.lab4.shapes.TestUtils;
+import labs.lab4.shapes.canvas.ICanvas;
 import labs.lab4.shapes.line_segment.CLineSegment;
+import labs.lab4.shapes.point.CPoint;
 import lombok.val;
-import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 
 public class CTriangleTest {
     @Test
@@ -68,7 +77,7 @@ public class CTriangleTest {
         val outlineColor = TestUtils.getRandomHex();
         val fillColor = TestUtils.getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-        assertThat(triangle.getVertex1(), CoreMatchers.is(vertex1));
+        assertThat(triangle.getVertex1(), is(vertex1));
     }
 
     @Test
@@ -79,7 +88,7 @@ public class CTriangleTest {
         val outlineColor = TestUtils.getRandomHex();
         val fillColor = TestUtils.getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-        assertThat(triangle.getVertex2(), CoreMatchers.is(vertex2));
+        assertThat(triangle.getVertex2(), is(vertex2));
     }
 
     @Test
@@ -90,6 +99,49 @@ public class CTriangleTest {
         val outlineColor = TestUtils.getRandomHex();
         val fillColor = TestUtils.getRandomHex();
         val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
-        assertThat(triangle.getVertex3(), CoreMatchers.is(vertex3));
+        assertThat(triangle.getVertex3(), is(vertex3));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void draw() {
+        val mock = mock(ICanvas.class);
+        val vertex1 = TestUtils.getRandomPoint();
+        val vertex2 = TestUtils.getRandomPoint();
+        val vertex3 = TestUtils.getRandomPoint();
+        val outlineColor = TestUtils.getRandomHex();
+        val fillColor = TestUtils.getRandomHex();
+        val triangle = new CTriangle(vertex1, vertex2, vertex3, outlineColor, fillColor);
+        val startLineCaptor = ArgumentCaptor.forClass(CPoint.class);
+        val endLineCaptor = ArgumentCaptor.forClass(CPoint.class);
+        val lineColorCaptor = ArgumentCaptor.forClass(Integer.class);
+        val fillArrayCaptor = ArgumentCaptor.forClass(List.class);
+        val fillColorCaptor = ArgumentCaptor.forClass(Integer.class);
+        doNothing().when(mock).drawLine(startLineCaptor.capture(), endLineCaptor.capture(), lineColorCaptor.capture());
+        doNothing().when(mock).fillPolygon(fillArrayCaptor.capture(), fillColorCaptor.capture());
+        triangle.draw(mock);
+        {
+            val expected = Arrays.asList(vertex1, vertex2, vertex3);
+            val actual = startLineCaptor.getAllValues();
+            for (int i = 0; i < expected.size(); i++) {
+                assertEquals(expected.get(i).toString(), actual.get(i).toString());
+            }
+        }
+        {
+            val expected = Arrays.asList(vertex2, vertex3, vertex1);
+            val actual = endLineCaptor.getAllValues();
+            for (int i = 0; i < expected.size(); i++) {
+                assertEquals(expected.get(i).toString(), actual.get(i).toString());
+            }
+        }
+        {
+            val expected = Arrays.asList(vertex1, vertex2, vertex3);
+            val actual = fillArrayCaptor.getValue();
+            for (int i = 0; i < expected.size(); i++) {
+                assertEquals(expected.get(i).toString(), actual.get(i).toString());
+            }
+        }
+        assertThat(fillColorCaptor.getValue(), is(fillColor));
+        assertThat(lineColorCaptor.getAllValues(), is(Collections.nCopies(3, outlineColor)));
     }
 }

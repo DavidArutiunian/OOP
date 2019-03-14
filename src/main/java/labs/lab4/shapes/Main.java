@@ -1,6 +1,7 @@
 package labs.lab4.shapes;
 
 import labs.lab4.shapes.canvas.Canvas;
+import labs.lab4.shapes.canvas.CanvasPanel;
 import labs.lab4.shapes.shape.IShape;
 import lombok.val;
 
@@ -25,7 +26,8 @@ public class Main {
             System.out.println("Min perimeter has shape:\n" + parser.getShapeWithMinPerimeter(shapes).toString());
             EventQueue.invokeLater(() -> {
                 val canvas = new Canvas();
-                initUI(canvas);
+                val panel = new CanvasPanel(canvas);
+                initUI(panel);
                 draw(shapes, canvas);
             });
         } catch (Exception e) {
@@ -33,7 +35,7 @@ public class Main {
         }
     }
 
-    private static void initUI(Canvas canvas) {
+    private static void initUI(CanvasPanel panel) {
         val frame = new JFrame();
         frame.setTitle(FRAME_TITLE);
         frame.pack();
@@ -41,7 +43,7 @@ public class Main {
         frame.setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
-        frame.add(canvas);
+        frame.add(panel);
     }
 
     private static void draw(List<IShape> shapes, Canvas canvas) {

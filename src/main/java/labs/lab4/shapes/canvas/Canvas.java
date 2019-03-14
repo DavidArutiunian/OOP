@@ -4,7 +4,6 @@ import labs.lab4.shapes.point.Point;
 import lombok.Value;
 import lombok.val;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
@@ -12,22 +11,12 @@ import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Canvas extends JPanel implements ICanvas {
-    private static final int STROKE_WIDTH = 5;
-
+public class Canvas implements ICanvas, ICanvasPanelDrawable {
     private List<CShape> shapes = new ArrayList<>();
     private List<CPolygonShape> polygons = new ArrayList<>();
     private List<CCircleShape> circles = new ArrayList<>();
 
-    public Canvas() throws HeadlessException {
-        setBackground(Color.WHITE);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        initGraphics2D(g2d);
+    public void draw(Graphics2D g2d) {
         shapes.forEach(shape -> {
             g2d.setPaint(getHexColor(shape.getColor()));
             g2d.draw(shape.getShape());
@@ -51,43 +40,22 @@ public class Canvas extends JPanel implements ICanvas {
 
     @Override
     public void drawLine(Point from, Point to, int lineColor) {
-        add(new CShape(new Line2D.Double(from.x, from.y, to.x, to.y), lineColor));
+        shapes.add(new CShape(new Line2D.Double(from.x, from.y, to.x, to.y), lineColor));
     }
 
     @Override
     public void fillPolygon(List<Point> points, int fillColor) {
-        add(new CPolygonShape(points, fillColor));
+        polygons.add(new CPolygonShape(points, fillColor));
     }
 
     @Override
     public void drawCircle(Point center, double radius, int lineColor) {
-        add(new CShape(new Ellipse2D.Double(center.x, center.y, radius, radius), lineColor));
+        shapes.add(new CShape(new Ellipse2D.Double(center.x, center.y, radius, radius), lineColor));
     }
 
     @Override
     public void fillCircle(Point center, double radius, int fillColor) {
-        add(new CCircleShape(center, radius, fillColor));
-    }
-
-    private void initGraphics2D(final Graphics2D g2d) {
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        g2d.setStroke(new BasicStroke(STROKE_WIDTH));
-    }
-
-    private void add(final CShape shape) {
-        shapes.add(shape);
-        repaint();
-    }
-
-    private void add(final CPolygonShape shape) {
-        polygons.add(shape);
-        repaint();
-    }
-
-    private void add(final CCircleShape shape) {
-        circles.add(shape);
-        repaint();
+        circles.add(new CCircleShape(center, radius, fillColor));
     }
 
     private Color getHexColor(int color) {

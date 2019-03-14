@@ -6,23 +6,23 @@ import java.util.stream.IntStream;
 class PrimeNumbersGenerator {
     private static final int MIN_UPPER_BOUND = 2;
 
-    private boolean[] primes;
+    private boolean[] sieve;
 
     PrimeNumbersGenerator(int upperBound) {
         if (upperBound < MIN_UPPER_BOUND) {
             throw new IllegalArgumentException("Upper bound must be more then \"" + MIN_UPPER_BOUND + "\"");
         }
-        primes = new boolean[upperBound + 1];
+        sieve = new boolean[upperBound + 1];
     }
 
     PrimeNumbersGenerator sieve() {
-        Arrays.fill(primes, true);
-        primes[0] = false;
-        primes[1] = false;
-        for (int i = 2; i < primes.length; ++i) {
-            if (primes[i]) {
-                for (int j = 2; i * j < primes.length; ++j) {
-                    primes[i * j] = false;
+        Arrays.fill(sieve, true);
+        sieve[0] = false;
+        sieve[1] = false;
+        for (int i = 2; i < sieve.length; ++i) {
+            if (sieve[i]) {
+                for (int j = 2; i * j < sieve.length; ++j) {
+                    sieve[i * j] = false;
                 }
             }
         }
@@ -30,6 +30,6 @@ class PrimeNumbersGenerator {
     }
 
     int[] primes() {
-        return IntStream.range(0, primes.length).filter(value -> primes[value]).toArray();
+        return IntStream.range(0, sieve.length).filter(value -> sieve[value]).toArray();
     }
 }

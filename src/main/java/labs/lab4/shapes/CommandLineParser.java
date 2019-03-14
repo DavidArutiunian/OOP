@@ -18,7 +18,7 @@ import java.util.Scanner;
 class CommandLineParser {
     private ShapeFactory factory = new ShapeFactory();
 
-    void parseCommandLine(final List<IShape> shapes, final Scanner scanner) throws IOException {
+    void parseCommandLine(List<IShape> shapes, Scanner scanner) throws IOException {
         if (!scanner.hasNext()) {
             throw new IOException("No input found!");
         }
@@ -64,14 +64,14 @@ class CommandLineParser {
         }
     }
 
-    private void appendColorsIfExist(final Scanner scanner, final ShapeParameters parameters) {
+    private void appendColorsIfExist(Scanner scanner, ShapeParameters parameters) {
         if (scanner.hasNextInt(ERadix.HEX.getRadix())) {
             val outlineColor = getNextHex(scanner);
             parameters.setOutlineColor(outlineColor);
         }
     }
 
-    private void appendColorsIfExist(final Scanner scanner, final SolidShapeParameters parameters) {
+    private void appendColorsIfExist(Scanner scanner, SolidShapeParameters parameters) {
         appendColorsIfExist(scanner, (ShapeParameters) parameters);
         if (scanner.hasNextInt(ERadix.HEX.getRadix())) {
             val fillColor = getNextHex(scanner);
@@ -79,22 +79,22 @@ class CommandLineParser {
         }
     }
 
-    private void checkHasNextDouble(final Scanner scanner) throws IOException {
+    private void checkHasNextDouble(Scanner scanner) throws IOException {
         if (scanner.hasNextDouble()) {
             return;
         }
         throw new IOException("Bad shape arguments!");
     }
 
-    IShape getShapeWithMaxArea(final List<IShape> shapes) {
+    IShape getShapeWithMaxArea(List<IShape> shapes) {
         return shapes.stream().max(Comparator.comparing(IShape::getArea)).orElseThrow();
     }
 
-    IShape getShapeWithMinPerimeter(final List<IShape> shapes) {
+    IShape getShapeWithMinPerimeter(List<IShape> shapes) {
         return shapes.stream().min(Comparator.comparing(IShape::getPerimeter)).orElseThrow();
     }
 
-    private Point getNextPoint(final Scanner scanner) throws IOException {
+    private Point getNextPoint(Scanner scanner) throws IOException {
         checkHasNextDouble(scanner);
         val x = scanner.nextDouble();
         checkHasNextDouble(scanner);
@@ -102,7 +102,7 @@ class CommandLineParser {
         return new Point(x, y);
     }
 
-    private int getNextHex(final Scanner scanner) {
+    private int getNextHex(Scanner scanner) {
         return scanner.nextInt(ERadix.HEX.getRadix());
     }
 

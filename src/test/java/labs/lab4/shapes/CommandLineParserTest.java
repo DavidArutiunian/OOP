@@ -83,7 +83,7 @@ public class CommandLineParserTest {
         return getExpectedResults(false);
     }
 
-    private List<IShape> getExpectedResults(final boolean isShortForm) {
+    private List<IShape> getExpectedResults(boolean isShortForm) {
         final List<IShape> expected = new ArrayList<>();
         {
             val width = 30.7;
@@ -130,17 +130,17 @@ public class CommandLineParserTest {
         return expected;
     }
 
-    private void setParametersColors(final ShapeParameters parameters) {
+    private void setParametersColors(ShapeParameters parameters) {
         parameters.setOutlineColor(0xFF0000);
     }
 
-    private void setParametersColors(final SolidShapeParameters parameters) {
+    private void setParametersColors(SolidShapeParameters parameters) {
         setParametersColors((ShapeParameters) parameters);
         parameters.setFillColor(0x00FF00);
     }
 
-    private void setSystemInput(final String input) {
-        final var in = new ByteArrayInputStream(input.getBytes());
+    private void setSystemInput(String input) {
+        val in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
     }
 }

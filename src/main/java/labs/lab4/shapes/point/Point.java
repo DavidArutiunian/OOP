@@ -16,7 +16,7 @@ public class Point {
             "y = " + y + '\n';
     }
 
-    public String toString(final int indent) {
+    public String toString(int indent) {
         val str = StringUtils.repeat(' ', indent);
         return str + "Point\n" +
             str + "x = " + x + '\n' +

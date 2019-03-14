@@ -101,7 +101,7 @@ public class Canvas extends JPanel implements ICanvas {
         repaint();
     }
 
-    private Color getHexColor(final int color) {
+    private Color getHexColor(int color) {
         return Color.decode('#' + Integer.toHexString(color));
     }
 

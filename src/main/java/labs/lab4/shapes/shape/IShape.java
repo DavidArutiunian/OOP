@@ -11,5 +11,5 @@ public interface IShape extends ICanvasDrawable {
 
     int getOutlineColor();
 
-    void setOutlineColor(final int color);
+    void setOutlineColor(int color);
 }

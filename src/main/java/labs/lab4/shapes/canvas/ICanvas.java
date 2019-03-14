@@ -5,11 +5,11 @@ import labs.lab4.shapes.point.Point;
 import java.util.List;
 
 public interface ICanvas {
-    void drawLine(final Point from, final Point to, final int lineColor);
+    void drawLine(Point from, Point to, int lineColor);
 
-    void fillPolygon(final List<Point> points, final int fillColor);
+    void fillPolygon(List<Point> points, int fillColor);
 
-    void drawCircle(final Point center, final double radius, final int lineColor);
+    void drawCircle(Point center, double radius, int lineColor);
 
-    void fillCircle(final Point center, final double radius, final int fillColor);
+    void fillCircle(Point center, double radius, int fillColor);
 }

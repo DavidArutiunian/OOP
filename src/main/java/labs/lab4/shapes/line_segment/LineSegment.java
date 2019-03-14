@@ -37,7 +37,7 @@ public class LineSegment implements IShape {
     }
 
     @Override
-    public void draw(final ICanvas canvas) {
+    public void draw(ICanvas canvas) {
         canvas.drawLine(startPoint, endPoint, outlineColor);
     }
 }

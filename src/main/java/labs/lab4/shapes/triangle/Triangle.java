@@ -50,7 +50,7 @@ public class Triangle implements ISolidShape {
     }
 
     @Override
-    public void draw(final ICanvas canvas) {
+    public void draw(ICanvas canvas) {
         canvas.drawLine(vertex1, vertex2, outlineColor);
         canvas.drawLine(vertex2, vertex3, outlineColor);
         canvas.drawLine(vertex3, vertex1, outlineColor);

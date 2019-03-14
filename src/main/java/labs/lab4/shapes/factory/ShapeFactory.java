@@ -12,31 +12,31 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 public class ShapeFactory {
-    public IShape createShape(final CircleParameters parameters) {
+    public IShape createShape(CircleParameters parameters) {
         val circle = new Circle(parameters.getCenter(), parameters.getRadius());
         setShapeColors(circle, parameters);
         return circle;
     }
 
-    public IShape createShape(final RectangleParameters parameters) {
+    public IShape createShape(RectangleParameters parameters) {
         val rectangle = new Rectangle(parameters.getLeftTop(), parameters.getRightBottom(), parameters.getWidth(), parameters.getHeight());
         setShapeColors(rectangle, parameters);
         return rectangle;
     }
 
-    public IShape createShape(final TriangleParameters parameters) {
+    public IShape createShape(TriangleParameters parameters) {
         val triangle = new Triangle(parameters.getVertex1(), parameters.getVertex2(), parameters.getVertex3());
         setShapeColors(triangle, parameters);
         return triangle;
     }
 
-    public IShape createShape(final LineSegmentParameters parameters) {
+    public IShape createShape(LineSegmentParameters parameters) {
         val line = new LineSegment(parameters.getStart(), parameters.getEnd());
         setShapeColors(line, parameters);
         return line;
     }
 
-    private void setShapeColors(final ISolidShape shape, final SolidShapeParameters parameters) {
+    private void setShapeColors(ISolidShape shape, SolidShapeParameters parameters) {
         setShapeColors(shape, (ShapeParameters) parameters);
         if (parameters.getFillColor() != null) {
             shape.setFillColor(parameters.getFillColor());
@@ -45,7 +45,7 @@ public class ShapeFactory {
         }
     }
 
-    private void setShapeColors(final IShape shape, final ShapeParameters parameters) {
+    private void setShapeColors(IShape shape, ShapeParameters parameters) {
         if (parameters.getOutlineColor() != null) {
             shape.setOutlineColor(parameters.getOutlineColor());
         } else {

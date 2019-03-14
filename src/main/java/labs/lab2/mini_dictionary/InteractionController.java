@@ -9,11 +9,11 @@ class InteractionController implements EventLoopDelegate {
     private static final String SAVE_DICT_ACCEPT_LOW = "y";
 
     private final Dictionary dictionary;
-    private final FileDictionaryProvider provider;
+    private final ISavableDictionary store;
 
-    InteractionController(Dictionary dictionary, FileDictionaryProvider provider) {
+    InteractionController(Dictionary dictionary, ISavableDictionary store) {
         this.dictionary = dictionary;
-        this.provider = provider;
+        this.store = store;
     }
 
     @Override
@@ -55,7 +55,7 @@ class InteractionController implements EventLoopDelegate {
         final Scanner input = new Scanner(System.in);
         final String word = input.nextLine();
         if (Objects.equals(word, SAVE_DICT_ACCEPT_CAPITAL) || Objects.equals(word, SAVE_DICT_ACCEPT_LOW)) {
-            provider.save();
+            store.save(dictionary);
             return true;
         } else {
             System.out.println("Изменения не сохранены.");

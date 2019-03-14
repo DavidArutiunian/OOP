@@ -10,28 +10,25 @@ import java.nio.file.Path;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-class FileDictionaryProvider {
+class DictionaryStore implements ISavableDictionary {
     private static final String DELIMITER = "\t";
     private static final String EOLN = "\n";
 
-    private final Dictionary dictionary;
     private final FileManager manager;
-    private String pathToFile = "dictionary.tsv";
+    private String filename = "dictionary.tsv";
 
-    FileDictionaryProvider(Dictionary dictionary) throws IOException {
-        this.dictionary = dictionary;
-        this.manager = new FileManager(pathToFile);
+    DictionaryStore() throws IOException {
+        this.manager = new FileManager(filename);
         this.manager.create();
     }
 
-    FileDictionaryProvider(Dictionary dictionary, String pathToFile) throws IOException {
-        this.pathToFile = pathToFile;
-        this.dictionary = dictionary;
-        this.manager = new FileManager(pathToFile);
+    DictionaryStore(String filename) throws IOException {
+        this.filename = filename;
+        this.manager = new FileManager(filename);
         this.manager.create();
     }
 
-    void load() throws IOException {
+    void load(Dictionary dictionary) throws IOException {
         try (final var input = new Scanner(manager.getFileInstance())) {
             while (input.hasNext()) {
                 final String word = input.next();
@@ -39,12 +36,12 @@ class FileDictionaryProvider {
                 dictionary.add(word, translation);
             }
         } catch (NoSuchElementException e) {
-            System.err.println("Словарь повреждён!");
-            System.exit(-1);
+            throw new IOException("Словарь повреждён!");
         }
     }
 
-    void save() throws IOException {
+    @Override
+    public void save(Dictionary dictionary) throws IOException {
         final File file = manager.getFileInstance();
         Files.delete(Path.of(file.getAbsolutePath()));
         try (final var writer = new FileWriter(file)) {

@@ -16,11 +16,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class FileDictionaryProviderTest {
+public class DictionaryStoreTest {
     private Dictionary dictionary = new Dictionary();
-    private FileDictionaryProvider provider = new FileDictionaryProvider(dictionary);
+    private DictionaryStore store = new DictionaryStore();
 
-    public FileDictionaryProviderTest() throws IOException {
+    public DictionaryStoreTest() throws IOException {
         dictionary.add("hello", "world");
         dictionary.add("hello", "user");
         dictionary.add("hi", "world");
@@ -34,7 +34,7 @@ public class FileDictionaryProviderTest {
 
     @Test
     public void testSaveWorks() throws IOException {
-        provider.save();
+        store.save(dictionary);
         final var manager = new FileManager("dictionary.tsv");
         final var file = manager.getFileInstance();
         assertTrue(file.exists());
@@ -46,8 +46,8 @@ public class FileDictionaryProviderTest {
     @Test
     public void testLoadWorks() throws IOException {
         dictionary = new Dictionary();
-        provider = new FileDictionaryProvider(dictionary);
-        provider.load();
+        store = new DictionaryStore();
+        store.load(dictionary);
         final var expectedDict = new Dictionary();
         expectedDict.add("hello", "world");
         expectedDict.add("hello", "user");

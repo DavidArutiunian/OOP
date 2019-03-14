@@ -17,8 +17,8 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 public class EventLoopTest {
     private PrintStream original = System.out;
     private Dictionary dictionary = new Dictionary();
-    private FileDictionaryProvider provider = new FileDictionaryProvider(dictionary);
-    private InteractionController controller = spy(new InteractionController(dictionary, provider));
+    private DictionaryStore store = new DictionaryStore();
+    private InteractionController controller = spy(new InteractionController(dictionary, store));
     private ByteArrayOutputStream mock = new ByteArrayOutputStream();
 
     public EventLoopTest() throws IOException {

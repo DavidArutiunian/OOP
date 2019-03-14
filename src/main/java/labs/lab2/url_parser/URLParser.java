@@ -27,7 +27,7 @@ class URLParser {
         final var url = new URL(text.trim());
         final var uri = new URI(text.trim());
         host = url.getHost();
-        port = getPortIfNotFound(url.getProtocol(), url.getPort());
+        port = getPortByProtocol(url.getProtocol(), url.getPort());
         doc = url.getFile().replaceFirst("/", "");
         hash = uri.getFragment();
         return this;
@@ -40,12 +40,12 @@ class URLParser {
             printIfNotNull("\nDOC: ", doc, printIfNotNull("#", hash));
     }
 
-    private int getPortIfNotFound(String protocol, int port) throws IOException {
-        if (port != -1) {
-            if (port > MAX_PORT) {
-                throw new IOException("Unsupported port \"" + port + "\"");
+    private int getPortByProtocol(String protocol, int portFromUrl) throws IOException {
+        if (portFromUrl != -1) {
+            if (portFromUrl > MAX_PORT) {
+                throw new IOException("Unsupported port \"" + portFromUrl + "\"");
             }
-            return port;
+            return portFromUrl;
         }
         if (Protocol.HTTP.is(protocol)) {
             return Protocol.HTTP.getPort();

@@ -11,29 +11,27 @@ package labs.lab2.mini_dictionary;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 class Main {
     public static void main(String... args) {
         try {
-            final var scanner = new Scanner(System.in);
             final var dictionary = new Dictionary();
-            final var provider = createFileDictionaryProvider(dictionary, args[0]);
-            provider.load();
+            final var provider = createDictionaryStore(args[0]);
+            provider.load(dictionary);
             final var controller = new InteractionController(dictionary, provider);
-            final var loop = new EventLoop(scanner, controller);
+            final var loop = new EventLoop(controller);
             loop.run();
         } catch (Exception e) {
             exception(e);
         }
     }
 
-    private static FileDictionaryProvider createFileDictionaryProvider(Dictionary dictionary, @Nullable String filename) throws IOException {
-        FileDictionaryProvider provider;
+    private static DictionaryStore createDictionaryStore(@Nullable String filename) throws IOException {
+        DictionaryStore provider;
         if (filename != null) {
-            provider = new FileDictionaryProvider(dictionary, filename);
+            provider = new DictionaryStore(filename);
         } else {
-            provider = new FileDictionaryProvider(dictionary);
+            provider = new DictionaryStore();
         }
         return provider;
     }

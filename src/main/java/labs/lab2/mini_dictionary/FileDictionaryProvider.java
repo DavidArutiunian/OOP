@@ -18,13 +18,13 @@ class FileDictionaryProvider {
     private final FileManager manager;
     private String pathToFile = "dictionary.tsv";
 
-    FileDictionaryProvider(final Dictionary dictionary) throws IOException {
+    FileDictionaryProvider(Dictionary dictionary) throws IOException {
         this.dictionary = dictionary;
         this.manager = new FileManager(pathToFile);
         this.manager.create();
     }
 
-    FileDictionaryProvider(final Dictionary dictionary, final String pathToFile) throws IOException {
+    FileDictionaryProvider(Dictionary dictionary, String pathToFile) throws IOException {
         this.pathToFile = pathToFile;
         this.dictionary = dictionary;
         this.manager = new FileManager(pathToFile);

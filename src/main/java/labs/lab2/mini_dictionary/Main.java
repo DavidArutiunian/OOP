@@ -11,7 +11,7 @@ package labs.lab2.mini_dictionary;
 import java.util.Scanner;
 
 class Main {
-    public static void main(String[] args) {
+    public static void main(String... args) {
         try {
             final var scanner = new Scanner(System.in);
             final var dictionary = new Dictionary();

@@ -11,12 +11,12 @@ class InteractionController {
     private final Dictionary dictionary;
     private final FileDictionaryProvider provider;
 
-    InteractionController(Dictionary dictionary, final FileDictionaryProvider provider) {
+    InteractionController(Dictionary dictionary, FileDictionaryProvider provider) {
         this.dictionary = dictionary;
         this.provider = provider;
     }
 
-    void onExit(final Runnable callback) {
+    void onExit(Runnable callback) {
         callback.run();
         System.out.println("Изменения сохранены. До свидания.");
     }
@@ -25,7 +25,7 @@ class InteractionController {
         System.out.println("Пусто. Введите заново.");
     }
 
-    void onUnknownWord(final String word) {
+    void onUnknownWord(String word) {
         if (dictionary.contains(word)) {
             return;
         }
@@ -59,7 +59,7 @@ class InteractionController {
         }
     }
 
-    void onPrintWord(final String word) {
+    void onPrintWord(String word) {
         if (!dictionary.contains(word)) {
             return;
         }

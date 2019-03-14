@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.util.Objects;
 
 class EventLoopState implements EventLoopDelegate {
-    private static final String TERMINAL_STRING = "...";
+    private static String TERMINAL_STRING = "...";
 
     private final InteractionController controller;
 
-    EventLoopState(final InteractionController controller) {
+    EventLoopState(InteractionController controller) {
         this.controller = controller;
     }
 
     @Override
-    public void onEmptyInput(final String word) {
+    public void onEmptyInput(String word) {
         if (!word.isEmpty()) {
             return;
         }
@@ -21,7 +21,7 @@ class EventLoopState implements EventLoopDelegate {
     }
 
     @Override
-    public void onFinishWord(final String word, final Runnable callback) throws IOException {
+    public void onFinishWord(String word, Runnable callback) throws IOException {
         if (!Objects.equals(word, TERMINAL_STRING)) {
             return;
         }
@@ -33,11 +33,11 @@ class EventLoopState implements EventLoopDelegate {
     }
 
     @Override
-    public void onInputWord(final String word) {
+    public void onInputWord(String word) {
         if (Objects.equals(word, TERMINAL_STRING)) {
             return;
         }
-        final String normalizedWord = word.toLowerCase().trim();
+        String normalizedWord = word.toLowerCase().trim();
         controller.onPrintWord(normalizedWord);
         if (word.isEmpty()) {
             return;

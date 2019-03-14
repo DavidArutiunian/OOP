@@ -8,7 +8,7 @@ class EventLoop {
     private final EventLoopDelegate delegate;
     private boolean running = false;
 
-    EventLoop(final Scanner input, final EventLoopDelegate delegate) {
+    EventLoop(Scanner input, EventLoopDelegate delegate) {
         this.input = input;
         this.delegate = delegate;
     }

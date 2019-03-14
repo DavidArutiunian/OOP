@@ -11,7 +11,7 @@ import java.util.function.BiConsumer;
 class Dictionary {
     private final Map<String, List<String>> dictionary = new HashMap<>();
 
-    public void add(final String word, final String translation) {
+    public void add(String word, String translation) {
         if (dictionary.containsKey(word)) {
             final List<String> translations = dictionary.get(word);
             translations.add(translation);

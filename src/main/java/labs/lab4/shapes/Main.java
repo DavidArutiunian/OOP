@@ -13,10 +13,11 @@ public class Main {
     public static void main(String... args) {
         try {
             final List<IShape> shapes = new ArrayList<>();
+            val parser = new UserInputParser();
             val scanner = new Scanner(System.in);
-            UserInputParser.parse(shapes, scanner);
-            System.out.println("Max area has shape:\n" + UserInputParser.getShapeWithMaxArea(shapes).toString());
-            System.out.println("Min perimeter has shape:\n" + UserInputParser.getShapeWithMinPerimeter(shapes).toString());
+            parser.parse(shapes, scanner);
+            System.out.println("Max area has shape:\n" + parser.getShapeWithMaxArea(shapes).toString());
+            System.out.println("Min perimeter has shape:\n" + parser.getShapeWithMinPerimeter(shapes).toString());
             EventQueue.invokeLater(() -> {
                 val canvas = new Canvas();
                 shapes.forEach(shape -> shape.draw(canvas));

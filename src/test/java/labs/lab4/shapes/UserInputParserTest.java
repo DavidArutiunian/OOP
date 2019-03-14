@@ -22,13 +22,14 @@ public class UserInputParserTest {
     @Test
     public void parseFullForm() throws IOException {
         val expected = getExpectedResults();
+        val parser = new UserInputParser();
         setSystemInput("rectangle 10.3 20.15 30.7 40.4 ff0000 00ff00\n" +
             "circle 12.5 26.2 13.4 ff0000 00ff00\n" +
             "triangle 10.3 20.15 30.7 40.4 12.5 26.2 ff0000 00ff00\n" +
             "line 10.3 20.15 30.7 40.4 ff0000\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        UserInputParser.parse(actual, scanner);
+        parser.parse(actual, scanner);
         for (int i = 0; i < actual.size(); ++i) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
         }
@@ -37,13 +38,14 @@ public class UserInputParserTest {
     @Test
     public void parseShortForm() throws IOException {
         val expected = getExpectedResults(true);
+        val parser = new UserInputParser();
         setSystemInput("rectangle 10.3 20.15 30.7 40.4\n" +
             "circle 12.5 26.2 13.4\n" +
             "triangle 10.3 20.15 30.7 40.4 12.5 26.2\n" +
             "line 10.3 20.15 30.7 40.4\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        UserInputParser.parse(actual, scanner);
+        parser.parse(actual, scanner);
         for (int i = 0; i < actual.size(); ++i) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
         }
@@ -51,31 +53,35 @@ public class UserInputParserTest {
 
     @Test
     public void parseThrowsOnEmptyInput() {
+        val parser = new UserInputParser();
         setSystemInput("");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        assertThrows(IOException.class, () -> UserInputParser.parse(actual, scanner));
+        assertThrows(IOException.class, () -> parser.parse(actual, scanner));
     }
 
     @Test
     public void parseThrowsIfBadArguments() {
+        val parser = new UserInputParser();
         setSystemInput("rectangle 10.3 20.15\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        assertThrows(IOException.class, () -> UserInputParser.parse(actual, scanner));
+        assertThrows(IOException.class, () -> parser.parse(actual, scanner));
     }
 
     @Test
     public void getShapeWithMaxArea() {
+        val parser = new UserInputParser();
         val expected = getExpectedResults();
-        val actual = UserInputParser.getShapeWithMaxArea(expected);
+        val actual = parser.getShapeWithMaxArea(expected);
         assertEquals(expected.get(0), actual);
     }
 
     @Test
     public void getShapeWithMinPerimeter() {
+        val parser = new UserInputParser();
         val expected = getExpectedResults();
-        val actual = UserInputParser.getShapeWithMinPerimeter(expected);
+        val actual = parser.getShapeWithMinPerimeter(expected);
         assertEquals(expected.get(3), actual);
     }
 

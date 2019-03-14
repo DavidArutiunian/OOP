@@ -6,17 +6,23 @@ import labs.lab4.shapes.point.Point;
 import labs.lab4.shapes.shape.IShape;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.UtilityClass;
+import lombok.SneakyThrows;
 import lombok.val;
 
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.function.BiConsumer;
 
-@UtilityClass
 class UserInputParser {
-    private ShapeFactory factory = new ShapeFactory();
+    private final ShapeFactory factory = new ShapeFactory();
+    private final Map<String, BiConsumer<List<IShape>, Scanner>> methods = new HashMap<>();
+
+    public UserInputParser() {
+        methods.put(EShape.RECTANGLE.getType(), this::parseRectangle);
+        methods.put(EShape.LINE.getType(), this::parseLine);
+        methods.put(EShape.CIRCLE.getType(), this::parseCircle);
+        methods.put(EShape.TRIANGLE.getType(), this::parseTriangle);
+    }
 
     void parse(List<IShape> shapes, Scanner scanner) throws IOException {
         if (!scanner.hasNext()) {
@@ -24,44 +30,58 @@ class UserInputParser {
         }
         while (scanner.hasNext()) {
             val shape = scanner.next();
-            if (EShape.RECTANGLE.getType().equals(shape)) {
-                val leftTop = getNextPoint(scanner);
-                checkHasNextDouble(scanner);
-                val width = scanner.nextDouble();
-                checkHasNextDouble(scanner);
-                val height = scanner.nextDouble();
-                val rightBottom = new Point(leftTop.x + width, leftTop.y + height);
-                val parameters = new RectangleParameters(leftTop, rightBottom, width, height);
-                appendColorsIfExist(scanner, parameters);
-                val rectangle = factory.createShape(parameters);
-                shapes.add(rectangle);
-            } else if (EShape.CIRCLE.getType().equals(shape)) {
-                val center = getNextPoint(scanner);
-                checkHasNextDouble(scanner);
-                val radius = scanner.nextDouble();
-                val parameters = new CircleParameters(center, radius);
-                appendColorsIfExist(scanner, parameters);
-                val circle = factory.createShape(parameters);
-                shapes.add(circle);
-            } else if (EShape.LINE.getType().equals(shape)) {
-                val start = getNextPoint(scanner);
-                val end = getNextPoint(scanner);
-                val parameters = new LineSegmentParameters(start, end);
-                appendColorsIfExist(scanner, parameters);
-                val line = factory.createShape(parameters);
-                shapes.add(line);
-            } else if (EShape.TRIANGLE.getType().equals(shape)) {
-                val vertex1 = getNextPoint(scanner);
-                val vertex2 = getNextPoint(scanner);
-                val vertex3 = getNextPoint(scanner);
-                val parameters = new TriangleParameters(vertex1, vertex2, vertex3);
-                appendColorsIfExist(scanner, parameters);
-                val triangle = factory.createShape(parameters);
-                shapes.add(triangle);
+            if (methods.containsKey(shape)) {
+                methods.get(shape).accept(shapes, scanner);
             } else {
                 throw new IOException("Bad input!");
             }
         }
+    }
+
+    @SneakyThrows(IOException.class)
+    private void parseRectangle(List<IShape> shapes, Scanner scanner) {
+        val leftTop = getNextPoint(scanner);
+        checkHasNextDouble(scanner);
+        val width = scanner.nextDouble();
+        checkHasNextDouble(scanner);
+        val height = scanner.nextDouble();
+        val rightBottom = new Point(leftTop.x + width, leftTop.y + height);
+        val parameters = new RectangleParameters(leftTop, rightBottom, width, height);
+        appendColorsIfExist(scanner, parameters);
+        val rectangle = factory.createShape(parameters);
+        shapes.add(rectangle);
+    }
+
+    @SneakyThrows(IOException.class)
+    private void parseCircle(List<IShape> shapes, Scanner scanner) {
+        val center = getNextPoint(scanner);
+        checkHasNextDouble(scanner);
+        val radius = scanner.nextDouble();
+        val parameters = new CircleParameters(center, radius);
+        appendColorsIfExist(scanner, parameters);
+        val circle = factory.createShape(parameters);
+        shapes.add(circle);
+    }
+
+    @SneakyThrows(IOException.class)
+    private void parseLine(List<IShape> shapes, Scanner scanner) {
+        val start = getNextPoint(scanner);
+        val end = getNextPoint(scanner);
+        val parameters = new LineSegmentParameters(start, end);
+        appendColorsIfExist(scanner, parameters);
+        val line = factory.createShape(parameters);
+        shapes.add(line);
+    }
+
+    @SneakyThrows(IOException.class)
+    private void parseTriangle(List<IShape> shapes, Scanner scanner) {
+        val vertex1 = getNextPoint(scanner);
+        val vertex2 = getNextPoint(scanner);
+        val vertex3 = getNextPoint(scanner);
+        val parameters = new TriangleParameters(vertex1, vertex2, vertex3);
+        appendColorsIfExist(scanner, parameters);
+        val triangle = factory.createShape(parameters);
+        shapes.add(triangle);
     }
 
     private void appendColorsIfExist(Scanner scanner, ShapeParameters parameters) {

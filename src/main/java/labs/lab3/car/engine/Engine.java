@@ -5,7 +5,7 @@ import labs.lab3.car.transmission.Gear;
 public class Engine {
     private final EngineStateMediator mediator;
 
-    public Engine(final EngineStateMediator mediator) {
+    public Engine(EngineStateMediator mediator) {
         this.mediator = mediator;
     }
 

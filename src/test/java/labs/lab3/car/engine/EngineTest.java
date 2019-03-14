@@ -66,7 +66,7 @@ public class EngineTest {
         engine.on();
     }
 
-    private void setSpeedAndGear(final Gear gear, final double speed) throws CarStateException {
+    private void setSpeedAndGear(Gear gear, double speed) throws CarStateException {
         state.setTransmissionGear(gear);
         state.setCarSpeed(speed);
     }

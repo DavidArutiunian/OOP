@@ -183,29 +183,29 @@ public class CarTest {
         car.turnOnEngine();
     }
 
-    private void setSpeed(final double speed) throws IllegalStateChangeException, CarStateException {
+    private void setSpeed(double speed) throws IllegalStateChangeException, CarStateException {
         car.setSpeed(speed);
     }
 
-    private void setGear(final Gear gear) throws IllegalStateChangeException {
+    private void setGear(Gear gear) throws IllegalStateChangeException {
         car.setGear(gear);
     }
 
-    private void setSpeedOnReverseGearAndLeaveOnNeutralGear(final double speed) throws EngineIsOnException, IllegalStateChangeException, CarStateException {
+    private void setSpeedOnReverseGearAndLeaveOnNeutralGear(double speed) throws EngineIsOnException, IllegalStateChangeException, CarStateException {
         turnOnEngine();
         setGear(Gear.REVERSE);
         setSpeed(speed);
         setGear(Gear.NEUTRAL);
     }
 
-    private void setSpeedOnFirstGearAndLeaveOnNeutralGear(final double speed) throws IllegalStateChangeException, CarStateException, EngineIsOnException {
+    private void setSpeedOnFirstGearAndLeaveOnNeutralGear(double speed) throws IllegalStateChangeException, CarStateException, EngineIsOnException {
         turnOnEngine();
         setGear(Gear.FIRST);
         setSpeed(speed);
         setGear(Gear.NEUTRAL);
     }
 
-    private void setSpeedOnSecondGearAndLaveOnNeutralGear(final double speed) throws IllegalStateChangeException, CarStateException, EngineIsOnException {
+    private void setSpeedOnSecondGearAndLaveOnNeutralGear(double speed) throws IllegalStateChangeException, CarStateException, EngineIsOnException {
         setSpeedOnFirstGearAndLeaveOnNeutralGear(30);
         setGear(Gear.SECOND);
         setSpeed(speed);

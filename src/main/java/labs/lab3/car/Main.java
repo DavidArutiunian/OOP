@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 class Main {
-    public static void main(String[] args) {
+    public static void main(String... args) {
         final var car = new Car();
         final var scanner = new Scanner(System.in);
         final Map<String, Command> commands = getCommandsMap();
@@ -45,7 +45,7 @@ class Main {
         return commands;
     }
 
-    private static boolean performCommand(final Command command, final Car car, final Scanner scanner) throws EngineIsOnException, CarStateException, IOException, IllegalStateChangeException {
+    private static boolean performCommand(Command command, Car car, Scanner scanner) throws EngineIsOnException, CarStateException, IOException, IllegalStateChangeException {
         boolean running = true;
         switch (command) {
             case INFO:
@@ -72,7 +72,7 @@ class Main {
         return running;
     }
 
-    private static void printCarInfo(final Car car) {
+    private static void printCarInfo(Car car) {
         System.out.println("Engine is: " + car.getEngineState().name());
         final String direction = car.getSpeed() > 0 ? "FORWARD" : "BACKWARD";
         System.out.println("Moving: " + (car.getSpeed() == 0 ? "IDLE" : direction));
@@ -80,7 +80,7 @@ class Main {
         System.out.println("Gear: " + car.getGear().name());
     }
 
-    private static void setCarGear(final Car car, final Scanner scanner) throws IOException, IllegalStateChangeException {
+    private static void setCarGear(Car car, Scanner scanner) throws IOException, IllegalStateChangeException {
         // Increment cause enums start from 0 and REVERSE is -1 by design
         final int gear = scanner.nextInt() + 1;
         if (gear < Gear.REVERSE.ordinal() || gear > Gear.FIFTH.ordinal()) {
@@ -89,7 +89,7 @@ class Main {
         car.setGear(Gear.values()[gear]);
     }
 
-    private static void setCarSpeed(final Car car, final Scanner scanner) throws CarStateException, IllegalStateChangeException {
+    private static void setCarSpeed(Car car, Scanner scanner) throws CarStateException, IllegalStateChangeException {
         double speed = scanner.nextDouble();
         boolean isMovingReverseAndNeutralGear = car.getSpeed() < 0 && car.getGear() == Gear.NEUTRAL;
         boolean isReverseGear = car.getGear() == Gear.REVERSE;

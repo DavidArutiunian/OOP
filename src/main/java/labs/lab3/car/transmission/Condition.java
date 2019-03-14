@@ -6,13 +6,13 @@ class Condition implements Conditional<Double> {
     private final double from;
     private final double to;
 
-    Condition(final double from, final double to) {
+    Condition(double from, double to) {
         this.from = from;
         this.to = to;
     }
 
     @Override
-    public boolean test(final Double current) {
+    public boolean test(Double current) {
         return current >= from && current <= to;
     }
 }

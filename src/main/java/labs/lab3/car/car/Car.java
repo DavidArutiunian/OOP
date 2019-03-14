@@ -17,7 +17,7 @@ public class Car {
         return state.getTransmissionGear();
     }
 
-    public void setGear(final Gear nextGear) throws IllegalStateChangeException {
+    public void setGear(Gear nextGear) throws IllegalStateChangeException {
         transmission.setGear(nextGear);
     }
 
@@ -25,7 +25,7 @@ public class Car {
         return state.getCarSeed();
     }
 
-    public void setSpeed(final double nextSpeed) throws CarStateException, IllegalStateChangeException {
+    public void setSpeed(double nextSpeed) throws CarStateException, IllegalStateChangeException {
         transmission.testConditionsForSpeed(nextSpeed);
         state.setCarSpeed(nextSpeed);
     }

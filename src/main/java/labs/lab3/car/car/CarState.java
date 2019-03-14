@@ -37,7 +37,7 @@ public class CarState implements StateMediator, TransmissionStateMediator, Engin
         );
     }
 
-    private boolean speedsHaveSameSigns(final double left, final double right) {
+    private boolean speedsHaveSameSigns(double left, double right) {
         return left * right >= 0;
     }
 
@@ -47,7 +47,7 @@ public class CarState implements StateMediator, TransmissionStateMediator, Engin
     }
 
     @Override
-    public void setEngineState(final EngineState nextEngineState) {
+    public void setEngineState(EngineState nextEngineState) {
         engineState = nextEngineState;
     }
 
@@ -57,7 +57,7 @@ public class CarState implements StateMediator, TransmissionStateMediator, Engin
     }
 
     @Override
-    public void setTransmissionGear(final Gear nextGear) {
+    public void setTransmissionGear(Gear nextGear) {
         gear = nextGear;
     }
 

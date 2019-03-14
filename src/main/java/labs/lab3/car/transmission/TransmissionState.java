@@ -10,7 +10,7 @@ class TransmissionState {
     private final Map<Gear, Conditional<Double>> conditions = new EnumMap<>(Gear.class);
     private final TransmissionStateMediator mediator;
 
-    TransmissionState(final TransmissionStateMediator mediator) {
+    TransmissionState(TransmissionStateMediator mediator) {
         this.mediator = mediator;
         conditions.put(Gear.REVERSE, new Condition(-20, 0));
         conditions.put(Gear.NEUTRAL, new Condition(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY));
@@ -21,7 +21,7 @@ class TransmissionState {
         conditions.put(Gear.FIFTH, new Condition(50, 150));
     }
 
-    void setGear(final Gear nextGear) throws IllegalStateChangeException {
+    void setGear(Gear nextGear) throws IllegalStateChangeException {
         if (mediator.getEngineState() == EngineState.OFF && nextGear != Gear.NEUTRAL) {
             throw new IllegalStateChangeException("Cant set " + nextGear.name() + " when engine is " + mediator.getEngineState().name() + "!");
         }
@@ -32,7 +32,7 @@ class TransmissionState {
         mediator.setTransmissionGear(nextGear);
     }
 
-    void testConditionsForGearAndSpeed(final Gear gear, final double speed) throws IllegalStateChangeException {
+    void testConditionsForGearAndSpeed(Gear gear, double speed) throws IllegalStateChangeException {
         if (!conditions.get(gear).test(speed)) {
             throw new IllegalStateChangeException("Incorrect speed for " + gear.name() + " gear range!");
         }

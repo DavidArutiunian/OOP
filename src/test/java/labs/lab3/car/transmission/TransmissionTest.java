@@ -294,35 +294,35 @@ public class TransmissionTest {
         engine.on();
     }
 
-    private void setGear(final Gear gear) throws IllegalStateChangeException {
+    private void setGear(Gear gear) throws IllegalStateChangeException {
         transmission.setGear(gear);
     }
 
-    private void setSpeed(final double speed) throws IllegalStateChangeException, CarStateException {
+    private void setSpeed(double speed) throws IllegalStateChangeException, CarStateException {
         transmission.testConditionsForSpeed(speed);
         state.setCarSpeed(speed);
     }
 
-    private void setStateToMaxSpeedFirstGear(final double speed) throws IllegalStateChangeException, CarStateException {
+    private void setStateToMaxSpeedFirstGear(double speed) throws IllegalStateChangeException, CarStateException {
         setGear(Gear.FIRST);
         setSpeed(speed);
     }
 
-    private void setStateToMaxSpeedSecondGear(final double speed) throws IllegalStateChangeException, CarStateException {
+    private void setStateToMaxSpeedSecondGear(double speed) throws IllegalStateChangeException, CarStateException {
         setGear(Gear.FIRST);
         setSpeed(30);
         setGear(Gear.SECOND);
         setSpeed(speed);
     }
 
-    private void setStateToMaxSpeedThirdGear(final double speed) throws IllegalStateChangeException, CarStateException {
+    private void setStateToMaxSpeedThirdGear(double speed) throws IllegalStateChangeException, CarStateException {
         setGear(Gear.FIRST);
         setSpeed(30);
         setGear(Gear.THIRD);
         setSpeed(speed);
     }
 
-    private void setStateToMaxSpeedFifthGear(final double speed) throws IllegalStateChangeException, CarStateException {
+    private void setStateToMaxSpeedFifthGear(double speed) throws IllegalStateChangeException, CarStateException {
         setGear(Gear.FIRST);
         setSpeed(30);
         setGear(Gear.THIRD);
@@ -331,7 +331,7 @@ public class TransmissionTest {
         setSpeed(speed);
     }
 
-    private void setStateToMaxSpeedFourthGear(final double speed) throws IllegalStateChangeException, CarStateException {
+    private void setStateToMaxSpeedFourthGear(double speed) throws IllegalStateChangeException, CarStateException {
         setGear(Gear.FIRST);
         setSpeed(30);
         setGear(Gear.THIRD);
@@ -340,7 +340,7 @@ public class TransmissionTest {
         setSpeed(speed);
     }
 
-    private void setStateToMaxSpeedReverseGear(final double speed) throws IllegalStateChangeException, CarStateException {
+    private void setStateToMaxSpeedReverseGear(double speed) throws IllegalStateChangeException, CarStateException {
         setGear(Gear.REVERSE);
         setSpeed(speed);
     }

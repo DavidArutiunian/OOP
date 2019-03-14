@@ -6,16 +6,16 @@ public class Transmission {
     private final StateMediator mediator;
     private final TransmissionState state;
 
-    public Transmission(final TransmissionStateMediator mediator) {
+    public Transmission(TransmissionStateMediator mediator) {
         this.mediator = mediator;
         this.state = new TransmissionState(mediator);
     }
 
-    public void setGear(final Gear nextGear) throws IllegalStateChangeException {
+    public void setGear(Gear nextGear) throws IllegalStateChangeException {
         state.setGear(nextGear);
     }
 
-    public void testConditionsForSpeed(final double speed) throws IllegalStateChangeException {
+    public void testConditionsForSpeed(double speed) throws IllegalStateChangeException {
         state.testConditionsForGearAndSpeed(mediator.getTransmissionGear(), speed);
     }
 }

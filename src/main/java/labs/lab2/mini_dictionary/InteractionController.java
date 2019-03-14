@@ -38,14 +38,17 @@ class InteractionController implements EventLoopDelegate {
         if (translation.isEmpty()) {
             System.out.println("Слово \"" + word + "\" проигнорировано.");
         } else if (translation.contains(",")) {
-            final String[] translations = translation.split(",");
-            for (final String translatedWord : translations) {
-                dictionary.add(word, translatedWord.trim());
-            }
+            fillDictionaryWithTranslations(word, translation.split(","));
             System.out.println("Слово(а) \"" + translation + "\" добавлено(ы) в словарь.");
         } else {
             dictionary.add(word, translation);
             System.out.println("Слово(а) \"" + translation + "\" добавлено(ы) в словарь.");
+        }
+    }
+
+    private void fillDictionaryWithTranslations(String word, String[] translations) {
+        for (final String translatedWord : translations) {
+            dictionary.add(word, translatedWord.trim());
         }
     }
 

@@ -9,7 +9,7 @@ enum Protocol {
     private final String text;
     private final int port;
 
-    Protocol(final String text, final int port) {
+    Protocol(String text, int port) {
         this.text = text;
         this.port = port;
     }
@@ -18,7 +18,7 @@ enum Protocol {
         return port;
     }
 
-    boolean is(final String expectedProtocol) {
+    boolean is(String expectedProtocol) {
         return Objects.equals(text, expectedProtocol);
     }
 }

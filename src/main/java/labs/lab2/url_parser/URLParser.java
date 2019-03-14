@@ -40,7 +40,7 @@ class URLParser {
             printIfNotNull("\nDOC: ", doc, printIfNotNull("#", hash));
     }
 
-    private int getPortIfNotFound(final String protocol, final int port) throws IOException {
+    private int getPortIfNotFound(String protocol, int port) throws IOException {
         if (port != -1) {
             if (port > MAX_PORT) {
                 throw new IOException("Unsupported port \"" + port + "\"");
@@ -58,7 +58,7 @@ class URLParser {
         }
     }
 
-    private String printIfNotNull(final String prefix, final String string, final String postfix) {
+    private String printIfNotNull(String prefix, String string, String postfix) {
         if (string != null && !string.isEmpty()) {
             return prefix + string + postfix;
         } else {
@@ -66,7 +66,7 @@ class URLParser {
         }
     }
 
-    private String printIfNotNull(final String prefix, final String string) {
+    private String printIfNotNull(String prefix, String string) {
         if (string != null && !string.isEmpty()) {
             return prefix + string;
         } else {

@@ -12,13 +12,13 @@ public class BaseInputOutput {
     protected BaseInputOutput() {
     }
 
-    public static void validate(final String[] args) {
+    public static void validate(String[] args) {
         if (args.length == 0) {
             throw new IllegalArgumentException("Empty args!");
         }
     }
 
-    public static void validate(final String[] args, final int size) {
+    public static void validate(String[] args, int size) {
         if (args.length == 0) {
             throw new IllegalArgumentException("Empty args!");
         }
@@ -27,13 +27,13 @@ public class BaseInputOutput {
         }
     }
 
-    public static void validate(final File file) throws FileNotFoundException {
+    public static void validate(File file) throws FileNotFoundException {
         if (!file.exists() || !file.canRead()) {
             throw new FileNotFoundException("Cannot read file \"" + file.getPath() + "\"!");
         }
     }
 
-    public static String read(final Scanner in) throws IOException {
+    public static String read(Scanner in) throws IOException {
         final String input = in.nextLine();
         if (input.length() == 0) {
             throw new IOException("Empty input!");
@@ -41,12 +41,12 @@ public class BaseInputOutput {
         return input;
     }
 
-    public static void print(final List<Float> items) {
+    public static void print(List<Float> items) {
         items.forEach(item -> System.out.printf("%.3f%s", item, DELIMITER));
         System.out.println();
     }
 
-    public static void print(final String line) {
+    public static void print(String line) {
         System.out.println(line);
     }
 }

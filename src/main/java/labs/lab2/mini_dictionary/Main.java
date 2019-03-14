@@ -8,6 +8,9 @@
 
 package labs.lab2.mini_dictionary;
 
+import org.jetbrains.annotations.Nullable;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 class Main {
@@ -15,22 +18,31 @@ class Main {
         try {
             final var scanner = new Scanner(System.in);
             final var dictionary = new Dictionary();
-            FileDictionaryProvider provider;
-            if (args.length != 0) {
-                provider = new FileDictionaryProvider(dictionary, args[0]);
-            } else {
-                provider = new FileDictionaryProvider(dictionary);
-            }
+            final var provider = createFileDictionaryProvider(dictionary, args[0]);
             provider.load();
             final var controller = new InteractionController(dictionary, provider);
             final var loop = new EventLoop(scanner, controller);
             loop.run();
         } catch (Exception e) {
-            if (e.getMessage() == null) {
-                System.err.println("Программная ошибка!");
-            } else {
-                System.err.println(e.getMessage());
-            }
+            exception(e);
+        }
+    }
+
+    private static FileDictionaryProvider createFileDictionaryProvider(Dictionary dictionary, @Nullable String filename) throws IOException {
+        FileDictionaryProvider provider;
+        if (filename != null) {
+            provider = new FileDictionaryProvider(dictionary, filename);
+        } else {
+            provider = new FileDictionaryProvider(dictionary);
+        }
+        return provider;
+    }
+
+    private static void exception(Exception e) {
+        if (e.getMessage() == null) {
+            System.err.println("Программная ошибка!");
+        } else {
+            System.err.println(e.getMessage());
         }
     }
 }

@@ -3,9 +3,11 @@ package labs.lab2.mini_dictionary;
 import java.io.IOException;
 
 public interface EventLoopDelegate {
-    void onEmptyInput(final String word);
+    void onEmptyInput();
 
-    void onFinishWord(final String word, final Runnable callback) throws IOException;
+    boolean onFinishWord() throws IOException;
 
-    void onInputWord(final String word);
+    void onInputWord(String word);
+
+    void onExit();
 }

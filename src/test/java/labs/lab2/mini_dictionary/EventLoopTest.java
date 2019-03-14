@@ -8,23 +8,20 @@ import org.junit.Test;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-public class EventLoopTransmissionCarStateTest {
+public class EventLoopTest {
     private PrintStream original = System.out;
     private Dictionary dictionary = new Dictionary();
     private FileDictionaryProvider provider = new FileDictionaryProvider(dictionary);
     private InteractionController controller = spy(new InteractionController(dictionary, provider));
-    private EventLoopDelegate state = new EventLoopState(controller);
     private ByteArrayOutputStream mock = new ByteArrayOutputStream();
 
-    public EventLoopTransmissionCarStateTest() throws IOException {
+    public EventLoopTest() throws IOException {
     }
 
     @AfterClass
@@ -47,8 +44,7 @@ public class EventLoopTransmissionCarStateTest {
 
     @Test
     public void testStateEmptyInput() {
-        final String word = "\n";
-        state.onEmptyInput(word.trim());
+        controller.onEmptyInput();
         final int wantedNumberOfInvocations = 1;
         verify(controller, times(wantedNumberOfInvocations)).onEmptyInput();
         final String expectedMessage = "Пусто. Введите заново.";
@@ -59,11 +55,11 @@ public class EventLoopTransmissionCarStateTest {
     public void testStateFinish() throws IOException {
         final var original = System.in;
         System.setIn(new ByteArrayInputStream("Y".getBytes()));
-        state.onFinishWord("...", () -> {
-            assert true;
-        });
+        controller.onFinishWord();
         final int wantedNumberOfInvocations = 1;
-        verify(controller, times(wantedNumberOfInvocations)).onSaveDict();
+        verify(controller, times(wantedNumberOfInvocations)).onFinishWord();
+        controller.onExit();
+        verify(controller, times(wantedNumberOfInvocations)).onExit();
         final String expectedMessage = "В словарь были внесены изменения. Введите Y или y для сохранения перед выходом.\n" +
             "Изменения сохранены. До свидания.";
         assertEquals(
@@ -79,9 +75,9 @@ public class EventLoopTransmissionCarStateTest {
         final String word = "cat";
         final String translation = "кот, кошка";
         System.setIn(new ByteArrayInputStream(translation.getBytes()));
-        state.onInputWord(word);
+        controller.onInputWord(word);
         final int wantedNumberOfInvocations = 1;
-        verify(controller, times(wantedNumberOfInvocations)).onUnknownWord(word);
+        verify(controller, times(wantedNumberOfInvocations)).onInputWord(word);
         final String expectedMessage = "Неизвестное слово \"" + word + "\". " +
             "Введите перевод или пустую строку для отказа.\n" +
             "Слово(а) \"" + translation + "\" добавлено(ы) в словарь.";
@@ -97,10 +93,7 @@ public class EventLoopTransmissionCarStateTest {
         final var original = System.in;
         final String word = "\n";
         System.setIn(new ByteArrayInputStream(word.getBytes()));
-        state.onEmptyInput(word.trim());
-        state.onInputWord(word.trim());
-        final int wantedNumberOfInvocations = 1;
-        verify(controller, times(wantedNumberOfInvocations)).onEmptyInput();
+        controller.onEmptyInput();
         final String expectedMessage = "Пусто. Введите заново.";
         assertEquals(
             expectedMessage.replace("\n", "").replace("\r", ""),
@@ -115,9 +108,9 @@ public class EventLoopTransmissionCarStateTest {
         final String word = "cat";
         final String translation = "\n";
         System.setIn(new ByteArrayInputStream(translation.getBytes()));
-        state.onInputWord(word);
+        controller.onInputWord(word);
         final int wantedNumberOfInvocations = 1;
-        verify(controller, times(wantedNumberOfInvocations)).onUnknownWord(word);
+        verify(controller, times(wantedNumberOfInvocations)).onInputWord(word);
         final String expectedMessage = "Неизвестное слово \"" + word + "\". " +
             "Введите перевод или пустую строку для отказа.\n" +
             "Слово \"" + word + "\" проигнорировано.";
@@ -132,18 +125,17 @@ public class EventLoopTransmissionCarStateTest {
     public void testStateExit() throws IOException {
         final var original = System.in;
         System.setIn(new ByteArrayInputStream("Y".getBytes()));
-        AtomicBoolean called = new AtomicBoolean(false);
-        final Runnable callback = () -> called.set(true);
-        state.onFinishWord("...", callback);
+        controller.onFinishWord();
         final int wantedNumberOfInvocations = 1;
-        verify(controller, times(wantedNumberOfInvocations)).onExit(callback);
+        verify(controller, times(wantedNumberOfInvocations)).onFinishWord();
+        controller.onExit();
+        verify(controller, times(wantedNumberOfInvocations)).onExit();
         final String expectedMessage = "В словарь были внесены изменения. Введите Y или y для сохранения перед выходом.\n" +
             "Изменения сохранены. До свидания.";
         assertEquals(
             expectedMessage.replace("\n", "").replace("\r", ""),
             mock.toString().replace("\n", "").replace("\r", "")
         );
-        assertTrue(called.get());
         System.setIn(original);
     }
 
@@ -152,9 +144,9 @@ public class EventLoopTransmissionCarStateTest {
         final String word = "cat";
         dictionary.add(word, "кот");
         dictionary.add(word, "кошка");
-        state.onInputWord(word);
+        controller.onInputWord(word);
         final int wantedNumberOfInvocations = 1;
-        verify(controller, times(wantedNumberOfInvocations)).onPrintWord(word);
+        verify(controller, times(wantedNumberOfInvocations)).onInputWord(word);
         final String expectedMessage = "[кот, кошка]";
         assertEquals(expectedMessage, mock.toString().strip());
     }

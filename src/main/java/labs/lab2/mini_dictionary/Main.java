@@ -23,8 +23,7 @@ class Main {
             }
             provider.load();
             final var controller = new InteractionController(dictionary, provider);
-            final var state = new EventLoopState(controller);
-            final var loop = new EventLoop(scanner, state);
+            final var loop = new EventLoop(scanner, controller);
             loop.run();
         } catch (Exception e) {
             if (e.getMessage() == null) {

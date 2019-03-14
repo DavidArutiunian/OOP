@@ -1,9 +1,12 @@
 package labs.lab2.mini_dictionary;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 class EventLoop {
+    private static String TERMINAL_STRING = "...";
+
     private final Scanner input;
     private final EventLoopDelegate delegate;
     private boolean running = false;
@@ -16,9 +19,17 @@ class EventLoop {
     void run() throws IOException {
         while (!running) {
             final String word = input.nextLine();
-            delegate.onEmptyInput(word);
-            delegate.onFinishWord(word, this::stop);
-            delegate.onInputWord(word);
+            if (word.isEmpty()) {
+                delegate.onEmptyInput();
+            } else if (Objects.equals(word, TERMINAL_STRING)) {
+                boolean saved = delegate.onFinishWord();
+                if (saved) {
+                    delegate.onExit();
+                    stop();
+                }
+            } else {
+                delegate.onInputWord(word.toLowerCase().trim());
+            }
         }
     }
 

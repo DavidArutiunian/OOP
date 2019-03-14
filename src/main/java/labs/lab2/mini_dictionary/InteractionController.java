@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
-class InteractionController {
+class InteractionController implements EventLoopDelegate {
     private static final String SAVE_DICT_ACCEPT_CAPITAL = "Y";
     private static final String SAVE_DICT_ACCEPT_LOW = "y";
 
@@ -16,17 +16,20 @@ class InteractionController {
         this.provider = provider;
     }
 
-    void onExit(Runnable callback) {
-        callback.run();
+    @Override
+    public void onExit() {
         System.out.println("Изменения сохранены. До свидания.");
     }
 
-    void onEmptyInput() {
+    @Override
+    public void onEmptyInput() {
         System.out.println("Пусто. Введите заново.");
     }
 
-    void onUnknownWord(String word) {
+    @Override
+    public void onInputWord(String word) {
         if (dictionary.contains(word)) {
+            System.out.println(dictionary.get(word));
             return;
         }
         System.out.println("Неизвестное слово \"" + word + "\". Введите перевод или пустую строку для отказа.");
@@ -46,7 +49,8 @@ class InteractionController {
         }
     }
 
-    boolean onSaveDict() throws IOException {
+    @Override
+    public boolean onFinishWord() throws IOException {
         System.out.println("В словарь были внесены изменения. Введите Y или y для сохранения перед выходом.");
         final Scanner input = new Scanner(System.in);
         final String word = input.nextLine();
@@ -57,12 +61,5 @@ class InteractionController {
             System.out.println("Изменения не сохранены.");
             return false;
         }
-    }
-
-    void onPrintWord(String word) {
-        if (!dictionary.contains(word)) {
-            return;
-        }
-        System.out.println(dictionary.get(word));
     }
 }

@@ -14,23 +14,12 @@ import java.util.List;
 
 public class Canvas extends JPanel implements ICanvas {
     private static final int STROKE_WIDTH = 5;
-    private static final int FRAME_WIDTH = 1280;
-    private static final int FRAME_HEIGHT = 720;
-    private static final String FRAME_TITLE = "Shapes 2D";
 
     private List<CShape> shapes = new ArrayList<>();
     private List<CPolygonShape> polygons = new ArrayList<>();
     private List<CCircleShape> circles = new ArrayList<>();
 
     public Canvas() throws HeadlessException {
-        val frame = new JFrame();
-        frame.setTitle(FRAME_TITLE);
-        frame.pack();
-        frame.setLocationByPlatform(true);
-        frame.setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setVisible(true);
-        frame.add(this);
         setBackground(Color.WHITE);
     }
 

@@ -1,8 +1,8 @@
 package labs.lab4.shapes;
 
-import labs.lab4.shapes.factory.CShapeFactory;
+import labs.lab4.shapes.factory.ShapeFactory;
 import labs.lab4.shapes.factory.parameters.*;
-import labs.lab4.shapes.point.CPoint;
+import labs.lab4.shapes.point.Point;
 import labs.lab4.shapes.shape.IShape;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Scanner;
 
 @UtilityClass
-class CCommandLineParser {
-    private CShapeFactory factory = new CShapeFactory();
+class CommandLineParser {
+    private ShapeFactory factory = new ShapeFactory();
 
     void parseCommandLine(final List<IShape> shapes, final Scanner scanner) throws IOException {
         if (!scanner.hasNext()) {
@@ -30,8 +30,8 @@ class CCommandLineParser {
                 val width = scanner.nextDouble();
                 checkHasNextDouble(scanner);
                 val height = scanner.nextDouble();
-                val rightBottom = new CPoint(leftTop.x + width, leftTop.y + height);
-                val parameters = new CRectangleParameters(leftTop, rightBottom, width, height);
+                val rightBottom = new Point(leftTop.x + width, leftTop.y + height);
+                val parameters = new RectangleParameters(leftTop, rightBottom, width, height);
                 appendColorsIfExist(scanner, parameters);
                 val rectangle = factory.createShape(parameters);
                 shapes.add(rectangle);
@@ -39,14 +39,14 @@ class CCommandLineParser {
                 val center = getNextPoint(scanner);
                 checkHasNextDouble(scanner);
                 val radius = scanner.nextDouble();
-                val parameters = new CCircleParameters(center, radius);
+                val parameters = new CircleParameters(center, radius);
                 appendColorsIfExist(scanner, parameters);
                 val circle = factory.createShape(parameters);
                 shapes.add(circle);
             } else if (EShape.LINE.getType().equals(shape)) {
                 val start = getNextPoint(scanner);
                 val end = getNextPoint(scanner);
-                val parameters = new CLineSegmentParameters(start, end);
+                val parameters = new LineSegmentParameters(start, end);
                 appendColorsIfExist(scanner, parameters);
                 val line = factory.createShape(parameters);
                 shapes.add(line);
@@ -54,7 +54,7 @@ class CCommandLineParser {
                 val vertex1 = getNextPoint(scanner);
                 val vertex2 = getNextPoint(scanner);
                 val vertex3 = getNextPoint(scanner);
-                val parameters = new CTriangleParameters(vertex1, vertex2, vertex3);
+                val parameters = new TriangleParameters(vertex1, vertex2, vertex3);
                 appendColorsIfExist(scanner, parameters);
                 val triangle = factory.createShape(parameters);
                 shapes.add(triangle);
@@ -64,15 +64,15 @@ class CCommandLineParser {
         }
     }
 
-    private void appendColorsIfExist(final Scanner scanner, final CShapeParameters parameters) {
+    private void appendColorsIfExist(final Scanner scanner, final ShapeParameters parameters) {
         if (scanner.hasNextInt(ERadix.HEX.getRadix())) {
             val outlineColor = getNextHex(scanner);
             parameters.setOutlineColor(outlineColor);
         }
     }
 
-    private void appendColorsIfExist(final Scanner scanner, final CSolidShapeParameters parameters) {
-        appendColorsIfExist(scanner, (CShapeParameters) parameters);
+    private void appendColorsIfExist(final Scanner scanner, final SolidShapeParameters parameters) {
+        appendColorsIfExist(scanner, (ShapeParameters) parameters);
         if (scanner.hasNextInt(ERadix.HEX.getRadix())) {
             val fillColor = getNextHex(scanner);
             parameters.setFillColor(fillColor);
@@ -94,12 +94,12 @@ class CCommandLineParser {
         return shapes.stream().min(Comparator.comparing(IShape::getPerimeter)).orElseThrow();
     }
 
-    private CPoint getNextPoint(final Scanner scanner) throws IOException {
+    private Point getNextPoint(final Scanner scanner) throws IOException {
         checkHasNextDouble(scanner);
         val x = scanner.nextDouble();
         checkHasNextDouble(scanner);
         val y = scanner.nextDouble();
-        return new CPoint(x, y);
+        return new Point(x, y);
     }
 
     private int getNextHex(final Scanner scanner) {

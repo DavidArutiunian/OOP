@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class CSolidShapeParameters extends CShapeParameters {
+public class SolidShapeParameters extends ShapeParameters {
     @Nullable
     private Integer fillColor;
 }

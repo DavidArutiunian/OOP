@@ -1,7 +1,7 @@
 package labs.lab4.shapes;
 
 import com.github.javafaker.Faker;
-import labs.lab4.shapes.point.CPoint;
+import labs.lab4.shapes.point.Point;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 
@@ -11,8 +11,8 @@ public class TestUtils {
     @Getter
     private final Faker faker = new Faker();
 
-    public CPoint getRandomPoint() {
-        return new CPoint(faker.random().nextDouble(), faker.random().nextDouble());
+    public Point getRandomPoint() {
+        return new Point(faker.random().nextDouble(), faker.random().nextDouble());
     }
 
     public int getRandomHex() {

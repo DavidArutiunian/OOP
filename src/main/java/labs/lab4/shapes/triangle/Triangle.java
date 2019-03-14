@@ -1,8 +1,8 @@
 package labs.lab4.shapes.triangle;
 
 import labs.lab4.shapes.canvas.ICanvas;
-import labs.lab4.shapes.line_segment.CLineSegment;
-import labs.lab4.shapes.point.CPoint;
+import labs.lab4.shapes.line_segment.LineSegment;
+import labs.lab4.shapes.point.Point;
 import labs.lab4.shapes.shape.ISolidShape;
 import lombok.*;
 
@@ -11,10 +11,10 @@ import java.util.Arrays;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class CTriangle implements ISolidShape {
-    private final CPoint vertex1;
-    private final CPoint vertex2;
-    private final CPoint vertex3;
+public class Triangle implements ISolidShape {
+    private final Point vertex1;
+    private final Point vertex2;
+    private final Point vertex3;
     @Setter
     private int outlineColor;
     @Setter
@@ -31,9 +31,9 @@ public class CTriangle implements ISolidShape {
 
     @Override
     public double getPerimeter() {
-        val edge1 = new CLineSegment(vertex1, vertex2);
-        val edge2 = new CLineSegment(vertex2, vertex3);
-        val edge3 = new CLineSegment(vertex3, vertex1);
+        val edge1 = new LineSegment(vertex1, vertex2);
+        val edge2 = new LineSegment(vertex2, vertex3);
+        val edge3 = new LineSegment(vertex3, vertex1);
         return edge1.getPerimeter() + edge2.getPerimeter() + edge3.getPerimeter();
     }
 

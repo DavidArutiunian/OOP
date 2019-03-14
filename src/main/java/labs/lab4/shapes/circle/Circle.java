@@ -1,7 +1,7 @@
 package labs.lab4.shapes.circle;
 
 import labs.lab4.shapes.canvas.ICanvas;
-import labs.lab4.shapes.point.CPoint;
+import labs.lab4.shapes.point.Point;
 import labs.lab4.shapes.shape.ISolidShape;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,8 +11,8 @@ import lombok.Setter;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class CCircle implements ISolidShape {
-    private final CPoint center;
+public class Circle implements ISolidShape {
+    private final Point center;
     private final double radius;
     @Setter
     private int fillColor;

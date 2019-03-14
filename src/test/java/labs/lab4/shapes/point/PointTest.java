@@ -7,12 +7,12 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 
-public class CPointTest {
+public class PointTest {
     @Test
     public void checkXCorrect() {
         val x = TestUtils.getFaker().random().nextDouble();
         val y = TestUtils.getFaker().random().nextDouble();
-        val point = new CPoint(x, y);
+        val point = new Point(x, y);
         assertEquals(x, point.x, TestUtils.DELTA);
     }
 
@@ -20,7 +20,7 @@ public class CPointTest {
     public void checkYCorrect() {
         val x = TestUtils.getFaker().random().nextDouble();
         val y = TestUtils.getFaker().random().nextDouble();
-        val point = new CPoint(x, y);
+        val point = new Point(x, y);
         assertEquals(y, point.y, TestUtils.DELTA);
     }
 }

@@ -2,7 +2,7 @@ package labs.lab4.shapes.circle;
 
 import labs.lab4.shapes.TestUtils;
 import labs.lab4.shapes.canvas.ICanvas;
-import labs.lab4.shapes.point.CPoint;
+import labs.lab4.shapes.point.Point;
 import lombok.val;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -16,14 +16,14 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
 
-public class CCircleTest {
+public class CircleTest {
     @Test
     public void getFillColor() {
         val fillColor = TestUtils.getRandomHex();
         val outlineColor = TestUtils.getRandomHex();
         val radius = TestUtils.getFaker().random().nextDouble();
         val center = TestUtils.getRandomPoint();
-        val circle = new CCircle(center, radius, fillColor, outlineColor);
+        val circle = new Circle(center, radius, fillColor, outlineColor);
         assertEquals(fillColor, circle.getFillColor());
     }
 
@@ -33,7 +33,7 @@ public class CCircleTest {
         val outlineColor = TestUtils.getRandomHex();
         val radius = TestUtils.getFaker().random().nextDouble();
         val center = TestUtils.getRandomPoint();
-        val circle = new CCircle(center, radius, fillColor, outlineColor);
+        val circle = new Circle(center, radius, fillColor, outlineColor);
         val expected = Math.PI * Math.pow(radius, 2);
         assertEquals(expected, circle.getArea(), TestUtils.DELTA);
     }
@@ -44,7 +44,7 @@ public class CCircleTest {
         val outlineColor = TestUtils.getRandomHex();
         val radius = TestUtils.getFaker().random().nextDouble();
         val center = TestUtils.getRandomPoint();
-        val circle = new CCircle(center, radius, fillColor, outlineColor);
+        val circle = new Circle(center, radius, fillColor, outlineColor);
         val expected = 2 * Math.PI * radius;
         assertEquals(expected, circle.getPerimeter(), TestUtils.DELTA);
     }
@@ -55,7 +55,7 @@ public class CCircleTest {
         val outlineColor = TestUtils.getRandomHex();
         val radius = TestUtils.getFaker().random().nextDouble();
         val center = TestUtils.getRandomPoint();
-        val circle = new CCircle(center, radius, fillColor, outlineColor);
+        val circle = new Circle(center, radius, fillColor, outlineColor);
         assertEquals(outlineColor, circle.getOutlineColor());
     }
 
@@ -65,7 +65,7 @@ public class CCircleTest {
         val outlineColor = TestUtils.getRandomHex();
         val radius = TestUtils.getFaker().random().nextDouble();
         val center = TestUtils.getRandomPoint();
-        val circle = new CCircle(center, radius, fillColor, outlineColor);
+        val circle = new Circle(center, radius, fillColor, outlineColor);
         assertThat(circle.getCenter(), is(center));
     }
 
@@ -75,7 +75,7 @@ public class CCircleTest {
         val outlineColor = TestUtils.getRandomHex();
         val radius = TestUtils.getFaker().random().nextDouble();
         val center = TestUtils.getRandomPoint();
-        val circle = new CCircle(center, radius, fillColor, outlineColor);
+        val circle = new Circle(center, radius, fillColor, outlineColor);
         assertEquals(radius, circle.getRadius(), TestUtils.DELTA);
     }
 
@@ -86,11 +86,11 @@ public class CCircleTest {
         val outlineColor = TestUtils.getRandomHex();
         val radius = TestUtils.getFaker().random().nextDouble();
         val center = TestUtils.getRandomPoint();
-        val centerCaptor = ArgumentCaptor.forClass(CPoint.class);
+        val centerCaptor = ArgumentCaptor.forClass(Point.class);
         val radiusCaptor = ArgumentCaptor.forClass(Double.class);
         val lineColorCaptor = ArgumentCaptor.forClass(Integer.class);
         val fillColorCaptor = ArgumentCaptor.forClass(Integer.class);
-        val circle = new CCircle(center, radius, fillColor, outlineColor);
+        val circle = new Circle(center, radius, fillColor, outlineColor);
         doNothing().when(mock).drawCircle(centerCaptor.capture(), radiusCaptor.capture(), lineColorCaptor.capture());
         doNothing().when(mock).fillCircle(centerCaptor.capture(), radiusCaptor.capture(), fillColorCaptor.capture());
         circle.draw(mock);

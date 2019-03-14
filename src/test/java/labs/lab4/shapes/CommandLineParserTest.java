@@ -1,8 +1,8 @@
 package labs.lab4.shapes;
 
-import labs.lab4.shapes.factory.CShapeFactory;
+import labs.lab4.shapes.factory.ShapeFactory;
 import labs.lab4.shapes.factory.parameters.*;
-import labs.lab4.shapes.point.CPoint;
+import labs.lab4.shapes.point.Point;
 import labs.lab4.shapes.shape.IShape;
 import lombok.val;
 import org.junit.Test;
@@ -16,8 +16,8 @@ import java.util.Scanner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CCommandLineParserTest {
-    private final CShapeFactory factory = new CShapeFactory();
+public class CommandLineParserTest {
+    private final ShapeFactory factory = new ShapeFactory();
 
     @Test
     public void parseCommandLine() throws IOException {
@@ -28,7 +28,7 @@ public class CCommandLineParserTest {
             "line 10.3 20.15 30.7 40.4 ff0000\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        CCommandLineParser.parseCommandLine(actual, scanner);
+        CommandLineParser.parseCommandLine(actual, scanner);
         for (int i = 0; i < actual.size(); ++i) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
         }
@@ -43,7 +43,7 @@ public class CCommandLineParserTest {
             "line 10.3 20.15 30.7 40.4\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        CCommandLineParser.parseCommandLine(actual, scanner);
+        CommandLineParser.parseCommandLine(actual, scanner);
         for (int i = 0; i < actual.size(); ++i) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
         }
@@ -54,7 +54,7 @@ public class CCommandLineParserTest {
         setSystemInput("");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        assertThrows(IOException.class, () -> CCommandLineParser.parseCommandLine(actual, scanner));
+        assertThrows(IOException.class, () -> CommandLineParser.parseCommandLine(actual, scanner));
     }
 
     @Test
@@ -62,20 +62,20 @@ public class CCommandLineParserTest {
         setSystemInput("rectangle 10.3 20.15\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        assertThrows(IOException.class, () -> CCommandLineParser.parseCommandLine(actual, scanner));
+        assertThrows(IOException.class, () -> CommandLineParser.parseCommandLine(actual, scanner));
     }
 
     @Test
     public void getShapeWithMaxArea() {
         val expected = getExpectedResults();
-        val actual = CCommandLineParser.getShapeWithMaxArea(expected);
+        val actual = CommandLineParser.getShapeWithMaxArea(expected);
         assertEquals(expected.get(0), actual);
     }
 
     @Test
     public void getShapeWithMinPerimeter() {
         val expected = getExpectedResults();
-        val actual = CCommandLineParser.getShapeWithMinPerimeter(expected);
+        val actual = CommandLineParser.getShapeWithMinPerimeter(expected);
         assertEquals(expected.get(3), actual);
     }
 
@@ -88,9 +88,9 @@ public class CCommandLineParserTest {
         {
             val width = 30.7;
             val height = 40.4;
-            val leftTop = new CPoint(10.3, 20.15);
-            val rightBottom = new CPoint(leftTop.x + width, leftTop.y + height);
-            val parameters = new CRectangleParameters(leftTop, rightBottom, width, height);
+            val leftTop = new Point(10.3, 20.15);
+            val rightBottom = new Point(leftTop.x + width, leftTop.y + height);
+            val parameters = new RectangleParameters(leftTop, rightBottom, width, height);
             if (!isShortForm) {
                 setParametersColors(parameters);
             }
@@ -98,8 +98,8 @@ public class CCommandLineParserTest {
             expected.add(rectangle);
         }
         {
-            val center = new CPoint(12.5, 26.2);
-            val parameters = new CCircleParameters(center, 13.4);
+            val center = new Point(12.5, 26.2);
+            val parameters = new CircleParameters(center, 13.4);
             if (!isShortForm) {
                 setParametersColors(parameters);
             }
@@ -107,10 +107,10 @@ public class CCommandLineParserTest {
             expected.add(circle);
         }
         {
-            val vertex1 = new CPoint(10.3, 20.15);
-            val vertex2 = new CPoint(30.7, 40.4);
-            val vertex3 = new CPoint(12.5, 26.2);
-            val parameters = new CTriangleParameters(vertex1, vertex2, vertex3);
+            val vertex1 = new Point(10.3, 20.15);
+            val vertex2 = new Point(30.7, 40.4);
+            val vertex3 = new Point(12.5, 26.2);
+            val parameters = new TriangleParameters(vertex1, vertex2, vertex3);
             if (!isShortForm) {
                 setParametersColors(parameters);
             }
@@ -118,9 +118,9 @@ public class CCommandLineParserTest {
             expected.add(triangle);
         }
         {
-            val start = new CPoint(10.3, 20.15);
-            val end = new CPoint(30.7, 40.4);
-            val parameters = new CLineSegmentParameters(start, end);
+            val start = new Point(10.3, 20.15);
+            val end = new Point(30.7, 40.4);
+            val parameters = new LineSegmentParameters(start, end);
             if (!isShortForm) {
                 setParametersColors(parameters);
             }
@@ -130,12 +130,12 @@ public class CCommandLineParserTest {
         return expected;
     }
 
-    private void setParametersColors(final CShapeParameters parameters) {
+    private void setParametersColors(final ShapeParameters parameters) {
         parameters.setOutlineColor(0xFF0000);
     }
 
-    private void setParametersColors(final CSolidShapeParameters parameters) {
-        setParametersColors((CShapeParameters) parameters);
+    private void setParametersColors(final SolidShapeParameters parameters) {
+        setParametersColors((ShapeParameters) parameters);
         parameters.setFillColor(0x00FF00);
     }
 

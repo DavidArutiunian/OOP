@@ -5,13 +5,13 @@ import lombok.val;
 import org.apache.commons.lang3.StringUtils;
 
 @RequiredArgsConstructor
-public class CPoint {
+public class Point {
     public final double x;
     public final double y;
 
     @Override
     public String toString() {
-        return "CPoint\n" +
+        return "Point\n" +
             "x = " + x + '\n' +
             "y = " + y + '\n';
     }

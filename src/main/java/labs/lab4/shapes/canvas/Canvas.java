@@ -1,6 +1,6 @@
 package labs.lab4.shapes.canvas;
 
-import labs.lab4.shapes.point.CPoint;
+import labs.lab4.shapes.point.Point;
 import lombok.Value;
 import lombok.val;
 
@@ -12,7 +12,7 @@ import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CCanvas extends JPanel implements ICanvas {
+public class Canvas extends JPanel implements ICanvas {
     private static final int STROKE_WIDTH = 5;
     private static final int FRAME_WIDTH = 1280;
     private static final int FRAME_HEIGHT = 720;
@@ -22,7 +22,7 @@ public class CCanvas extends JPanel implements ICanvas {
     private List<CPolygonShape> polygons = new ArrayList<>();
     private List<CCircleShape> circles = new ArrayList<>();
 
-    public CCanvas() throws HeadlessException {
+    public Canvas() throws HeadlessException {
         val frame = new JFrame();
         frame.setTitle(FRAME_TITLE);
         frame.pack();
@@ -61,22 +61,22 @@ public class CCanvas extends JPanel implements ICanvas {
     }
 
     @Override
-    public void drawLine(CPoint from, CPoint to, int lineColor) {
+    public void drawLine(Point from, Point to, int lineColor) {
         add(new CShape(new Line2D.Double(from.x, from.y, to.x, to.y), lineColor));
     }
 
     @Override
-    public void fillPolygon(List<CPoint> points, int fillColor) {
+    public void fillPolygon(List<Point> points, int fillColor) {
         add(new CPolygonShape(points, fillColor));
     }
 
     @Override
-    public void drawCircle(CPoint center, double radius, int lineColor) {
+    public void drawCircle(Point center, double radius, int lineColor) {
         add(new CShape(new Ellipse2D.Double(center.x, center.y, radius, radius), lineColor));
     }
 
     @Override
-    public void fillCircle(CPoint center, double radius, int fillColor) {
+    public void fillCircle(Point center, double radius, int fillColor) {
         add(new CCircleShape(center, radius, fillColor));
     }
 
@@ -107,14 +107,14 @@ public class CCanvas extends JPanel implements ICanvas {
 
     @Value
     private class CCircleShape {
-        private final CPoint center;
+        private final Point center;
         private final double radius;
         private final int color;
     }
 
     @Value
     private class CPolygonShape {
-        private final List<CPoint> points;
+        private final List<Point> points;
         private final int color;
     }
 

@@ -4,7 +4,7 @@ import lombok.Data;
 import org.jetbrains.annotations.Nullable;
 
 @Data
-public class CShapeParameters {
+public class ShapeParameters {
     @Nullable
     private Integer outlineColor;
 }

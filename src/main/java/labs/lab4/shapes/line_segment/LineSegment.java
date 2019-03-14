@@ -1,16 +1,16 @@
 package labs.lab4.shapes.line_segment;
 
 import labs.lab4.shapes.canvas.ICanvas;
-import labs.lab4.shapes.point.CPoint;
+import labs.lab4.shapes.point.Point;
 import labs.lab4.shapes.shape.IShape;
 import lombok.*;
 
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class CLineSegment implements IShape {
-    private final CPoint startPoint;
-    private final CPoint endPoint;
+public class LineSegment implements IShape {
+    private final Point startPoint;
+    private final Point endPoint;
     @Setter
     private int outlineColor;
 

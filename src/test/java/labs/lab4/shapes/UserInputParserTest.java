@@ -16,11 +16,11 @@ import java.util.Scanner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class CommandLineParserTest {
+public class UserInputParserTest {
     private final ShapeFactory factory = new ShapeFactory();
 
     @Test
-    public void parseCommandLine() throws IOException {
+    public void parseFullForm() throws IOException {
         val expected = getExpectedResults();
         setSystemInput("rectangle 10.3 20.15 30.7 40.4 ff0000 00ff00\n" +
             "circle 12.5 26.2 13.4 ff0000 00ff00\n" +
@@ -28,14 +28,14 @@ public class CommandLineParserTest {
             "line 10.3 20.15 30.7 40.4 ff0000\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        CommandLineParser.parseCommandLine(actual, scanner);
+        UserInputParser.parse(actual, scanner);
         for (int i = 0; i < actual.size(); ++i) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
         }
     }
 
     @Test
-    public void parseCommandLineShort() throws IOException {
+    public void parseShortForm() throws IOException {
         val expected = getExpectedResults(true);
         setSystemInput("rectangle 10.3 20.15 30.7 40.4\n" +
             "circle 12.5 26.2 13.4\n" +
@@ -43,39 +43,39 @@ public class CommandLineParserTest {
             "line 10.3 20.15 30.7 40.4\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        CommandLineParser.parseCommandLine(actual, scanner);
+        UserInputParser.parse(actual, scanner);
         for (int i = 0; i < actual.size(); ++i) {
             assertEquals(expected.get(i).toString(), actual.get(i).toString());
         }
     }
 
     @Test
-    public void parseCommandLineThrowsOnEmptyInput() {
+    public void parseThrowsOnEmptyInput() {
         setSystemInput("");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        assertThrows(IOException.class, () -> CommandLineParser.parseCommandLine(actual, scanner));
+        assertThrows(IOException.class, () -> UserInputParser.parse(actual, scanner));
     }
 
     @Test
-    public void parseCommandLineThrowsIfBadArguments() {
+    public void parseThrowsIfBadArguments() {
         setSystemInput("rectangle 10.3 20.15\n");
         final List<IShape> actual = new ArrayList<>();
         val scanner = new Scanner(System.in);
-        assertThrows(IOException.class, () -> CommandLineParser.parseCommandLine(actual, scanner));
+        assertThrows(IOException.class, () -> UserInputParser.parse(actual, scanner));
     }
 
     @Test
     public void getShapeWithMaxArea() {
         val expected = getExpectedResults();
-        val actual = CommandLineParser.getShapeWithMaxArea(expected);
+        val actual = UserInputParser.getShapeWithMaxArea(expected);
         assertEquals(expected.get(0), actual);
     }
 
     @Test
     public void getShapeWithMinPerimeter() {
         val expected = getExpectedResults();
-        val actual = CommandLineParser.getShapeWithMinPerimeter(expected);
+        val actual = UserInputParser.getShapeWithMinPerimeter(expected);
         assertEquals(expected.get(3), actual);
     }
 

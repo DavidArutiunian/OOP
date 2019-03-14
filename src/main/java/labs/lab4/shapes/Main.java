@@ -14,9 +14,9 @@ public class Main {
         try {
             final List<IShape> shapes = new ArrayList<>();
             val scanner = new Scanner(System.in);
-            CommandLineParser.parseCommandLine(shapes, scanner);
-            System.out.println("Max area has shape:\n" + CommandLineParser.getShapeWithMaxArea(shapes).toString());
-            System.out.println("Min perimeter has shape:\n" + CommandLineParser.getShapeWithMinPerimeter(shapes).toString());
+            UserInputParser.parse(shapes, scanner);
+            System.out.println("Max area has shape:\n" + UserInputParser.getShapeWithMaxArea(shapes).toString());
+            System.out.println("Min perimeter has shape:\n" + UserInputParser.getShapeWithMinPerimeter(shapes).toString());
             EventQueue.invokeLater(() -> {
                 val canvas = new Canvas();
                 shapes.forEach(shape -> shape.draw(canvas));

@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.Scanner;
 
 @UtilityClass
-class CommandLineParser {
+class UserInputParser {
     private ShapeFactory factory = new ShapeFactory();
 
-    void parseCommandLine(List<IShape> shapes, Scanner scanner) throws IOException {
+    void parse(List<IShape> shapes, Scanner scanner) throws IOException {
         if (!scanner.hasNext()) {
             throw new IOException("No input found!");
         }

@@ -304,17 +304,17 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>make-assembly-point</id>
+                        <id>make-assembly-complex</id>
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>labs.lab5.point.MainKt</mainClass>
+                                    <mainClass>labs.lab5.complex.MainKt</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
-                            <finalName>point</finalName>
+                            <finalName>complex</finalName>
                         </configuration>
                         <phase>package</phase>
                         <goals>

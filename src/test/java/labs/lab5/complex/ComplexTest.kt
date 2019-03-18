@@ -179,4 +179,24 @@ class ComplexTest {
         assertEquals(expected.re(), actual.re(), EPS)
         assertEquals(expected.im(), actual.im(), EPS)
     }
+
+    @Test
+    fun `divide complex by complex`() {
+        val complex = Complex(2.0, 1.0)
+        val divider = Complex(4.0, 5.0)
+        val expected = Complex(0.31707, -0.14634)
+        val actual = complex / divider
+        assertEquals(expected.re(), actual.re(), EPS)
+        assertEquals(expected.im(), actual.im(), EPS)
+    }
+
+    @Test
+    fun `divide complex by double`() {
+        val complex = Complex(2.0, 1.0)
+        val divider = 2.0
+        val expected = Complex(1.0, 0.5)
+        val actual = complex / divider
+        assertEquals(expected.re(), actual.re(), EPS)
+        assertEquals(expected.im(), actual.im(), EPS)
+    }
 }

@@ -44,6 +44,17 @@ class Complex(private val real: Double = 0.0, private val image: Double = 0.0) {
     }
 
     operator fun times(factor: Double): Complex {
-        return Complex(real * factor, image * factor)
+        return this * Complex(factor)
+    }
+
+    operator fun div(divider: Complex): Complex {
+        val common = (divider.re().pow(2) + divider.im().pow(2))
+        val left = ((real * divider.re()) + (image * divider.im())) / common
+        val right = ((image * divider.re()) - (real * divider.im())) / common
+        return Complex(left, right)
+    }
+
+    operator fun div(divider: Double): Complex {
+        return this / Complex(divider)
     }
 }

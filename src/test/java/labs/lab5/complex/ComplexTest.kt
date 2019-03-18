@@ -153,9 +153,9 @@ class ComplexTest {
     @Test
     fun `subtract double from complex`() {
         val complex = Complex(2.0, 1.0)
-        val addend = 1.0
+        val subtrahend = 1.0
         val expected = Complex(1.0, 1.0)
-        val actual = complex - addend
+        val actual = complex - subtrahend
         assertEquals(expected.re(), actual.re(), EPS)
         assertEquals(expected.im(), actual.im(), EPS)
     }

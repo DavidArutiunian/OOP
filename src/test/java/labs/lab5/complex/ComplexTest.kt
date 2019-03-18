@@ -9,107 +9,154 @@ class ComplexTest {
     }
 
     @Test
-    fun getReal() {
+    fun `get real part`() {
         val complex = Complex(2.0, 1.0)
         val expected = 2.0
-        assertEquals(expected, complex.getReal(), EPS)
+        assertEquals(expected, complex.re(), EPS)
     }
 
     @Test
-    fun getImage() {
+    fun `get imaginary part`() {
         val complex = Complex(2.0, 1.0)
         val expected = 1.0
-        assertEquals(expected, complex.getImage(), EPS)
+        assertEquals(expected, complex.im(), EPS)
     }
 
     @Test
-    fun getMagnitude() {
+    fun `get magnitude`() {
         val complex = Complex(2.0, 1.0)
         val expected = 2.23606
         assertEquals(expected, complex.getMagnitude(), EPS)
     }
 
     @Test
-    fun getMagnitudeNegativeReal() {
+    fun `get magnitude if real negative`() {
         val complex = Complex(-2.0, 1.0)
         val expected = 2.23606
         assertEquals(expected, complex.getMagnitude(), EPS)
     }
 
     @Test
-    fun getMagnitudeNegativeImage() {
+    fun `get magnitude if imaginary negative`() {
         val complex = Complex(2.0, -1.0)
         val expected = 2.23606
         assertEquals(expected, complex.getMagnitude(), EPS)
     }
 
     @Test
-    fun getMagnitudeNegativeBoth() {
+    fun `get magnitude if both parts negative`() {
         val complex = Complex(-2.0, -1.0)
         val expected = 2.23606
         assertEquals(expected, complex.getMagnitude(), EPS)
     }
 
     @Test
-    fun getMagnitudeZeroReal() {
+    fun `get magnitude if real is zero`() {
         val complex = Complex(0.0, 1.0)
         val expected = 1.0
         assertEquals(expected, complex.getMagnitude(), EPS)
     }
 
     @Test
-    fun getMagnitudeZeroImage() {
-        val complex = Complex(2.0, -1.0)
-        val expected = 2.23606
+    fun `get magnitude if imaginary is zero`() {
+        val complex = Complex(2.0, 0.0)
+        val expected = 2.0
         assertEquals(expected, complex.getMagnitude(), EPS)
     }
 
     @Test
-    fun getMagnitudeZeroBoth() {
+    fun `get magnitude if both zero`() {
         val complex = Complex(0.0, 0.0)
         val expected = 0.0
         assertEquals(expected, complex.getMagnitude(), EPS)
     }
 
     @Test
-    fun getArgument() {
+    fun `get argument`() {
         val complex = Complex(2.0, 1.0)
         val expected = 0.46364
         assertEquals(expected, complex.getArgument(), EPS)
     }
 
     @Test
-    fun getArgumentNegativeReal() {
+    fun `get argument if real is negative`() {
         val complex = Complex(-2.0, 1.0)
         val expected = 2.67794
         assertEquals(expected, complex.getArgument(), EPS)
     }
 
     @Test
-    fun getArgumentNegativeImage() {
+    fun `get argument if imaginary is negative`() {
         val complex = Complex(2.0, -1.0)
         val expected = -0.46364
         assertEquals(expected, complex.getArgument(), EPS)
     }
 
     @Test
-    fun getArgumentNegativeBoth() {
+    fun `get argument if both parts are negative`() {
         val complex = Complex(-2.0, -1.0)
         val expected = -2.67794
         assertEquals(expected, complex.getArgument(), EPS)
     }
 
     @Test
-    fun getArgumentZeroReal() {
+    fun `get argument if real is zero`() {
         val complex = Complex(0.0, 1.0)
         val expected = 1.57079
         assertEquals(expected, complex.getArgument(), EPS)
     }
 
     @Test
-    fun getArgumentZeroImage() {
+    fun `get argument if imaginary is zero`() {
         val complex = Complex(2.0, 0.0)
         val expected = 0.0
         assertEquals(expected, complex.getArgument(), EPS)
+    }
+
+    @Test
+    fun `get argument if both parts are zero`() {
+        val complex = Complex(0.0, 0.0)
+        val expected = 0.0
+        assertEquals(expected, complex.getArgument(), EPS)
+    }
+
+    @Test
+    fun `add complex to complex`() {
+        val complex = Complex(2.0, 1.0)
+        val addend = Complex(1.0, 2.0)
+        val expected = Complex(3.0, 3.0)
+        val actual = complex + addend
+        assertEquals(expected.re(), actual.re(), EPS)
+        assertEquals(expected.im(), actual.im(), EPS)
+    }
+
+    @Test
+    fun `add double to complex`() {
+        val complex = Complex(2.0, 1.0)
+        val addend = 1.0
+        val expected = Complex(3.0, 1.0)
+        val actual = complex + addend
+        assertEquals(expected.re(), actual.re(), EPS)
+        assertEquals(expected.im(), actual.im(), EPS)
+    }
+
+    @Test
+    fun `subtract complex from complex`() {
+        val complex = Complex(2.0, 1.0)
+        val subtrahend = Complex(3.0, 2.0)
+        val expected = Complex(-1.0, -1.0)
+        val actual = complex - subtrahend
+        assertEquals(expected.re(), actual.re(), EPS)
+        assertEquals(expected.im(), actual.im(), EPS)
+    }
+
+    @Test
+    fun `subtract double from complex`() {
+        val complex = Complex(2.0, 1.0)
+        val addend = 1.0
+        val expected = Complex(1.0, 1.0)
+        val actual = complex - addend
+        assertEquals(expected.re(), actual.re(), EPS)
+        assertEquals(expected.im(), actual.im(), EPS)
     }
 }

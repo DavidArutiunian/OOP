@@ -36,4 +36,14 @@ class Complex(private val real: Double = 0.0, private val image: Double = 0.0) {
     operator fun minus(subtrahend: Double): Complex {
         return Complex(real - subtrahend, image)
     }
+
+    operator fun times(multiplier: Complex): Complex {
+        val left = (real * multiplier.re()) - (image * multiplier.im())
+        val right = (real * multiplier.im()) + (image * multiplier.re())
+        return Complex(left, right)
+    }
+
+    operator fun times(factor: Double): Complex {
+        return Complex(real * factor, image * factor)
+    }
 }

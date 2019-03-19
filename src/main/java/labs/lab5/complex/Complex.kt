@@ -4,7 +4,7 @@ import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-class Complex(private val real: Double = 0.0, private val image: Double = 0.0) {
+class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
     fun re(): Double {
         return real
     }
@@ -64,5 +64,23 @@ class Complex(private val real: Double = 0.0, private val image: Double = 0.0) {
 
     operator fun unaryMinus(): Complex {
         return Complex(-real, -image)
+    }
+
+    operator fun plusAssign(addend: Complex) {
+        real += addend.re()
+        image += addend.im()
+    }
+
+    operator fun plusAssign(addend: Double) {
+        this += Complex(addend)
+    }
+
+    operator fun minusAssign(subtrahend: Complex) {
+        real -= subtrahend.re()
+        image -= subtrahend.im()
+    }
+
+    operator fun minusAssign(subtrahend: Double) {
+        this -= Complex(subtrahend)
     }
 }

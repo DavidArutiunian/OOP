@@ -216,4 +216,44 @@ class ComplexTest {
         assertEquals(expected.re(), inverted.re(), EPS)
         assertEquals(expected.im(), inverted.im(), EPS)
     }
+
+    @Test
+    fun `plus assign by complex`() {
+        val complex = Complex(2.0, 1.0)
+        val addend = Complex(1.0, 1.0)
+        val expected = Complex(3.0, 2.0)
+        complex += addend
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
+
+    @Test
+    fun `plus assign by double`() {
+        val complex = Complex(2.0, 1.0)
+        val addend = 2.0
+        val expected = Complex(4.0, 1.0)
+        complex += addend
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
+
+    @Test
+    fun `minus assign by complex`() {
+        val complex = Complex(2.0, 1.0)
+        val subtrahend = Complex(1.0, 1.0)
+        val expected = Complex(1.0, 0.0)
+        complex -= subtrahend
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
+
+    @Test
+    fun `minus assign by double`() {
+        val complex = Complex(2.0, 1.0)
+        val subtrahend = 2.0
+        val expected = Complex(0.0, 1.0)
+        complex -= subtrahend
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
 }

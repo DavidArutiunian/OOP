@@ -1,9 +1,9 @@
 package labs.lab5.complex
 
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Test
-import kotlin.test.assertNotEquals
 
+@Suppress("ReplaceCallWithBinaryOperator")
 class ComplexTest {
     companion object {
         const val EPS = 10e-5
@@ -205,7 +205,7 @@ class ComplexTest {
     fun `unary plus returns copy`() {
         val complex = Complex(2.0, 1.0)
         val copy = +complex
-        assertNotEquals(copy, complex)
+        assertNotEquals(copy.toString(), complex.toString())
     }
 
     @Test
@@ -296,4 +296,39 @@ class ComplexTest {
         assertEquals(expected.re(), complex.re(), EPS)
         assertEquals(expected.im(), complex.im(), EPS)
     }
+
+    @Test
+    fun `equals to other complex`() {
+        val complex = Complex(2.0, 1.0)
+        val other = Complex(2.0, 1.0)
+        assertTrue(complex == other)
+        assertFalse(complex != other)
+    }
+
+
+    @Test
+    fun `not equals to other complex`() {
+        val complex = Complex(2.0, 1.0)
+        val other = Complex(1.0, 1.0)
+        assertFalse(complex == other)
+        assertTrue(complex != other)
+    }
+
+    @Test
+    fun `equals to double`() {
+        val complex = Complex(2.0, 0.0)
+        val other = 2.0
+        assertTrue(complex.equals(other))
+        assertFalse(!complex.equals(other))
+    }
+
+    @Test
+    fun `not equals to double`() {
+        val complex = Complex(2.0, 0.0)
+        val other = 1.0
+        assertFalse(complex.equals(other))
+        assertTrue(!complex.equals(other))
+    }
 }
+
+

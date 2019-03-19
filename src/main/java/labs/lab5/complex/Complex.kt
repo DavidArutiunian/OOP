@@ -1,10 +1,16 @@
 package labs.lab5.complex
 
+import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+@Suppress("EqualsOrHashCode")
 class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
+    companion object {
+        const val EPS = 10e-5
+    }
+
     fun re(): Double {
         return real
     }
@@ -108,5 +114,20 @@ class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
         val complex = this / divider
         real = complex.re()
         image = complex.im()
+    }
+
+    override operator fun equals(other: Any?): Boolean {
+        return when (other) {
+            is Complex -> eq(real, other.re()) && eq(image, other.im())
+            is Double -> {
+                val complex = Complex(other)
+                return eq(real, complex.re()) && eq(image, complex.im())
+            }
+            else -> return false
+        }
+    }
+
+    private fun eq(left: Double, right: Double): Boolean {
+        return abs(left - right) < EPS
     }
 }

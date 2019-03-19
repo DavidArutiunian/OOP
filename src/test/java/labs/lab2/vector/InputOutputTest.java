@@ -1,14 +1,14 @@
 package labs.lab2.vector;
 
+import lib.io.OutputMock;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
 
+import static lib.io.OutputMock.readSystemInput;
+import static lib.io.OutputMock.setSystemInput;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -65,32 +65,5 @@ public class InputOutputTest {
         InputOutput.print(input);
         assertEquals("1.100 2.200 3.300", mock.read().strip());
         mock.destruct();
-    }
-
-    private void setSystemInput(final String input) {
-        final var in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-    }
-
-    private String[] readSystemInput() throws IOException {
-        final Scanner in = new Scanner(System.in);
-        return InputOutput.read(in).split(InputOutput.DELIMITER);
-    }
-
-    private class OutputMock {
-        private final PrintStream original = System.out;
-        private final ByteArrayOutputStream mock = new ByteArrayOutputStream();
-
-        OutputMock() {
-            System.setOut(new PrintStream(mock));
-        }
-
-        String read() {
-            return mock.toString();
-        }
-
-        void destruct() {
-            System.setOut(original);
-        }
     }
 }

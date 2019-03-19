@@ -1,5 +1,6 @@
 package labs.lab5.complex
 
+import java.io.OutputStream
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.pow
@@ -9,6 +10,12 @@ import kotlin.math.sqrt
 class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
     companion object {
         const val EPS = 10e-5
+    }
+
+    fun print(stream: OutputStream) {
+        val sign = if (image < 0) '-' else '+'
+        val complex = "$real$sign${abs(image)}i"
+        stream.write(complex.toByteArray())
     }
 
     fun re(): Double {

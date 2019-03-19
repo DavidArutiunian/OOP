@@ -1,5 +1,6 @@
 package labs.lab5.complex
 
+import lib.io.OutputMock
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -328,6 +329,26 @@ class ComplexTest {
         val other = 1.0
         assertFalse(complex.equals(other))
         assertTrue(!complex.equals(other))
+    }
+
+    @Test
+    fun `print positive`() {
+        val mock = OutputMock()
+        val complex = Complex(2.0, 1.0)
+        complex.print(System.out)
+        val expected = "2.0+1.0i"
+        assertEquals(expected, mock.read())
+        mock.destruct()
+    }
+
+    @Test
+    fun `print negative`() {
+        val mock = OutputMock()
+        val complex = Complex(-2.0, -1.0)
+        complex.print(System.out)
+        val expected = "-2.0-1.0i"
+        assertEquals(expected, mock.read())
+        mock.destruct()
     }
 }
 

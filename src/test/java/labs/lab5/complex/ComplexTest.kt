@@ -1,8 +1,13 @@
 package labs.lab5.complex
 
 import lib.io.OutputMock
+import lib.io.OutputMock.setSystemInput
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.jupiter.api.assertThrows
+import java.io.IOException
+import java.lang.System.`in`
+import java.lang.System.out
 
 @Suppress("ReplaceCallWithBinaryOperator")
 class ComplexTest {
@@ -335,7 +340,7 @@ class ComplexTest {
     fun `print positive`() {
         val mock = OutputMock()
         val complex = Complex(2.0, 1.0)
-        complex.print(System.out)
+        out.writeln(complex)
         val expected = "2.0+1.0i"
         assertEquals(expected, mock.read())
         mock.destruct()
@@ -345,10 +350,64 @@ class ComplexTest {
     fun `print negative`() {
         val mock = OutputMock()
         val complex = Complex(-2.0, -1.0)
-        complex.print(System.out)
+        out.writeln(complex)
         val expected = "-2.0-1.0i"
         assertEquals(expected, mock.read())
         mock.destruct()
+    }
+
+    @Test
+    fun `read positive`() {
+        setSystemInput("4+2i")
+        val complex = Complex()
+        `in`.read(complex)
+        val expected = Complex(4.0, 2.0)
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
+
+    @Test
+    fun `read positive double`() {
+        setSystemInput("4.2+2.8i")
+        val complex = Complex()
+        `in`.read(complex)
+        val expected = Complex(4.2, 2.8)
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
+
+    @Test
+    fun `read negative`() {
+        setSystemInput("-4-2i")
+        val complex = Complex()
+        `in`.read(complex)
+        val expected = Complex(-4.0, -2.0)
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
+
+    @Test
+    fun `read negative double`() {
+        setSystemInput("-4.2-2.8i")
+        val complex = Complex()
+        `in`.read(complex)
+        val expected = Complex(-4.2, -2.8)
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
+
+    @Test
+    fun `corrupted real part`() {
+        setSystemInput("a+2i")
+        val complex = Complex()
+        assertThrows<IOException> { `in`.read(complex) }
+    }
+
+    @Test
+    fun `corrupted imaginary part`() {
+        setSystemInput("4+ai")
+        val complex = Complex()
+        assertThrows<IOException> { `in`.read(complex) }
     }
 }
 

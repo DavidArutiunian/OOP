@@ -1,21 +1,63 @@
 package labs.lab5.complex
 
+import org.apache.commons.lang3.math.NumberUtils
+import java.io.IOException
+import java.io.InputStream
 import java.io.OutputStream
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+fun OutputStream.writeln(complex: Complex) {
+    val sign = if (complex.im() < 0) '-' else '+'
+    val str = "${complex.re()}$sign${abs(complex.im())}i"
+    write(str.toByteArray())
+}
+
+fun InputStream.read(complex: Complex) {
+    val plus = '+'.toInt()
+    val minus = '-'.toInt()
+    val suffix = 'i'.toInt()
+
+    var input = read()
+    val unary =
+        if (input == minus) {
+            input = read()
+            '-'
+        } else '+'
+
+    var re = ""
+    while (input != plus && input != minus) {
+        re += input.toChar()
+        input = read()
+    }
+
+    val sign = input.toChar()
+    input = read()
+
+    var im = ""
+    while (input != suffix && input != -1) {
+        im += input.toChar()
+        input = read()
+    }
+
+    if (!NumberUtils.isCreatable(re)) {
+        throw IOException("Something is wrong with real part!")
+    }
+    if (!NumberUtils.isCreatable(im)) {
+        throw IOException("Something is wrong with imaginary part!")
+    }
+
+    val real = NumberUtils.toDouble(re)
+    val image = NumberUtils.toDouble(im)
+    complex.set(if (unary == '-') -real else real, if (sign == '-') -image else image)
+}
+
 @Suppress("EqualsOrHashCode")
 class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
     companion object {
         const val EPS = 10e-5
-    }
-
-    fun print(stream: OutputStream) {
-        val sign = if (image < 0) '-' else '+'
-        val complex = "$real$sign${abs(image)}i"
-        stream.write(complex.toByteArray())
     }
 
     fun re(): Double {
@@ -24,6 +66,11 @@ class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
 
     fun im(): Double {
         return image
+    }
+
+    fun set(real: Double = 0.0, image: Double = 0.0) {
+        this.real = real
+        this.image = image
     }
 
     fun getMagnitude(): Double {

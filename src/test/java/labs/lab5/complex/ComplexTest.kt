@@ -256,4 +256,44 @@ class ComplexTest {
         assertEquals(expected.re(), complex.re(), EPS)
         assertEquals(expected.im(), complex.im(), EPS)
     }
+
+    @Test
+    fun `times assign by complex`() {
+        val complex = Complex(2.0, 1.0)
+        val multiplier = Complex(1.0, 1.0)
+        val expected = Complex(1.0, 3.0)
+        complex *= multiplier
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
+
+    @Test
+    fun `times assign by double`() {
+        val complex = Complex(2.0, 1.0)
+        val factor = 2.0
+        val expected = Complex(4.0, 2.0)
+        complex *= factor
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
+
+    @Test
+    fun `div assign by complex`() {
+        val complex = Complex(2.0, 1.0)
+        val divider = Complex(1.0, 1.0)
+        val expected = Complex(1.5, -0.5)
+        complex /= divider
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
+
+    @Test
+    fun `div assign by double`() {
+        val complex = Complex(2.0, 1.0)
+        val divider = 2.0
+        val expected = Complex(1.0, 0.5)
+        complex /= divider
+        assertEquals(expected.re(), complex.re(), EPS)
+        assertEquals(expected.im(), complex.im(), EPS)
+    }
 }

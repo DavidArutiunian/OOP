@@ -67,8 +67,9 @@ class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
     }
 
     operator fun plusAssign(addend: Complex) {
-        real += addend.re()
-        image += addend.im()
+        val complex = this + addend
+        real = complex.re()
+        image = complex.im()
     }
 
     operator fun plusAssign(addend: Double) {
@@ -76,11 +77,36 @@ class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
     }
 
     operator fun minusAssign(subtrahend: Complex) {
-        real -= subtrahend.re()
-        image -= subtrahend.im()
+        val complex = this - subtrahend
+        real = complex.re()
+        image = complex.im()
     }
 
     operator fun minusAssign(subtrahend: Double) {
         this -= Complex(subtrahend)
+    }
+
+    operator fun timesAssign(multiplier: Complex) {
+        val complex = this * multiplier
+        real = complex.re()
+        image = complex.im()
+    }
+
+    operator fun timesAssign(factor: Double) {
+        val complex = this * factor
+        real = complex.re()
+        image = complex.im()
+    }
+
+    operator fun divAssign(divider: Complex) {
+        val complex = this / divider
+        real = complex.re()
+        image = complex.im()
+    }
+
+    operator fun divAssign(divider: Double) {
+        val complex = this / divider
+        real = complex.re()
+        image = complex.im()
     }
 }

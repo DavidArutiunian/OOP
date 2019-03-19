@@ -57,4 +57,12 @@ class Complex(private val real: Double = 0.0, private val image: Double = 0.0) {
     operator fun div(divider: Double): Complex {
         return this / Complex(divider)
     }
+
+    operator fun unaryPlus(): Complex {
+        return Complex(real, image)
+    }
+
+    operator fun unaryMinus(): Complex {
+        return Complex(-real, -image)
+    }
 }

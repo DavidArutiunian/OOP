@@ -2,6 +2,7 @@ package labs.lab5.complex
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import kotlin.test.assertNotEquals
 
 class ComplexTest {
     companion object {
@@ -198,5 +199,21 @@ class ComplexTest {
         val actual = complex / divider
         assertEquals(expected.re(), actual.re(), EPS)
         assertEquals(expected.im(), actual.im(), EPS)
+    }
+
+    @Test
+    fun `unary plus returns copy`() {
+        val complex = Complex(2.0, 1.0)
+        val copy = +complex
+        assertNotEquals(copy, complex)
+    }
+
+    @Test
+    fun `unary minus returns inverted copy`() {
+        val complex = Complex(2.0, 1.0)
+        val inverted = -complex
+        val expected = Complex(-2.0, -1.0)
+        assertEquals(expected.re(), inverted.re(), EPS)
+        assertEquals(expected.im(), inverted.im(), EPS)
     }
 }

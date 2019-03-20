@@ -249,6 +249,24 @@ class MyStringTest {
         assertThat(expected, `is`(actual.getLength()))
     }
 
+    @Test
+    fun `plus assign has correct data`() {
+        val actual = MyString(getMockString())
+        val other = MyString(getMockString())
+        actual += other
+        val expected = toCharArray(getMockString() + getMockString() + NULL_CHAR)
+        assertThat(expected, `is`(actual.getStringData()))
+    }
+
+    @Test
+    fun `plus assign has correct length`() {
+        val actual = MyString(getMockString())
+        val other = MyString(getMockString())
+        actual += other
+        val expected = toCharArray(getMockString() + getMockString()).size
+        assertThat(expected, `is`(actual.getLength()))
+    }
+
     private fun getMockArray(): Array<Char> {
         return arrayOf('H', 'e', 'l', 'l', 'o', ',', ' ', 'W', 'o', 'r', 'l', 'd')
     }

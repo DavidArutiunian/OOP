@@ -68,6 +68,11 @@ class MyString constructor() {
         return MyString(string + other)
     }
 
+    operator fun plusAssign(other: MyString) {
+        string += other.string
+        length += other.length
+    }
+
     private fun toCharArray(string: String): Array<Char> {
         var array = emptyArray<Char>()
         string.forEach { ch -> array += ch }

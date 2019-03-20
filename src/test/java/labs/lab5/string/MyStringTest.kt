@@ -4,8 +4,7 @@ import labs.lab5.string.MyString.Companion.NULL_CHAR
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.assertThrows
 
 @Suppress("ReplaceCallWithBinaryOperator")
@@ -332,6 +331,34 @@ class MyStringTest {
         assertFalse(other < string)
     }
 
+
+    @Test
+    fun set() {
+        val actual = MyString(getMockString())
+        val expected = toCharArray("Hello! World") + NULL_CHAR
+        actual[5] = '!'
+        assertThat(actual.getStringData(), `is`(expected))
+    }
+
+    @Test
+    fun `set throws if out of bounds`() {
+        val string = MyString(getMockString())
+        assertThrows<ArrayIndexOutOfBoundsException> { string[12] = '!' }
+    }
+
+    @Test
+    fun get() {
+        val string = MyString(getMockString())
+        val expected = 'H'
+        val actual = string[0]
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `get throws out of bounds`() {
+        val string = MyString(getMockString())
+        assertThrows<ArrayIndexOutOfBoundsException> { string[12] }
+    }
 
     private fun getMockArray(): Array<Char> {
         return arrayOf('H', 'e', 'l', 'l', 'o', ',', ' ', 'W', 'o', 'r', 'l', 'd')

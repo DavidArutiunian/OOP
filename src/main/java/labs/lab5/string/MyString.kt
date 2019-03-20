@@ -81,6 +81,14 @@ class MyString constructor() {
         }
     }
 
+    operator fun set(index: Int, value: Char) {
+        string[index] = value
+    }
+
+    operator fun get(index: Int): Char {
+        return string[index]
+    }
+
     operator fun compareTo(other: MyString): Int {
         return string.contentToString().compareTo(other.string.contentToString())
     }

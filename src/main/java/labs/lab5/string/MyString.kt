@@ -15,8 +15,11 @@ class MyString constructor() {
     }
 
     constructor(string: Array<Char>, length: Int) : this() {
+        if (length < 0 || length > string.size) {
+            throw StringIndexOutOfBoundsException("Cannot initialize string with $length length!")
+        }
         this.length = length
-        this.string = string
+        this.string = Array(length) { i -> string[i] }
         this.string += NULL_CHAR
     }
 
@@ -41,7 +44,7 @@ class MyString constructor() {
 
     fun substring(start: Int, length: Int): MyString {
         if (start + length > this.length || start + length < start) {
-            throw StringIndexOutOfBoundsException("Begin $start, end $${start + length}, length ${this.length}")
+            throw StringIndexOutOfBoundsException("Begin $start, end $${start + length}, length ${this.length}!")
         }
         var array = emptyArray<Char>()
         val end = start + length - 1

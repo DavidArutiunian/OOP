@@ -24,6 +24,22 @@ class MyStringTest {
     }
 
     @Test
+    fun `constructor(chars) with null char in middle has correct length`() {
+        val chars = arrayOf('H', 'e', 'l', 'l', 'o', ',', NULL_CHAR, 'W', 'o', 'r', 'l', 'd')
+        val actual = MyString(chars)
+        val expected = chars.size
+        assertThat(expected, `is`(actual.getLength()))
+    }
+
+    @Test
+    fun `constructor(chars) with null char in middle has correct data`() {
+        val chars = arrayOf('H', 'e', 'l', 'l', 'o', ',', NULL_CHAR, 'W', 'o', 'r', 'l', 'd')
+        val actual = MyString(chars)
+        val expected = chars + NULL_CHAR
+        assertThat(expected, `is`(actual.getStringData()))
+    }
+
+    @Test
     fun `constructor(chars, length) has correct data`() {
         val chars = getMockArray()
         val actual = MyString(chars, chars.size)
@@ -37,6 +53,50 @@ class MyStringTest {
         val actual = MyString(chars, chars.size)
         val expected = chars.size
         assertThat(expected, `is`(actual.getLength()))
+    }
+
+    @Test
+    fun `constructor(chars, length) has correct data if length is less then chars`() {
+        val chars = getMockArray()
+        val actual = MyString(chars, chars.size - 7)
+        val expected = arrayOf('H', 'e', 'l', 'l', 'o', NULL_CHAR)
+        assertThat(expected, `is`(actual.getStringData()))
+    }
+
+    @Test
+    fun `constructor(chars, length) has correct length if length is less then chars`() {
+        val chars = getMockArray()
+        val actual = MyString(chars, chars.size - 7)
+        val expected = arrayOf('H', 'e', 'l', 'l', 'o').size
+        assertThat(expected, `is`(actual.getLength()))
+    }
+
+    @Test
+    fun `constructor(chars, length) has correct data if length is 0`() {
+        val chars = getMockArray()
+        val actual = MyString(chars, 0)
+        val expected = arrayOf(NULL_CHAR)
+        assertThat(expected, `is`(actual.getStringData()))
+    }
+
+    @Test
+    fun `constructor(chars, length) has correct length if length is 0`() {
+        val chars = getMockArray()
+        val actual = MyString(chars, 0)
+        val expected = emptyArray<Char>().size
+        assertThat(expected, `is`(actual.getLength()))
+    }
+
+    @Test
+    fun `constructor(chars, length) throws if length is negative`() {
+        val chars = getMockArray()
+        assertThrows<StringIndexOutOfBoundsException> { MyString(chars, -chars.size) }
+    }
+
+    @Test
+    fun `constructor(chars, length) throws if length is more then string has chars`() {
+        val chars = getMockArray()
+        assertThrows<StringIndexOutOfBoundsException> { MyString(chars, 2 * chars.size) }
     }
 
     @Test

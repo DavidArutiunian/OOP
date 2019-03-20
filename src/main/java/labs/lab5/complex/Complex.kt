@@ -9,7 +9,7 @@ import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-fun OutputStream.writeln(complex: Complex) {
+fun OutputStream.write(complex: Complex) {
     val sign = if (complex.im() < 0) '-' else '+'
     val str = "${complex.re()}$sign${abs(complex.im())}i"
     write(str.toByteArray())

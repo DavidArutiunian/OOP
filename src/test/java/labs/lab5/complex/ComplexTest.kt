@@ -337,7 +337,7 @@ class ComplexTest {
     fun `print positive`() {
         val mock = OutputMock()
         val complex = Complex(2.0, 1.0)
-        out.writeln(complex)
+        out.write(complex)
         val expected = "2.0+1.0i"
         assertEquals(expected, mock.read())
         mock.destruct()
@@ -347,7 +347,7 @@ class ComplexTest {
     fun `print negative`() {
         val mock = OutputMock()
         val complex = Complex(-2.0, -1.0)
-        out.writeln(complex)
+        out.write(complex)
         val expected = "-2.0-1.0i"
         assertEquals(expected, mock.read())
         mock.destruct()

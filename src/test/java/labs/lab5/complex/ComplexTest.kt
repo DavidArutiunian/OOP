@@ -1,5 +1,6 @@
 package labs.lab5.complex
 
+import labs.lab5.complex.Complex.Companion.EPS
 import lib.io.OutputMock
 import lib.io.OutputMock.setSystemInput
 import org.junit.Assert.*
@@ -11,10 +12,6 @@ import java.lang.System.out
 
 @Suppress("ReplaceCallWithBinaryOperator")
 class ComplexTest {
-    companion object {
-        const val EPS = 10e-5
-    }
-
     @Test
     fun `get real part`() {
         val complex = Complex(2.0, 1.0)

@@ -8,6 +8,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.assertThrows
+import java.lang.System.`in`
 import java.lang.System.out
 
 @Suppress("ReplaceCallWithBinaryOperator")
@@ -376,7 +377,7 @@ class MyStringTest {
     fun read() {
         setSystemInput(getMockString())
         val actual = MyString()
-        out.read(actual)
+        `in`.read(actual)
         val expected = toCharArray(getMockString()) + NULL_CHAR
         assertThat(actual.getStringData(), `is`(expected))
     }

@@ -1,6 +1,7 @@
 package labs.lab5.string
 
 import java.io.IOException
+import java.io.InputStream
 import java.io.OutputStream
 
 fun OutputStream.write(string: MyString) {
@@ -8,7 +9,7 @@ fun OutputStream.write(string: MyString) {
     write(str.toByteArray())
 }
 
-fun OutputStream.read(string: MyString) {
+fun InputStream.read(string: MyString) {
     val input = readLine() ?: throw IOException("Cannot read from input!")
     string.set(input)
 }

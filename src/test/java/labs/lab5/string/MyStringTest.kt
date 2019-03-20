@@ -195,6 +195,60 @@ class MyStringTest {
         assertThat(expected.getLength(), `is`(actual.getLength()))
     }
 
+    @Test
+    fun `plus has correct data with MyString`() {
+        val string = MyString(getMockString())
+        val other = MyString(getMockString())
+        val actual = string + other
+        val expected = toCharArray(getMockString() + getMockString() + NULL_CHAR)
+        assertThat(expected, `is`(actual.getStringData()))
+    }
+
+    @Test
+    fun `plus has correct length with MyString`() {
+        val string = MyString(getMockString())
+        val other = MyString(getMockString())
+        val actual = string + other
+        val expected = toCharArray(getMockString() + getMockString()).size
+        assertThat(expected, `is`(actual.getLength()))
+    }
+
+    @Test
+    fun `plus has correct data with String`() {
+        val string = MyString(getMockString())
+        val other = getMockString()
+        val actual = string + other
+        val expected = toCharArray(getMockString() + getMockString() + NULL_CHAR)
+        assertThat(expected, `is`(actual.getStringData()))
+    }
+
+    @Test
+    fun `plus has correct length with String`() {
+        val string = MyString(getMockString())
+        val other = getMockString()
+        val actual = string + other
+        val expected = toCharArray(getMockString() + getMockString()).size
+        assertThat(expected, `is`(actual.getLength()))
+    }
+
+    @Test
+    fun `plus has correct data with Chars`() {
+        val string = MyString(getMockString())
+        val other = getMockArray()
+        val actual = string + other
+        val expected = toCharArray(getMockString() + getMockString() + NULL_CHAR)
+        assertThat(expected, `is`(actual.getStringData()))
+    }
+
+    @Test
+    fun `plus has correct length with Chars`() {
+        val string = MyString(getMockString())
+        val other = getMockArray()
+        val actual = string + other
+        val expected = toCharArray(getMockString() + getMockString()).size
+        assertThat(expected, `is`(actual.getLength()))
+    }
+
     private fun getMockArray(): Array<Char> {
         return arrayOf('H', 'e', 'l', 'l', 'o', ',', ' ', 'W', 'o', 'r', 'l', 'd')
     }

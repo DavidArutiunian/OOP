@@ -11,7 +11,6 @@ class MyString constructor() {
     constructor(string: Array<Char>) : this() {
         this.length = string.size
         this.string = string
-        this.string += NULL_CHAR
     }
 
     constructor(string: Array<Char>, length: Int) : this() {
@@ -20,7 +19,6 @@ class MyString constructor() {
         }
         this.length = length
         this.string = Array(length) { i -> string[i] }
-        this.string += NULL_CHAR
     }
 
     constructor(other: MyString) : this() {
@@ -31,7 +29,6 @@ class MyString constructor() {
     constructor(other: String) : this() {
         this.length = other.length
         this.string = Array(this.length) { i -> other[i] }
-        this.string += NULL_CHAR
     }
 
     fun getLength(): Int {
@@ -39,7 +36,7 @@ class MyString constructor() {
     }
 
     fun getStringData(): Array<Char> {
-        return string
+        return string + NULL_CHAR
     }
 
     fun substring(start: Int, length: Int): MyString {
@@ -57,5 +54,23 @@ class MyString constructor() {
     fun clear() {
         length = 0
         string = arrayOf(NULL_CHAR)
+    }
+
+    operator fun plus(other: MyString): MyString {
+        return MyString(string + other.string)
+    }
+
+    operator fun plus(other: String): MyString {
+        return MyString(string + toCharArray(other))
+    }
+
+    operator fun plus(other: Array<Char>): MyString {
+        return MyString(string + other)
+    }
+
+    private fun toCharArray(string: String): Array<Char> {
+        var array = emptyArray<Char>()
+        string.forEach { ch -> array += ch }
+        return array
     }
 }

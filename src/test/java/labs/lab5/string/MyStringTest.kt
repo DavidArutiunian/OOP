@@ -5,7 +5,10 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import org.junit.jupiter.api.assertThrows
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
+@Suppress("ReplaceCallWithBinaryOperator")
 class MyStringTest {
     @Test
     fun `constructor(chars) has correct data`() {
@@ -265,6 +268,46 @@ class MyStringTest {
         actual += other
         val expected = toCharArray(getMockString() + getMockString()).size
         assertThat(expected, `is`(actual.getLength()))
+    }
+
+    @Test
+    fun `equal with MyString`() {
+        val string = MyString(getMockString())
+        val other = MyString(getMockString())
+        assertTrue { string == other }
+        assertFalse { string != other }
+    }
+
+    @Test
+    fun `not equal with MyString`() {
+        val string = MyString(getMockString())
+        val other = MyString(getMockString() + getMockString())
+        assertTrue { string != other }
+        assertFalse { string == other }
+    }
+
+    @Test
+    fun `equal with String`() {
+        val string = MyString(getMockString())
+        val other = getMockString()
+        assertTrue { string.equals(other) }
+        assertFalse { !string.equals(other) }
+    }
+
+    @Test
+    fun `not equal with String`() {
+        val string = MyString(getMockString())
+        val other = getMockString() + getMockString()
+        assertTrue { !string.equals(other) }
+        assertFalse { string.equals(other) }
+    }
+
+    @Test
+    fun `not equal with any other type`() {
+        val string = MyString(getMockString())
+        assertFalse { string.equals(10) }
+        assertFalse { string.equals(null) }
+        assertFalse { string.equals(true) }
     }
 
     private fun getMockArray(): Array<Char> {

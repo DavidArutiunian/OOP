@@ -73,6 +73,14 @@ class MyString constructor() {
         length += other.length
     }
 
+    override operator fun equals(other: Any?): Boolean {
+        return when (other) {
+            is MyString -> string.contentEquals(other.string)
+            is String -> string.contentEquals(toCharArray(other))
+            else -> return false
+        }
+    }
+
     private fun toCharArray(string: String): Array<Char> {
         var array = emptyArray<Char>()
         string.forEach { ch -> array += ch }

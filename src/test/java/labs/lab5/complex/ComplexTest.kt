@@ -407,5 +407,3 @@ class ComplexTest {
         assertThrows<IOException> { `in`.read(complex) }
     }
 }
-
-

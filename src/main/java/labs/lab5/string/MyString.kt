@@ -1,5 +1,19 @@
 package labs.lab5.string
 
+import java.io.IOException
+import java.io.OutputStream
+
+fun OutputStream.write(string: MyString) {
+    val str = string.getStringData().joinToString("")
+    write(str.toByteArray())
+}
+
+fun OutputStream.read(string: MyString) {
+    val input = readLine() ?: throw IOException("Cannot read from input!")
+    string.set(input)
+}
+
+@Suppress("EqualsOrHashCode")
 class MyString constructor() {
     companion object {
         const val NULL_CHAR = '\u0000'
@@ -28,7 +42,12 @@ class MyString constructor() {
 
     constructor(other: String) : this() {
         this.length = other.length
-        this.string = Array(this.length) { i -> other[i] }
+        this.string = toCharArray(other)
+    }
+
+    fun set(string: String) {
+        this.length = string.length
+        this.string = toCharArray(string)
     }
 
     fun getLength(): Int {
@@ -90,7 +109,7 @@ class MyString constructor() {
     }
 
     operator fun compareTo(other: MyString): Int {
-        return string.contentToString().compareTo(other.string.contentToString())
+        return string.joinToString("").compareTo(other.string.joinToString(""))
     }
 
     private fun toCharArray(string: String): Array<Char> {

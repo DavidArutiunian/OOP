@@ -22,7 +22,7 @@ class MyStringTest {
         val chars = getMockArray()
         val actual = MyString(chars)
         val expected = chars.size
-        assertThat(expected, `is`(actual.getLength()))
+        assertEquals(actual.getLength(), expected)
     }
 
     @Test
@@ -30,7 +30,7 @@ class MyStringTest {
         val chars = arrayOf('H', 'e', 'l', 'l', 'o', ',', NULL_CHAR, 'W', 'o', 'r', 'l', 'd')
         val actual = MyString(chars)
         val expected = chars.size
-        assertThat(expected, `is`(actual.getLength()))
+        assertEquals(actual.getLength(), expected)
     }
 
     @Test
@@ -54,7 +54,7 @@ class MyStringTest {
         val chars = getMockArray()
         val actual = MyString(chars, chars.size)
         val expected = chars.size
-        assertThat(expected, `is`(actual.getLength()))
+        assertEquals(actual.getLength(), expected)
     }
 
     @Test
@@ -70,7 +70,7 @@ class MyStringTest {
         val chars = getMockArray()
         val actual = MyString(chars, chars.size - 7)
         val expected = arrayOf('H', 'e', 'l', 'l', 'o').size
-        assertThat(expected, `is`(actual.getLength()))
+        assertEquals(actual.getLength(), expected)
     }
 
     @Test
@@ -86,7 +86,7 @@ class MyStringTest {
         val chars = getMockArray()
         val actual = MyString(chars, 0)
         val expected = emptyArray<Char>().size
-        assertThat(expected, `is`(actual.getLength()))
+        assertEquals(actual.getLength(), expected)
     }
 
     @Test
@@ -116,7 +116,7 @@ class MyStringTest {
         val string = MyString(chars)
         val actual = MyString(string)
         val expected = chars.size
-        assertThat(expected, `is`(actual.getLength()))
+        assertEquals(actual.getLength(), expected)
     }
 
     @Test
@@ -130,7 +130,7 @@ class MyStringTest {
     fun `constructor(string) has correct length`() {
         val actual = MyString(getMockString())
         val expected = getMockString().length
-        assertThat(expected, `is`(actual.getLength()))
+        assertEquals(actual.getLength(), expected)
     }
 
     @Test
@@ -212,7 +212,7 @@ class MyStringTest {
         val other = MyString(getMockString())
         val actual = string + other
         val expected = toCharArray(getMockString() + getMockString()).size
-        assertThat(expected, `is`(actual.getLength()))
+        assertEquals(actual.getLength(), expected)
     }
 
     @Test
@@ -230,7 +230,7 @@ class MyStringTest {
         val other = getMockString()
         val actual = string + other
         val expected = toCharArray(getMockString() + getMockString()).size
-        assertThat(expected, `is`(actual.getLength()))
+        assertEquals(actual.getLength(), expected)
     }
 
     @Test
@@ -248,7 +248,7 @@ class MyStringTest {
         val other = getMockArray()
         val actual = string + other
         val expected = toCharArray(getMockString() + getMockString()).size
-        assertThat(expected, `is`(actual.getLength()))
+        assertEquals(actual.getLength(), expected)
     }
 
     @Test
@@ -266,7 +266,7 @@ class MyStringTest {
         val other = MyString(getMockString())
         actual += other
         val expected = toCharArray(getMockString() + getMockString()).size
-        assertThat(expected, `is`(actual.getLength()))
+        assertEquals(actual.getLength(), expected)
     }
 
     @Test

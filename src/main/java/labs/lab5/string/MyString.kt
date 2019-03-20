@@ -81,6 +81,10 @@ class MyString constructor() {
         }
     }
 
+    operator fun compareTo(other: MyString): Int {
+        return string.contentToString().compareTo(other.string.contentToString())
+    }
+
     private fun toCharArray(string: String): Array<Char> {
         var array = emptyArray<Char>()
         string.forEach { ch -> array += ch }

@@ -4,9 +4,9 @@ import labs.lab5.string.MyString.Companion.NULL_CHAR
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.assertThrows
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 @Suppress("ReplaceCallWithBinaryOperator")
 class MyStringTest {
@@ -274,41 +274,64 @@ class MyStringTest {
     fun `equal with MyString`() {
         val string = MyString(getMockString())
         val other = MyString(getMockString())
-        assertTrue { string == other }
-        assertFalse { string != other }
+        assertTrue(string == other)
+        assertFalse(string != other)
     }
 
     @Test
     fun `not equal with MyString`() {
         val string = MyString(getMockString())
         val other = MyString(getMockString() + getMockString())
-        assertTrue { string != other }
-        assertFalse { string == other }
+        assertTrue(string != other)
+        assertFalse(string == other)
     }
 
     @Test
     fun `equal with String`() {
         val string = MyString(getMockString())
         val other = getMockString()
-        assertTrue { string.equals(other) }
-        assertFalse { !string.equals(other) }
+        assertTrue(string.equals(other))
+        assertFalse(!string.equals(other))
     }
 
     @Test
     fun `not equal with String`() {
         val string = MyString(getMockString())
         val other = getMockString() + getMockString()
-        assertTrue { !string.equals(other) }
-        assertFalse { string.equals(other) }
+        assertTrue(!string.equals(other))
+        assertFalse(string.equals(other))
     }
 
     @Test
     fun `not equal with any other type`() {
         val string = MyString(getMockString())
-        assertFalse { string.equals(10) }
-        assertFalse { string.equals(null) }
-        assertFalse { string.equals(true) }
+        assertFalse(string.equals(10))
+        assertFalse(string.equals(null))
+        assertFalse(string.equals(true))
     }
+
+    @Test
+    fun `less more with MyString`() {
+        val string = MyString("abc")
+        val other = MyString("bbc")
+        assertTrue(string < other)
+        assertTrue(other > string)
+        assertFalse(string > other)
+        assertFalse(other < string)
+    }
+
+    @Test
+    fun `less equal more equal with MyString`() {
+        val string = MyString("abc")
+        val other = MyString("abc")
+        assertTrue(string <= other)
+        assertTrue(other >= string)
+        assertFalse(string < other)
+        assertFalse(string > other)
+        assertFalse(other > string)
+        assertFalse(other < string)
+    }
+
 
     private fun getMockArray(): Array<Char> {
         return arrayOf('H', 'e', 'l', 'l', 'o', ',', ' ', 'W', 'o', 'r', 'l', 'd')

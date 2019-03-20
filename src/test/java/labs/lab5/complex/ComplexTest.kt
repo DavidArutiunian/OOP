@@ -3,8 +3,8 @@ package labs.lab5.complex
 import labs.lab5.complex.Complex.Companion.EPS
 import lib.io.OutputMock
 import lib.io.OutputMock.setSystemInput
-import org.junit.Assert.*
 import org.junit.Test
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.assertThrows
 import java.io.IOException
 import java.lang.System.`in`

@@ -9,6 +9,7 @@ fun OutputStream.write(string: MyString) {
     write(str.toByteArray())
 }
 
+@Suppress("unused")
 fun InputStream.read(string: MyString) {
     val input = readLine() ?: throw IOException("Cannot read from input!")
     string += input

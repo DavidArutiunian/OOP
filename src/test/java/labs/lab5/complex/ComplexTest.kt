@@ -16,112 +16,112 @@ class ComplexTest {
     fun `get real part`() {
         val complex = Complex(2.0, 1.0)
         val expected = 2.0
-        assertEquals(expected, complex.re(), EPS)
+        assertComplexReal(expected, complex)
     }
 
     @Test
     fun `get imaginary part`() {
         val complex = Complex(2.0, 1.0)
         val expected = 1.0
-        assertEquals(expected, complex.im(), EPS)
+        assertComplexImage(expected, complex)
     }
 
     @Test
     fun `get magnitude`() {
         val complex = Complex(2.0, 1.0)
         val expected = 2.23606797749979
-        assertEquals(expected, complex.getMagnitude(), EPS)
+        assertComplexMagnitude(expected, complex)
     }
 
     @Test
     fun `get magnitude if real negative`() {
         val complex = Complex(-2.0, 1.0)
         val expected = 2.23606797749979
-        assertEquals(expected, complex.getMagnitude(), EPS)
+        assertComplexMagnitude(expected, complex)
     }
 
     @Test
     fun `get magnitude if imaginary negative`() {
         val complex = Complex(2.0, -1.0)
         val expected = 2.23606797749979
-        assertEquals(expected, complex.getMagnitude(), EPS)
+        assertComplexMagnitude(expected, complex)
     }
 
     @Test
     fun `get magnitude if both parts negative`() {
         val complex = Complex(-2.0, -1.0)
         val expected = 2.23606797749979
-        assertEquals(expected, complex.getMagnitude(), EPS)
+        assertComplexMagnitude(expected, complex)
     }
 
     @Test
     fun `get magnitude if real is zero`() {
         val complex = Complex(0.0, 1.0)
         val expected = 1.0
-        assertEquals(expected, complex.getMagnitude(), EPS)
+        assertComplexMagnitude(expected, complex)
     }
 
     @Test
     fun `get magnitude if imaginary is zero`() {
         val complex = Complex(2.0, 0.0)
         val expected = 2.0
-        assertEquals(expected, complex.getMagnitude(), EPS)
+        assertComplexMagnitude(expected, complex)
     }
 
     @Test
     fun `get magnitude if both zero`() {
         val complex = Complex(0.0, 0.0)
         val expected = 0.0
-        assertEquals(expected, complex.getMagnitude(), EPS)
+        assertComplexMagnitude(expected, complex)
     }
 
     @Test
     fun `get argument`() {
         val complex = Complex(2.0, 1.0)
         val expected = 0.4636476090008061
-        assertEquals(expected, complex.getArgument(), EPS)
+        assertComplexArgument(expected, complex)
     }
 
     @Test
     fun `get argument if real is negative`() {
         val complex = Complex(-2.0, 1.0)
         val expected = 2.677945044588987
-        assertEquals(expected, complex.getArgument(), EPS)
+        assertComplexArgument(expected, complex)
     }
 
     @Test
     fun `get argument if imaginary is negative`() {
         val complex = Complex(2.0, -1.0)
         val expected = -0.4636476090008061
-        assertEquals(expected, complex.getArgument(), EPS)
+        assertComplexArgument(expected, complex)
     }
 
     @Test
     fun `get argument if both parts are negative`() {
         val complex = Complex(-2.0, -1.0)
         val expected = -2.677945044588987
-        assertEquals(expected, complex.getArgument(), EPS)
+        assertComplexArgument(expected, complex)
     }
 
     @Test
     fun `get argument if real is zero`() {
         val complex = Complex(0.0, 1.0)
         val expected = 1.5707963267948966
-        assertEquals(expected, complex.getArgument(), EPS)
+        assertComplexArgument(expected, complex)
     }
 
     @Test
     fun `get argument if imaginary is zero`() {
         val complex = Complex(2.0, 0.0)
         val expected = 0.0
-        assertEquals(expected, complex.getArgument(), EPS)
+        assertComplexArgument(expected, complex)
     }
 
     @Test
     fun `get argument if both parts are zero`() {
         val complex = Complex(0.0, 0.0)
         val expected = 0.0
-        assertEquals(expected, complex.getArgument(), EPS)
+        assertComplexArgument(expected, complex)
     }
 
     @Test
@@ -130,8 +130,7 @@ class ComplexTest {
         val addend = Complex(1.0, 2.0)
         val expected = Complex(3.0, 3.0)
         val actual = complex + addend
-        assertEquals(expected.re(), actual.re(), EPS)
-        assertEquals(expected.im(), actual.im(), EPS)
+        assertComplexParts(expected, actual)
     }
 
     @Test
@@ -140,8 +139,7 @@ class ComplexTest {
         val addend = 1.0
         val expected = Complex(3.0, 1.0)
         val actual = complex + addend
-        assertEquals(expected.re(), actual.re(), EPS)
-        assertEquals(expected.im(), actual.im(), EPS)
+        assertComplexParts(expected, actual)
     }
 
     @Test
@@ -150,8 +148,7 @@ class ComplexTest {
         val subtrahend = Complex(3.0, 2.0)
         val expected = Complex(-1.0, -1.0)
         val actual = complex - subtrahend
-        assertEquals(expected.re(), actual.re(), EPS)
-        assertEquals(expected.im(), actual.im(), EPS)
+        assertComplexParts(expected, actual)
     }
 
     @Test
@@ -160,8 +157,7 @@ class ComplexTest {
         val subtrahend = 1.0
         val expected = Complex(1.0, 1.0)
         val actual = complex - subtrahend
-        assertEquals(expected.re(), actual.re(), EPS)
-        assertEquals(expected.im(), actual.im(), EPS)
+        assertComplexParts(expected, actual)
     }
 
     @Test
@@ -170,8 +166,7 @@ class ComplexTest {
         val multiplier = Complex(4.0, 5.0)
         val expected = Complex(3.0, 14.0)
         val actual = complex * multiplier
-        assertEquals(expected.re(), actual.re(), EPS)
-        assertEquals(expected.im(), actual.im(), EPS)
+        assertComplexParts(expected, actual)
     }
 
     @Test
@@ -180,8 +175,7 @@ class ComplexTest {
         val factor = 2.0
         val expected = Complex(4.0, 2.0)
         val actual = complex * factor
-        assertEquals(expected.re(), actual.re(), EPS)
-        assertEquals(expected.im(), actual.im(), EPS)
+        assertComplexParts(expected, actual)
     }
 
     @Test
@@ -190,8 +184,7 @@ class ComplexTest {
         val divider = Complex(4.0, 5.0)
         val expected = Complex(0.3170731707317073, -0.14634146341463414)
         val actual = complex / divider
-        assertEquals(expected.re(), actual.re(), EPS)
-        assertEquals(expected.im(), actual.im(), EPS)
+        assertComplexParts(expected, actual)
     }
 
     @Test
@@ -200,8 +193,7 @@ class ComplexTest {
         val divider = 2.0
         val expected = Complex(1.0, 0.5)
         val actual = complex / divider
-        assertEquals(expected.re(), actual.re(), EPS)
-        assertEquals(expected.im(), actual.im(), EPS)
+        assertComplexParts(expected, actual)
     }
 
     @Test
@@ -226,8 +218,7 @@ class ComplexTest {
         val addend = Complex(1.0, 1.0)
         val expected = Complex(3.0, 2.0)
         complex += addend
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -236,8 +227,7 @@ class ComplexTest {
         val addend = 2.0
         val expected = Complex(4.0, 1.0)
         complex += addend
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -246,8 +236,7 @@ class ComplexTest {
         val subtrahend = Complex(1.0, 1.0)
         val expected = Complex(1.0, 0.0)
         complex -= subtrahend
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -256,8 +245,7 @@ class ComplexTest {
         val subtrahend = 2.0
         val expected = Complex(0.0, 1.0)
         complex -= subtrahend
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -266,8 +254,7 @@ class ComplexTest {
         val multiplier = Complex(1.0, 1.0)
         val expected = Complex(1.0, 3.0)
         complex *= multiplier
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -276,8 +263,7 @@ class ComplexTest {
         val factor = 2.0
         val expected = Complex(4.0, 2.0)
         complex *= factor
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -286,8 +272,7 @@ class ComplexTest {
         val divider = Complex(1.0, 1.0)
         val expected = Complex(1.5, -0.5)
         complex /= divider
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -296,8 +281,7 @@ class ComplexTest {
         val divider = 2.0
         val expected = Complex(1.0, 0.5)
         complex /= divider
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -359,8 +343,7 @@ class ComplexTest {
         val complex = Complex()
         `in`.read(complex)
         val expected = Complex(4.0, 2.0)
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -369,8 +352,7 @@ class ComplexTest {
         val complex = Complex()
         `in`.read(complex)
         val expected = Complex(4.2, 2.8)
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -379,8 +361,7 @@ class ComplexTest {
         val complex = Complex()
         `in`.read(complex)
         val expected = Complex(-4.0, -2.0)
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -389,8 +370,7 @@ class ComplexTest {
         val complex = Complex()
         `in`.read(complex)
         val expected = Complex(-4.2, -2.8)
-        assertEquals(expected.re(), complex.re(), EPS)
-        assertEquals(expected.im(), complex.im(), EPS)
+        assertComplexParts(expected, complex)
     }
 
     @Test
@@ -413,8 +393,7 @@ class ComplexTest {
         val complex = Complex(2.0, 1.0)
         val expected = Complex(4.0, 1.0)
         val actual = double + complex
-        assertEquals(expected.re(), actual.re(), EPS)
-        assertEquals(expected.im(), actual.im(), EPS)
+        assertComplexParts(expected, actual)
     }
 
     @Test
@@ -423,8 +402,7 @@ class ComplexTest {
         val complex = Complex(2.0, 1.0)
         val expected = Complex(0.0, 1.0)
         val actual = double - complex
-        assertEquals(expected.re(), actual.re(), EPS)
-        assertEquals(expected.im(), actual.im(), EPS)
+        assertComplexParts(expected, actual)
     }
 
     @Test
@@ -433,8 +411,7 @@ class ComplexTest {
         val complex = Complex(2.0, 1.0)
         val expected = Complex(4.0, 1.0)
         val actual = double * complex
-        assertEquals(expected.re(), actual.re(), EPS)
-        assertEquals(expected.im(), actual.im(), EPS)
+        assertComplexParts(expected, actual)
     }
 
     @Test
@@ -443,7 +420,27 @@ class ComplexTest {
         val complex = Complex(2.0, 1.0)
         val expected = Complex(1.0, 1.0)
         val actual = double / complex
+        assertComplexParts(expected, actual)
+    }
+
+    private fun assertComplexParts(expected: Complex, actual: Complex) {
         assertEquals(expected.re(), actual.re(), EPS)
         assertEquals(expected.im(), actual.im(), EPS)
+    }
+
+    private fun assertComplexMagnitude(expected: Double, actual: Complex) {
+        assertEquals(expected, actual.getMagnitude(), EPS)
+    }
+
+    private fun assertComplexArgument(expected: Double, actual: Complex) {
+        assertEquals(expected, actual.getArgument(), EPS)
+    }
+
+    private fun assertComplexReal(expected: Double, actual: Complex) {
+        assertEquals(expected, actual.re(), EPS)
+    }
+
+    private fun assertComplexImage(expected: Double, actual: Complex) {
+        assertEquals(expected, actual.im(), EPS)
     }
 }

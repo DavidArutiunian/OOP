@@ -11,49 +11,49 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class URLParserTest {
     @Test
-    public void testParserThrows1() {
+    public void parseThrowsIfInputIsIncorrect() {
         final String input = "habr";
         final var parser = new URLParser(input);
         assertThrows(MalformedURLException.class, parser::parse);
     }
 
     @Test
-    public void testParserThrows2() {
+    public void parseThrowsOnUnknownProtocol() {
         final String input = "ws://unknown.protocol.com";
         final var parser = new URLParser(input);
         assertThrows(IOException.class, parser::parse);
     }
 
     @Test
-    public void testParserThrows3() {
+    public void parseThrowsOnIncorrectUrl() {
         final String input = "http://";
         final var parser = new URLParser(input);
         assertThrows(URISyntaxException.class, parser::parse);
     }
 
     @Test
-    public void testParserThrows4() {
+    public void parseThrowsIfNoProtocol() {
         final String input = "habr.com";
         final var parser = new URLParser(input);
         assertThrows(IOException.class, parser::parse);
     }
 
     @Test
-    public void testParserThrows5() {
+    public void parseThrowsIfPortIsMore65535() {
         final String input = "http://habr.com:70000";
         final var parser = new URLParser(input);
         assertThrows(IOException.class, parser::parse);
     }
 
     @Test
-    public void testParserThrows6() {
+    public void parseThrowsIfPortIsNegative() {
         final String input = "http://habr.com:-2/test.pdf";
         final var parser = new URLParser(input);
         assertThrows(MalformedURLException.class, parser::parse);
     }
 
     @Test
-    public void testParserWorks1() throws IOException, URISyntaxException {
+    public void parseWorksCorrectlyMediumSize() throws IOException, URISyntaxException {
         final String input = "http://www.mysite.com/docs/document1.html?page=30&lang=en#title";
         final var parser = new URLParser(input);
         final String expected = "http://www.mysite.com/docs/document1.html?page=30&lang=en#title\n" +
@@ -64,7 +64,7 @@ public class URLParserTest {
     }
 
     @Test
-    public void testParserWorks2() throws IOException, URISyntaxException {
+    public void parseWorksCorrectlyLongSize() throws IOException, URISyntaxException {
         final String input = "https://raw.githubusercontent.com/IntersectAustralia/acdata/master/sample_files/Panalytical.XRDML";
         final var parser = new URLParser(input);
         final String expected = "https://raw.githubusercontent.com/IntersectAustralia/acdata/master/sample_files/Panalytical.XRDML\n" +
@@ -75,7 +75,7 @@ public class URLParserTest {
     }
 
     @Test
-    public void testParserWorks3() throws IOException, URISyntaxException {
+    public void parseWorksCorrectlyShortSize() throws IOException, URISyntaxException {
         final String input = "https://habr.com";
         final var parser = new URLParser(input);
         final String expected = "https://habr.com\n" +
@@ -85,7 +85,7 @@ public class URLParserTest {
     }
 
     @Test
-    public void testParserWorks4() throws IOException, URISyntaxException {
+    public void parseWorksCorrectlyWithQueries() throws IOException, URISyntaxException {
         final String input = "ftp://www.mysite.com/docs/document1.html?page=30&lang=en#title";
         final var parser = new URLParser(input);
         final String expected = "ftp://www.mysite.com/docs/document1.html?page=30&lang=en#title\n" +
@@ -96,7 +96,7 @@ public class URLParserTest {
     }
 
     @Test
-    public void testParserWorks5() throws IOException, URISyntaxException {
+    public void parseWorksCorrectlyWithQueriesAndCustomPort() throws IOException, URISyntaxException {
         final String input = "ftp://www.mysite.com:1337/docs/document1.html?page=30&lang=en#title";
         final var parser = new URLParser(input);
         final String expected = "ftp://www.mysite.com:1337/docs/document1.html?page=30&lang=en#title\n" +

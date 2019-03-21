@@ -33,22 +33,22 @@ class MyString constructor() {
             throw StringIndexOutOfBoundsException("Cannot initialize string with $length length!")
         }
         this.length = length
-        this.string = Array(length) { i -> string[i] }
+        this.string = copyCharArray(string, length)
     }
 
     constructor(other: MyString) : this() {
         this.length = other.length
-        this.string = other.string
+        this.string = copyCharArray(other.string, other.length)
     }
 
     constructor(other: String) : this() {
         this.length = other.length
-        this.string = toCharArray(other)
+        this.string = stringToCharArray(other)
     }
 
     fun set(string: String) {
         this.length = string.length
-        this.string = toCharArray(string)
+        this.string = stringToCharArray(string)
     }
 
     fun getLength(): Int {
@@ -81,7 +81,7 @@ class MyString constructor() {
     }
 
     operator fun plus(other: String): MyString {
-        return MyString(string + toCharArray(other))
+        return MyString(string + stringToCharArray(other))
     }
 
     operator fun plus(other: Array<Char>): MyString {
@@ -96,7 +96,7 @@ class MyString constructor() {
     override operator fun equals(other: Any?): Boolean {
         return when (other) {
             is MyString -> string.contentEquals(other.string)
-            is String -> string.contentEquals(toCharArray(other))
+            is String -> string.contentEquals(stringToCharArray(other))
             else -> return false
         }
     }
@@ -113,9 +113,13 @@ class MyString constructor() {
         return string.joinToString("").compareTo(other.string.joinToString(""))
     }
 
-    private fun toCharArray(string: String): Array<Char> {
+    private fun stringToCharArray(string: String): Array<Char> {
         var array = emptyArray<Char>()
         string.forEach { ch -> array += ch }
         return array
+    }
+
+    private fun copyCharArray(chars: Array<Char>, length: Int): Array<Char> {
+        return Array(length) { i -> chars[i] }
     }
 }

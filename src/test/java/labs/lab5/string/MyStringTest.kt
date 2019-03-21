@@ -382,6 +382,15 @@ class MyStringTest {
         assertThat(actual.getStringData(), `is`(expected))
     }
 
+    @Test
+    fun `mutation of one MyString doesnt mutate other MyString`() {
+        val string = MyString(getMockString())
+        val other = MyString(string)
+        other += string
+        assertThat(string.getStringData(), `is`(getMockArray() + NULL_CHAR))
+        assertThat(other.getStringData(), `is`(getMockArray() + getMockArray() + NULL_CHAR))
+    }
+
     private fun getMockArray(): Array<Char> {
         return arrayOf('H', 'e', 'l', 'l', 'o', ',', ' ', 'W', 'o', 'r', 'l', 'd')
     }

@@ -51,7 +51,7 @@ fun InputStream.read(complex: Complex) {
 
     val real = NumberUtils.toDouble(re)
     val image = NumberUtils.toDouble(im)
-    complex.set(if (unary == '-') -real else real, if (sign == '-') -image else image)
+    complex += Complex(if (unary == '-') -real else real, if (sign == '-') -image else image)
 }
 
 @Suppress("EqualsOrHashCode")
@@ -66,11 +66,6 @@ class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
 
     fun im(): Double {
         return image
-    }
-
-    fun set(real: Double = 0.0, image: Double = 0.0) {
-        this.real = real
-        this.image = image
     }
 
     fun getMagnitude(): Double {

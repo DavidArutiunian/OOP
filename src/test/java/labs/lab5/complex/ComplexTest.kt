@@ -29,28 +29,28 @@ class ComplexTest {
     @Test
     fun `get magnitude`() {
         val complex = Complex(2.0, 1.0)
-        val expected = 2.23606
+        val expected = 2.23606797749979
         assertEquals(expected, complex.getMagnitude(), EPS)
     }
 
     @Test
     fun `get magnitude if real negative`() {
         val complex = Complex(-2.0, 1.0)
-        val expected = 2.23606
+        val expected = 2.23606797749979
         assertEquals(expected, complex.getMagnitude(), EPS)
     }
 
     @Test
     fun `get magnitude if imaginary negative`() {
         val complex = Complex(2.0, -1.0)
-        val expected = 2.23606
+        val expected = 2.23606797749979
         assertEquals(expected, complex.getMagnitude(), EPS)
     }
 
     @Test
     fun `get magnitude if both parts negative`() {
         val complex = Complex(-2.0, -1.0)
-        val expected = 2.23606
+        val expected = 2.23606797749979
         assertEquals(expected, complex.getMagnitude(), EPS)
     }
 
@@ -78,35 +78,35 @@ class ComplexTest {
     @Test
     fun `get argument`() {
         val complex = Complex(2.0, 1.0)
-        val expected = 0.46364
+        val expected = 0.4636476090008061
         assertEquals(expected, complex.getArgument(), EPS)
     }
 
     @Test
     fun `get argument if real is negative`() {
         val complex = Complex(-2.0, 1.0)
-        val expected = 2.67794
+        val expected = 2.677945044588987
         assertEquals(expected, complex.getArgument(), EPS)
     }
 
     @Test
     fun `get argument if imaginary is negative`() {
         val complex = Complex(2.0, -1.0)
-        val expected = -0.46364
+        val expected = -0.4636476090008061
         assertEquals(expected, complex.getArgument(), EPS)
     }
 
     @Test
     fun `get argument if both parts are negative`() {
         val complex = Complex(-2.0, -1.0)
-        val expected = -2.67794
+        val expected = -2.677945044588987
         assertEquals(expected, complex.getArgument(), EPS)
     }
 
     @Test
     fun `get argument if real is zero`() {
         val complex = Complex(0.0, 1.0)
-        val expected = 1.57079
+        val expected = 1.5707963267948966
         assertEquals(expected, complex.getArgument(), EPS)
     }
 
@@ -188,7 +188,7 @@ class ComplexTest {
     fun `divide complex by complex`() {
         val complex = Complex(2.0, 1.0)
         val divider = Complex(4.0, 5.0)
-        val expected = Complex(0.31707, -0.14634)
+        val expected = Complex(0.3170731707317073, -0.14634146341463414)
         val actual = complex / divider
         assertEquals(expected.re(), actual.re(), EPS)
         assertEquals(expected.im(), actual.im(), EPS)

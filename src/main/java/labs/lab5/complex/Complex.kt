@@ -57,7 +57,7 @@ fun InputStream.read(complex: Complex) {
 @Suppress("EqualsOrHashCode")
 class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
     companion object {
-        const val EPS = 10e-5
+        const val EPS = 10e-15
     }
 
     fun re(): Double {

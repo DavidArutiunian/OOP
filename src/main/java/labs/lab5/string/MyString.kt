@@ -11,7 +11,7 @@ fun OutputStream.write(string: MyString) {
 
 fun InputStream.read(string: MyString) {
     val input = readLine() ?: throw IOException("Cannot read from input!")
-    string.set(input)
+    string += input
 }
 
 @Suppress("EqualsOrHashCode")
@@ -21,7 +21,7 @@ class MyString constructor() {
     }
 
     private var length: Int = 0
-    private var string: Array<Char> = arrayOf(NULL_CHAR)
+    private var string: Array<Char> = emptyArray()
 
     constructor(string: Array<Char>) : this() {
         this.length = string.size
@@ -46,11 +46,6 @@ class MyString constructor() {
         this.string = stringToCharArray(other)
     }
 
-    fun set(string: String) {
-        this.length = string.length
-        this.string = stringToCharArray(string)
-    }
-
     fun getLength(): Int {
         return length
     }
@@ -73,7 +68,7 @@ class MyString constructor() {
 
     fun clear() {
         length = 0
-        string = arrayOf(NULL_CHAR)
+        string = emptyArray()
     }
 
     operator fun plus(other: MyString): MyString {
@@ -90,6 +85,11 @@ class MyString constructor() {
 
     operator fun plusAssign(other: MyString) {
         string += other.string
+        length += other.length
+    }
+
+    operator fun plusAssign(other: String) {
+        string += stringToCharArray(other)
         length += other.length
     }
 

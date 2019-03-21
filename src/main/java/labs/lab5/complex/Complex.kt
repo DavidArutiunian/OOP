@@ -9,51 +9,6 @@ import kotlin.math.atan2
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-fun OutputStream.write(complex: Complex) {
-    val sign = if (complex.im() < 0) '-' else '+'
-    val str = "${complex.re()}$sign${abs(complex.im())}i"
-    write(str.toByteArray())
-}
-
-fun InputStream.read(complex: Complex) {
-    val plus = '+'.toInt()
-    val minus = '-'.toInt()
-    val suffix = 'i'.toInt()
-
-    var input = read()
-    val unary =
-        if (input == minus) {
-            input = read()
-            '-'
-        } else '+'
-
-    var re = ""
-    while (input != plus && input != minus) {
-        re += input.toChar()
-        input = read()
-    }
-
-    val sign = input.toChar()
-    input = read()
-
-    var im = ""
-    while (input != suffix && input != -1) {
-        im += input.toChar()
-        input = read()
-    }
-
-    if (!NumberUtils.isCreatable(re)) {
-        throw IOException("Something is wrong with real part!")
-    }
-    if (!NumberUtils.isCreatable(im)) {
-        throw IOException("Something is wrong with imaginary part!")
-    }
-
-    val real = NumberUtils.toDouble(re)
-    val image = NumberUtils.toDouble(im)
-    complex += Complex(if (unary == '-') -real else real, if (sign == '-') -image else image)
-}
-
 @Suppress("EqualsOrHashCode")
 class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
     companion object {
@@ -195,4 +150,49 @@ operator fun Double.times(other: Complex): Complex {
 
 operator fun Double.div(other: Complex): Complex {
     return Complex(this / other.re(), other.im())
+}
+
+fun OutputStream.write(complex: Complex) {
+    val sign = if (complex.im() < 0) '-' else '+'
+    val str = "${complex.re()}$sign${abs(complex.im())}i"
+    write(str.toByteArray())
+}
+
+fun InputStream.read(complex: Complex) {
+    val plus = '+'.toInt()
+    val minus = '-'.toInt()
+    val suffix = 'i'.toInt()
+
+    var input = read()
+    val unary =
+        if (input == minus) {
+            input = read()
+            '-'
+        } else '+'
+
+    var re = ""
+    while (input != plus && input != minus) {
+        re += input.toChar()
+        input = read()
+    }
+
+    val sign = input.toChar()
+    input = read()
+
+    var im = ""
+    while (input != suffix && input != -1) {
+        im += input.toChar()
+        input = read()
+    }
+
+    if (!NumberUtils.isCreatable(re)) {
+        throw IOException("Something is wrong with real part!")
+    }
+    if (!NumberUtils.isCreatable(im)) {
+        throw IOException("Something is wrong with imaginary part!")
+    }
+
+    val real = NumberUtils.toDouble(re)
+    val image = NumberUtils.toDouble(im)
+    complex += Complex(if (unary == '-') -real else real, if (sign == '-') -image else image)
 }

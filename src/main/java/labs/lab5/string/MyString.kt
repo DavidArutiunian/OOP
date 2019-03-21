@@ -4,17 +4,6 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
-fun OutputStream.write(string: MyString) {
-    val str = string.getStringData().joinToString("")
-    write(str.toByteArray())
-}
-
-@Suppress("unused")
-fun InputStream.read(string: MyString) {
-    val input = readLine() ?: throw IOException("Cannot read from input!")
-    string += input
-}
-
 @Suppress("EqualsOrHashCode")
 class MyString constructor() {
     companion object {
@@ -123,4 +112,15 @@ class MyString constructor() {
     private fun copyCharArray(chars: Array<Char>, length: Int): Array<Char> {
         return Array(length) { i -> chars[i] }
     }
+}
+
+fun OutputStream.write(string: MyString) {
+    val str = string.getStringData().joinToString("")
+    write(str.toByteArray())
+}
+
+@Suppress("unused")
+fun InputStream.read(string: MyString) {
+    val input = readLine() ?: throw IOException("Cannot read from input!")
+    string += input
 }

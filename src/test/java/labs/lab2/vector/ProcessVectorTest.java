@@ -13,35 +13,35 @@ public class ProcessVectorTest {
     private static float DELTA = 0.005f;
 
     @Test
-    public void testGetAverage1() {
+    public void averageOfFloats() {
         final List<Float> input = Arrays.asList(6.7f, 3.8f, 68.4f, 127.f, -1.28f);
         final var pv = new ProcessVector(input);
         assertEquals(40.924f, pv.getAverage(), DELTA);
     }
 
     @Test
-    public void testGetAverage2() {
+    public void averageOfZerosIsZero() {
         final List<Float> input = Arrays.asList(0.f, 0.f, 0.f, 0.f, 0.f);
         final var pv = new ProcessVector(input);
         assertEquals(0.f, pv.getAverage(), DELTA);
     }
 
     @Test
-    public void testGetAverage3() {
+    public void averageOfMaxValuesIsInfinity() {
         final List<Float> input = Arrays.asList(Float.MAX_VALUE, Float.MAX_VALUE);
         final var pv = new ProcessVector(input);
         assertEquals(Float.POSITIVE_INFINITY, pv.getAverage(), DELTA);
     }
 
     @Test
-    public void testGetAverage4() {
+    public void averageOfMaxAndMinValues() {
         final List<Float> input = Arrays.asList(Float.MAX_VALUE, Float.MIN_VALUE);
         final var pv = new ProcessVector(input);
         assertEquals(1.7014117e38f, pv.getAverage(), DELTA);
     }
 
     @Test
-    public void testProcessingWorks1() {
+    public void vectorProcessingWorksCorrectly() {
         final List<Float> input = Arrays.asList(6.7f, 3.8f, 68.4f, 127.f, -1.28f);
         final var pv = new ProcessVector(input);
         final List<Float> actual = pv.call();
@@ -49,7 +49,7 @@ public class ProcessVectorTest {
     }
 
     @Test
-    public void testProcessingWorks2() {
+    public void averageOfVectorProcessingWorksCorrectly() {
         final List<Float> input = Arrays.asList(6.7f, 3.8f, 68.4f, 127.f, -1.28f);
         final var pv = new ProcessVector(input);
         final List<Float> actual = pv.call(pv.getAverage());
@@ -58,7 +58,7 @@ public class ProcessVectorTest {
     }
 
     @Test
-    public void testProcessingWorks3() {
+    public void averageOfVectorWithMaxValueWorksCorrectly() {
         final List<Float> input = Arrays.asList(6.7f, 3.8f, 68.4f, 127.f, -1.28f);
         final var pv = new ProcessVector(input);
         final List<Float> actual = pv.call(Float.MAX_VALUE);
@@ -67,7 +67,7 @@ public class ProcessVectorTest {
     }
 
     @Test
-    public void testProcessingWorks4() {
+    public void averageOfVectorWithMinValueWorksCorrectly() {
         final List<Float> input = Arrays.asList(6.7f, 3.8f, 68.4f, 127.f, -1.28f);
         final var pv = new ProcessVector(input);
         final List<Float> actual = pv.call(Float.MIN_VALUE);

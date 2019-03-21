@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class InputOutputTest {
     @Test
-    public void testReadWorks() throws IOException {
+    public void readsIfInputIsCorrect() throws IOException {
         setSystemInput("1.1 2.2 3.3");
         final String[] arguments = readSystemInput();
         assertEquals("1.1", arguments[0]);
@@ -23,14 +23,14 @@ public class InputOutputTest {
     }
 
     @Test
-    public void testReadThrowsIOException() {
+    public void throwsIfInputIsOnlyNewline() {
         setSystemInput("\n");
         final Scanner in = new Scanner(System.in);
         assertThrows(IOException.class, () -> InputOutput.read(in));
     }
 
     @Test
-    public void testParseWorks() throws IOException {
+    public void parsesIfInputIsCorrect() throws IOException {
         setSystemInput("1.1 2.2 3.3");
         final String[] arguments = readSystemInput();
         final List<Float> input = InputOutput.parse(arguments);
@@ -40,7 +40,7 @@ public class InputOutputTest {
     }
 
     @Test
-    public void testParseSorts() throws IOException {
+    public void sortsIfInputIsCorrect() throws IOException {
         setSystemInput("1.1 3.3 2.2");
         final String[] arguments = readSystemInput();
         final List<Float> input = InputOutput.parse(arguments);
@@ -50,14 +50,14 @@ public class InputOutputTest {
     }
 
     @Test
-    public void testParseThrowsIOException() throws IOException {
+    public void throwsIfNumberHasChar() throws IOException {
         setSystemInput("1.1 2.2a 3.3");
         final String[] arguments = readSystemInput();
         assertThrows(IOException.class, () -> InputOutput.parse(arguments));
     }
 
     @Test
-    public void testPrintWorks() throws IOException {
+    public void printsWithThreeDecimals() throws IOException {
         final var mock = new OutputMock();
         setSystemInput("1.1 2.2 3.3");
         final String[] arguments = readSystemInput();

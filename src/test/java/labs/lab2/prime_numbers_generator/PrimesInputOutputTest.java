@@ -9,25 +9,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PrimesInputOutputTest {
     @Test
-    public void testValidateUpperBoundThrowsMax() {
+    public void validateUpperBoundThrowsMax() {
         final int upperBound = 100_000_001;
         assertThrows(IOException.class, () -> InputOutput.validate(upperBound));
     }
 
     @Test
-    public void testValidateUpperBoundThrowsMin() {
+    public void validateUpperBoundThrowsMin() {
         final int upperBound = -1;
         assertThrows(IOException.class, () -> InputOutput.validate(upperBound));
     }
 
     @Test
-    public void testValidateUpperBoundWorks() throws IOException {
+    public void validateUpperBoundWorks() throws IOException {
         final int upperBound = 99_999_999;
         InputOutput.validate(upperBound);
     }
 
     @Test
-    public void testParseWorks1() throws IOException {
+    public void parseReturns100_000_000On100000000Input() throws IOException {
         final String input = "100000000";
         final int actual = InputOutput.parse(input);
         final int expected = 100_000_000;
@@ -35,7 +35,7 @@ public class PrimesInputOutputTest {
     }
 
     @Test
-    public void testParseWorks2() throws IOException {
+    public void parseReturnsMinus100_000_000OnMinus100000000Input() throws IOException {
         final String input = "-100000000";
         final int actual = InputOutput.parse(input);
         final int expected = -100_000_000;
@@ -43,7 +43,7 @@ public class PrimesInputOutputTest {
     }
 
     @Test
-    public void testParseThrows() {
+    public void parseThrowsOnIncorrectInput() {
         final String input = "100_000_000";
         assertThrows(IOException.class, () -> InputOutput.parse(input));
     }

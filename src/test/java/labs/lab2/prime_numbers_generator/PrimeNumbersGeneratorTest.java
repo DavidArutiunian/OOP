@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PrimeNumbersGeneratorTest {
     @Test
-    public void testGeneratorWorks1() {
+    public void get5_761_455With100_000_000UpperBound() {
         final int upperBound = 100_000_000;
         final PrimeNumbersGenerator primeNumbersGenerator = new PrimeNumbersGenerator(upperBound);
         final int[] numbers = primeNumbersGenerator.sieve().primes();
@@ -16,7 +16,7 @@ public class PrimeNumbersGeneratorTest {
     }
 
     @Test
-    public void testGeneratorWorks2() {
+    public void get5_761_455With99_999_999UpperBound() {
         final int upperBound = 99_999_999;
         final PrimeNumbersGenerator primeNumbersGenerator = new PrimeNumbersGenerator(upperBound);
         final int[] numbers = primeNumbersGenerator.sieve().primes();
@@ -25,7 +25,7 @@ public class PrimeNumbersGeneratorTest {
     }
 
     @Test
-    public void testGeneratorWorks3() {
+    public void get25With100UpperBound() {
         final int upperBound = 100;
         final PrimeNumbersGenerator primeNumbersGenerator = new PrimeNumbersGenerator(upperBound);
         final int[] numbers = primeNumbersGenerator.sieve().primes();
@@ -34,7 +34,7 @@ public class PrimeNumbersGeneratorTest {
     }
 
     @Test
-    public void testGeneratorWorks4() {
+    public void get1With2UpperBound() {
         final int upperBound = 2;
         final PrimeNumbersGenerator primeNumbersGenerator = new PrimeNumbersGenerator(upperBound);
         final int[] numbers = primeNumbersGenerator.sieve().primes();
@@ -43,19 +43,19 @@ public class PrimeNumbersGeneratorTest {
     }
 
     @Test
-    public void testGeneratorThrows1() {
+    public void throwsIfUpperBoundIsZero() {
         final int upperBound = 0;
         assertThrows(IllegalArgumentException.class, () -> new PrimeNumbersGenerator(upperBound));
     }
 
     @Test
-    public void testGeneratorThrows2() {
+    public void throwsIfUpperBoundIsOne() {
         final int upperBound = 1;
         assertThrows(IllegalArgumentException.class, () -> new PrimeNumbersGenerator(upperBound));
     }
 
     @Test
-    public void testGeneratorThrows3() {
+    public void throwsIfUpperBoundIsNegative() {
         final int upperBound = -1;
         assertThrows(IllegalArgumentException.class, () -> new PrimeNumbersGenerator(upperBound));
     }

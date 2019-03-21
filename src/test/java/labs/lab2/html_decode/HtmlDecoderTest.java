@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 public class HtmlDecoderTest {
     @Test
-    public void testDecodeWorks1() {
+    public void decodesForSampleLine() {
         final String input = "Cat &lt;says&gt; &quot;Meow&quot;. M&amp;M&apos;s";
         final String expected = "Cat <says> \"Meow\". M&M's";
         final var htmlEntityMap = new HtmlEntityMapImpl();
@@ -16,7 +16,7 @@ public class HtmlDecoderTest {
     }
 
     @Test
-    public void testDecodeWorks2() {
+    public void decodesForComplexLine() {
         final String input = "&quot;&quot;&quot;Hello, &apos;World&apos;!&quot;&quot;&quot;&quot;";
         final String expected = "\"\"\"Hello, 'World'!\"\"\"\"";
         final var htmlEntityMap = new HtmlEntityMapImpl();
@@ -26,7 +26,7 @@ public class HtmlDecoderTest {
     }
 
     @Test
-    public void testDecodeWork3() {
+    public void decodesForBooleanLine() {
         final String input = "&apos;2&apos; &lt;&gt; &quot;4&quot; &amp;&amp; 0";
         final String expected = "'2' <> \"4\" && 0";
         final var htmlEntityMap = new HtmlEntityMapImpl();
@@ -36,7 +36,7 @@ public class HtmlDecoderTest {
     }
 
     @Test
-    public void testDecodeWork4() {
+    public void decodesForOnlySymbols() {
         final String input = "&quot;&apos;&lt;&gt;&amp;&lt;&gt;&apos;&quot;";
         final String expected = "\"'<>&<>'\"";
         final var htmlEntityMap = new HtmlEntityMapImpl();

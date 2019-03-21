@@ -8,35 +8,35 @@ public class HtmlEntityMapImplTest {
     private final HtmlEntityMap htmlEntityMap = new HtmlEntityMapImpl();
 
     @Test
-    public void testGetDecodedQuot() {
+    public void getDecodedQuot() {
         final String expected = "\"";
         final String actual = htmlEntityMap.getDecodedQuot();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testGetDecodedApos() {
+    public void getDecodedApos() {
         final String expected = "\'";
         final String actual = htmlEntityMap.getDecodedApos();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testGetDecodedLt() {
+    public void getDecodedLt() {
         final String expected = "<";
         final String actual = htmlEntityMap.getDecodedLt();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testGetDecodedGt() {
+    public void getDecodedGt() {
         final String expected = ">";
         final String actual = htmlEntityMap.getDecodedGt();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testGetDecodedAmp() {
+    public void getDecodedAmp() {
         final String expected = "&";
         final String actual = htmlEntityMap.getDecodedAmp();
         assertEquals(expected, actual);

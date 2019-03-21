@@ -185,3 +185,19 @@ class Complex(private var real: Double = 0.0, private var image: Double = 0.0) {
         return abs(left - right) < EPS
     }
 }
+
+operator fun Double.plus(other: Complex): Complex {
+    return Complex(this + other.re(), other.im())
+}
+
+operator fun Double.minus(other: Complex): Complex {
+    return Complex(this - other.re(), other.im())
+}
+
+operator fun Double.times(other: Complex): Complex {
+    return Complex(this * other.re(), other.im())
+}
+
+operator fun Double.div(other: Complex): Complex {
+    return Complex(this / other.re(), other.im())
+}

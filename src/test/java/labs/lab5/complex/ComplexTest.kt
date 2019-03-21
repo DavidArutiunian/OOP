@@ -406,4 +406,44 @@ class ComplexTest {
         val complex = Complex()
         assertThrows<IOException> { `in`.read(complex) }
     }
+
+    @Test
+    fun `add complex to double`() {
+        val double = 2.0
+        val complex = Complex(2.0, 1.0)
+        val expected = Complex(4.0, 1.0)
+        val actual = double + complex
+        assertEquals(expected.re(), actual.re(), EPS)
+        assertEquals(expected.im(), actual.im(), EPS)
+    }
+
+    @Test
+    fun `subtract complex from double`() {
+        val double = 2.0
+        val complex = Complex(2.0, 1.0)
+        val expected = Complex(0.0, 1.0)
+        val actual = double - complex
+        assertEquals(expected.re(), actual.re(), EPS)
+        assertEquals(expected.im(), actual.im(), EPS)
+    }
+
+    @Test
+    fun `multiply double by complex`() {
+        val double = 2.0
+        val complex = Complex(2.0, 1.0)
+        val expected = Complex(4.0, 1.0)
+        val actual = double * complex
+        assertEquals(expected.re(), actual.re(), EPS)
+        assertEquals(expected.im(), actual.im(), EPS)
+    }
+
+    @Test
+    fun `divide double by complex`() {
+        val double = 2.0
+        val complex = Complex(2.0, 1.0)
+        val expected = Complex(1.0, 1.0)
+        val actual = double / complex
+        assertEquals(expected.re(), actual.re(), EPS)
+        assertEquals(expected.im(), actual.im(), EPS)
+    }
 }

@@ -1,4 +1,4 @@
-package labs.lab6.equation_root;
+package labs.lab6.equation_roots;
 
 class CannotParseValueException extends Exception {
     CannotParseValueException(String message) {

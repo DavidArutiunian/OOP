@@ -309,6 +309,24 @@
                             <goal>single</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>make-assembly-equation_roots</id>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>labs.lab6.equation_roots.Main</mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <finalName>equation_roots</finalName>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>

@@ -1,4 +1,4 @@
-package labs.lab6.equation_root;
+package labs.lab6.equation_roots;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

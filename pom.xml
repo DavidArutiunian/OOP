@@ -20,6 +20,8 @@
         <maven.surefire.plugin.version>2.21.0</maven.surefire.plugin.version>
         <maven.jar.plugin.version>3.1.1</maven.jar.plugin.version>
         <maven.assemply.plugin.version>3.1.1</maven.assemply.plugin.version>
+        <json.version>20180813</json.version>
+        <okhttp.version>3.14.0</okhttp.version>
     </properties>
     <groupId>com.DavidArutiunian.OOP</groupId>
     <artifactId>OOP</artifactId>
@@ -69,6 +71,16 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json.version}</version>
         </dependency>
     </dependencies>
     <build>

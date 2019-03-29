@@ -64,4 +64,59 @@ public class StringListTest {
         assertEquals(2, list.size());
         assertFalse(list.empty());
     }
+
+    @Test
+    public void insertToMiddleOfList() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        list.insert(1, "C++");
+        assertEquals("Hello", list.get(0).getValue());
+        assertEquals("C++", list.get(1).getValue());
+        assertEquals("World", list.get(2).getValue());
+        assertEquals("Java", list.get(3).getValue());
+        assertThat(list.get(1).getPrev(), is(list.get(0)));
+        assertThat(list.get(1).getNext(), is(list.get(2)));
+    }
+
+    @Test
+    public void insertToFrontOfList() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        list.insert(0, "C++");
+        assertEquals("C++", list.get(0).getValue());
+        assertEquals("Hello", list.get(1).getValue());
+        assertEquals("World", list.get(2).getValue());
+        assertEquals("Java", list.get(3).getValue());
+        assertNull(list.get(0).getPrev());
+        assertThat(list.get(0).getNext(), is(list.get(1)));
+    }
+
+    @Test
+    public void insertToBackOfList() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        list.insert(3, "C++");
+        assertEquals("Hello", list.get(0).getValue());
+        assertEquals("World", list.get(1).getValue());
+        assertEquals("Java", list.get(2).getValue());
+        assertEquals("C++", list.get(3).getValue());
+        assertThat(list.get(3).getPrev(), is(list.get(2)));
+        assertNull(list.get(3).getNext());
+    }
+
+    @Test
+    public void throwsIsIndexOutOfBoundOnInsert() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        assertThrows(IndexOutOfBoundsException.class, () -> list.insert(4, "C++"));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.insert(-1, "C++"));
+    }
 }

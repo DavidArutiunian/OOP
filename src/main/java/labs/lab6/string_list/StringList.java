@@ -34,7 +34,31 @@ class StringList {
         counter++;
     }
 
-    StringNode get(int index) {
+    void insert(int index, String value) {
+        val node = new StringNode(value);
+        if (index > counter || index < 0) {
+            throw new IndexOutOfBoundsException("Index out of bound!");
+        }
+        if (index == 0) {
+            val curr = first;
+            first = node;
+            node.setNext(curr);
+            assert curr != null;
+            curr.setPrev(node);
+        } else {
+            val prev = get(index - 1);
+            val curr = get(index);
+            assert prev != null;
+            prev.setNext(node);
+            node.setPrev(prev);
+            node.setNext(curr);
+            if (curr != null) {
+                curr.setPrev(node);
+            }
+        }
+    }
+
+    @Nullable StringNode get(int index) {
         if (first == null) {
             assert counter == 0;
             throw new NullPointerException("List is empty!");

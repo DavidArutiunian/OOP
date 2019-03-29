@@ -1,9 +1,13 @@
 package labs.lab6.string_list;
 
 import lombok.val;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-class StringList {
+import java.util.Iterator;
+import java.util.function.Consumer;
+
+class StringList implements Iterable<StringNode> {
     private int counter = 0;
     @Nullable
     private StringNode first = null;
@@ -78,7 +82,7 @@ class StringList {
             assert counter == 0;
             throw new NullPointerException("List is empty!");
         }
-        StringNode next = first;
+        var next = first;
         for (int i = 0; i < index; i++) {
             assert next != null;
             next = next.getNext();
@@ -112,5 +116,23 @@ class StringList {
 
     int size() {
         return counter;
+    }
+
+    @NotNull
+    @Override
+    public Iterator<StringNode> iterator() {
+        return new StringListIterator(this);
+    }
+
+    @Override
+    public void forEach(Consumer<? super StringNode> action) {
+        if (first == null) {
+            return;
+        }
+        var it = first;
+        for (int i = 0; i < counter; i++) {
+            action.accept(it);
+            it = first.getNext();
+        }
     }
 }

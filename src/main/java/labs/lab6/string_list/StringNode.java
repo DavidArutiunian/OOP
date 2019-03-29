@@ -8,11 +8,11 @@ class StringNode {
     @Nullable
     @Getter
     @Setter
-    StringNode prev = null;
+    private StringNode prev = null;
     @Nullable
     @Getter
     @Setter
-    StringNode next = null;
+    private StringNode next = null;
 
     @Getter
     private String value;

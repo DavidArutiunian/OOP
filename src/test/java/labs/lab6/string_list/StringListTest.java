@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SuppressWarnings("ConstantConditions")
 public class StringListTest {
     @Test
     public void middleNodeHasCorrectNextAndPrevValuesOnBack() {
@@ -186,4 +187,32 @@ public class StringListTest {
         assertNull(list.get(0).getPrev());
         assertEquals(2, list.size());
     }
+
+    @Test
+    public void listIsIterable() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        var counter = 0;
+        var it = list.get(0);
+        for (final var node : list) {
+            assertThat(node, is(it));
+            it = it.getNext();
+            counter++;
+        }
+        assertEquals(list.size(), counter);
+    }
+
+    @Test
+    @SuppressWarnings("unused")
+    public void emptyListIsIterable() {
+        val list = new StringList();
+        val counter = 0;
+        for (final var node : list) {
+            assert false;
+        }
+        assertEquals(list.size(), counter);
+    }
+
 }

@@ -16,6 +16,7 @@ class StringList {
             val prev = get(counter - 1);
             val node = new StringNode(value);
             node.setPrev(prev);
+            assert prev != null;
             prev.setNext(node);
         }
         counter++;
@@ -83,6 +84,26 @@ class StringList {
             next = next.getNext();
         }
         return next;
+    }
+
+    void erase(int index) {
+        if (index > counter || index < 0) {
+            throw new IndexOutOfBoundsException("Index out of bound!");
+        }
+        var curr = get(index);
+        assert curr != null;
+        val prev = curr.getPrev();
+        val next = curr.getNext();
+        if (prev != null) {
+            prev.setNext(next);
+        }
+        if (next != null) {
+            next.setPrev(prev);
+        }
+        if (index == 0) {
+            first = next;
+        }
+        counter--;
     }
 
     boolean empty() {

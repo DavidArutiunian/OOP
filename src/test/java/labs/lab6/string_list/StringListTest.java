@@ -138,4 +138,52 @@ public class StringListTest {
         assertEquals(0, list.size());
         assertTrue(list.empty());
     }
+
+    @Test
+    public void eraseFromMiddle() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        list.erase(1);
+        assertEquals("Hello", list.get(0).getValue());
+        assertEquals("Java", list.get(1).getValue());
+        assertThat(list.get(0).getNext(), is(list.get(1)));
+        assertThat(list.get(1).getPrev(), is(list.get(0)));
+        assertNull(list.get(1).getNext());
+        assertNull(list.get(0).getPrev());
+        assertEquals(2, list.size());
+    }
+
+    @Test
+    public void eraseFromFront() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        list.erase(0);
+        assertEquals("World", list.get(0).getValue());
+        assertEquals("Java", list.get(1).getValue());
+        assertThat(list.get(0).getNext(), is(list.get(1)));
+        assertThat(list.get(1).getPrev(), is(list.get(0)));
+        assertNull(list.get(1).getNext());
+        assertNull(list.get(0).getPrev());
+        assertEquals(2, list.size());
+    }
+
+    @Test
+    public void eraseFromBack() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        list.erase(2);
+        assertEquals("Hello", list.get(0).getValue());
+        assertEquals("World", list.get(1).getValue());
+        assertThat(list.get(0).getNext(), is(list.get(1)));
+        assertThat(list.get(1).getPrev(), is(list.get(0)));
+        assertNull(list.get(1).getNext());
+        assertNull(list.get(0).getPrev());
+        assertEquals(2, list.size());
+    }
 }

@@ -58,6 +58,20 @@ class StringList {
         }
     }
 
+    void clear() {
+        if (first == null) {
+            return;
+        }
+        var last = get(counter - 1);
+        for (int i = counter; i > 0; --i) {
+            assert last != null;
+            last.setNext(null);
+            last = last.getPrev();
+        }
+        first = null;
+        counter = 0;
+    }
+
     @Nullable StringNode get(int index) {
         if (first == null) {
             assert counter == 0;

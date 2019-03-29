@@ -119,4 +119,23 @@ public class StringListTest {
         assertThrows(IndexOutOfBoundsException.class, () -> list.insert(4, "C++"));
         assertThrows(IndexOutOfBoundsException.class, () -> list.insert(-1, "C++"));
     }
+
+    @Test
+    public void clearList() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        list.clear();
+        assertEquals(0, list.size());
+        assertTrue(list.empty());
+    }
+
+    @Test
+    public void clearEmptyList() {
+        val list = new StringList();
+        list.clear();
+        assertEquals(0, list.size());
+        assertTrue(list.empty());
+    }
 }

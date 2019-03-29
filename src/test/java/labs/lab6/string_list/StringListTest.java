@@ -5,16 +5,15 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StringListTest {
     @Test
     public void middleNodeHasCorrectNextAndPrevValuesOnBack() {
         val list = new StringList();
-        list.back("Hello");
-        list.back("World");
-        list.back("Java");
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
         val middle = list.get(1);
         assertThat(middle.getPrev(), is(list.get(0)));
         assertThat(middle.getNext(), is(list.get(2)));
@@ -24,9 +23,9 @@ public class StringListTest {
     @Test
     public void firstNodeHasNullPrevValueOnBack() {
         val list = new StringList();
-        list.back("Hello");
-        list.back("World");
-        list.back("Java");
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
         val first = list.get(0);
         assertNull(first.getPrev());
         assertThat(first.getNext(), is(list.get(1)));
@@ -36,9 +35,9 @@ public class StringListTest {
     @Test
     public void nodeIsFirstOnFront() {
         val list = new StringList();
-        list.back("Hello");
-        list.front("Java");
-        list.back("World");
+        list.pushBack("Hello");
+        list.pushFront("Java");
+        list.pushBack("World");
         val first = list.get(0);
         assertNull(first.getPrev());
         assert first.getNext() != null;
@@ -48,5 +47,21 @@ public class StringListTest {
         assertEquals("World", first.getNext().getNext().getValue());
         assertEquals("Hello", list.get(1).getValue());
         assertEquals("World", list.get(2).getValue());
+    }
+
+    @Test
+    public void listIsEmpty() {
+        val list = new StringList();
+        assertEquals(0, list.size());
+        assertTrue(list.empty());
+    }
+
+    @Test
+    public void listIsNotEmpty() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        assertEquals(2, list.size());
+        assertFalse(list.empty());
     }
 }

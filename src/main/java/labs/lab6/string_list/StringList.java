@@ -43,27 +43,26 @@ class StringList implements Iterable<StringNode> {
         counter++;
     }
 
-    void insert(int index, String value) {
+    void insert(StringNodeIterator iterator, String value) {
         val node = new StringNode(value);
-        if (index > counter || index < 0) {
+        if (!iterator.hasNext()) {
             throw new IndexOutOfBoundsException("Index out of bound!");
         }
-        if (index == 0) {
+        if (iterator.getCurrent() == first) {
             val curr = first;
             first = node;
             node.setNext(curr);
             assert curr != null;
             curr.setPrev(node);
         } else {
-            val prev = get(index - 1);
-            val curr = get(index);
+            val curr = iterator.getCurrent();
+            assert curr != null;
+            val prev = curr.getPrev();
             assert prev != null;
             prev.setNext(node);
             node.setPrev(prev);
             node.setNext(curr);
-            if (curr != null) {
-                curr.setPrev(node);
-            }
+            curr.setPrev(node);
         }
     }
 

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BitmapReaderTest {
     @Test
-    public void testGetHeader1() throws Exception {
+    public void getHeaderForFirstFile() throws Exception {
         final var manager = new FileManager("./src/test/assets/test.1.bmp");
         final var reader = new BitmapReader(manager.getFileInstance());
         final var header = reader.getHeader();
@@ -27,7 +27,7 @@ public class BitmapReaderTest {
     }
 
     @Test
-    public void testGetHeader2() throws Exception {
+    public void getHeadersForSecondFile() throws Exception {
         final var manager = new FileManager("./src/test/assets/test.2.bmp");
         final var reader = new BitmapReader(manager.getFileInstance());
         final var header = reader.getHeader();
@@ -43,14 +43,14 @@ public class BitmapReaderTest {
 
 
     @Test
-    public void testGetHeaderThrowsEOFException() throws IOException {
+    public void getHeaderThrowsEOFException() throws IOException {
         final var file = new FileManager().getFileInstance();
         assertThrows(EOFException.class, () -> new BitmapReader(file));
         Files.delete(Path.of(file.getAbsolutePath()));
     }
 
     @Test
-    public void testGetHeaderThrowsUnsupportedEncodingException() throws IOException {
+    public void getHeaderThrowsUnsupportedEncodingException() throws IOException {
         final var manager = new FileManager().write("Hello, World!");
         final var file = manager.getFileInstance();
         assertThrows(UnsupportedEncodingException.class, () -> new BitmapReader(file));
@@ -58,7 +58,7 @@ public class BitmapReaderTest {
     }
 
     @Test
-    public void testFileFileNotFoundException() {
+    public void fileNotFoundException() {
         final var file = new File("not-found.txt");
         assertThrows(FileNotFoundException.class, () -> new BitmapReader(file));
     }

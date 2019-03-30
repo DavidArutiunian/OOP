@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class InputOutputTest {
     @Test
-    public void testParseWorks() throws IOException {
+    public void oarseSampleMatrix() throws IOException {
         final var manager = new FileManager().write("3\t4a\t8\n2.4\t-1b\t11\n7\t-3.2\t0");
         final var file = manager.getFileInstance();
         assertThrows(IOException.class, () -> InputOutput.parse(file, InputOutput.MATRIX_SIZE));
@@ -19,7 +19,7 @@ public class InputOutputTest {
     }
 
     @Test
-    public void testIncorrectMatrixThrows() throws IOException {
+    public void parseIncorrectMatrixThrows() throws IOException {
         final var manager = new FileManager().write("3\t4a\t8\t1\n2.4\t-1b\t1\t11\n7\t0\t-3.2\t0");
         final var file = manager.getFileInstance();
         assertThrows(IOException.class, () -> InputOutput.parse(file, InputOutput.MATRIX_SIZE));

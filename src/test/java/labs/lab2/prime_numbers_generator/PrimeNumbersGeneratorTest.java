@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PrimeNumbersGeneratorTest {
     @Test
-    public void get5_761_455With100_000_000UpperBound() {
+    public void get5761455With100000000UpperBound() {
         final int upperBound = 100_000_000;
         final PrimeNumbersGenerator primeNumbersGenerator = new PrimeNumbersGenerator(upperBound);
         final int[] numbers = primeNumbersGenerator.sieve().primes();
@@ -16,7 +16,7 @@ public class PrimeNumbersGeneratorTest {
     }
 
     @Test
-    public void get5_761_455With99_999_999UpperBound() {
+    public void get5761455With99999999UpperBound() {
         final int upperBound = 99_999_999;
         final PrimeNumbersGenerator primeNumbersGenerator = new PrimeNumbersGenerator(upperBound);
         final int[] numbers = primeNumbersGenerator.sieve().primes();

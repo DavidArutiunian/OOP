@@ -11,14 +11,14 @@ public class MatrixMathematicsTest {
     private static double CLOSE_TO_ZERO = 1e-3;
 
     @Test
-    public void testTranspose1() {
+    public void transposeOnTwoByTwoMatrix() {
         var matrix = new Matrix(new double[][]{{1, 2}, {3, 4}});
         var transposed = MatrixMathematics.transpose(matrix);
         assertEquals("1.03.02.04.0", transposed.getValueAt(0, 0) + "" + transposed.getValueAt(0, 1) + "" + transposed.getValueAt(1, 0) + "" + transposed.getValueAt(1, 1));
     }
 
     @Test
-    public void testTranspose2() {
+    public void transposeOnOneByTwoMatrix() {
         var matrix = new Matrix(new double[][]{{1, 2}});
         assertEquals(2, matrix.getCols());
         assertEquals(1, matrix.getRows());
@@ -29,7 +29,7 @@ public class MatrixMathematicsTest {
     }
 
     @Test
-    public void testCreatesSubMatrix() {
+    public void createsSubMatrix() {
         var matrix = new Matrix(new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
         var sub = MatrixMathematics.createSubMatrix(matrix, new ImmutablePair<>(0, 0));
         assertEquals("5.06.08.09.0", sub.getValueAt(0, 0) + "" + sub.getValueAt(0, 1) + "" + sub.getValueAt(1, 0) + "" + sub.getValueAt(1, 1));
@@ -40,35 +40,28 @@ public class MatrixMathematicsTest {
     }
 
     @Test
-    public void testDeterminant1() {
+    public void determinantOnOneByOneMatrix() {
         var matrix = new Matrix(new double[][]{{2}});
         double determinant = MatrixMathematics.determinant(matrix);
         assertTrue(Math.abs(determinant - 2) < CLOSE_TO_ZERO);
     }
 
     @Test
-    public void testDeterminant4() {
+    public void determinantOnThreeByThreeMatrix() {
         var matrix = new Matrix(new double[][]{{-2, 2, 3}, {-1, 1, 3}, {2, 0, -1}});
         double determinant = MatrixMathematics.determinant(matrix);
         assertTrue(Math.abs(determinant - 6) < CLOSE_TO_ZERO);
     }
 
     @Test
-    public void testDeterminant2() {
+    public void determinantOnFourByFourMatrix() {
         var matrix = new Matrix(new double[][]{{3, 2, 0, 1}, {4, 0, 1, 2}, {3, 0, 2, 1}, {9, 2, 3, 1}});
         double determinant = MatrixMathematics.determinant(matrix);
         assertTrue(Math.abs(determinant - 24) < CLOSE_TO_ZERO);
     }
 
     @Test
-    public void testDeterminant3() {
-        var matrix = new Matrix(new double[][]{{1, 2, 3, 4}, {5, 6, 7, 8}, {2, 6, 4, 8}, {3, 1, 1, 2}});
-        double determinant = MatrixMathematics.determinant(matrix);
-        assertTrue(Math.abs(determinant - 72) < CLOSE_TO_ZERO);
-    }
-
-    @Test
-    public void testCofactor1() {
+    public void cofactorOnThreeByThreeMatrix() {
         var matrix = new Matrix(new double[][]{{1, 2, 3}, {0, 4, 5}, {1, 0, 6}});
         var cofactor = MatrixMathematics.cofactor(matrix);
         assertTrue(Math.abs(24 - cofactor.getValueAt(0, 0)) < CLOSE_TO_ZERO);
@@ -84,7 +77,7 @@ public class MatrixMathematicsTest {
     }
 
     @Test
-    public void testInverse1() {
+    public void inverseOnThreeByThreeMatrix() {
         var matrix = new Matrix(new double[][]{{1, 2, 3}, {0, 4, 5}, {1, 0, 6}});
         var inverse = MatrixMathematics.inverse(matrix);
         assertTrue(Math.abs(12.0 / 11.0 - inverse.getValueAt(0, 0)) < CLOSE_TO_ZERO);
@@ -100,18 +93,18 @@ public class MatrixMathematicsTest {
     }
 
     @Test
-    public void testInverse2() {
+    public void inverseOnThreeByThreeMatrixWithNegatives() {
         var matrix = new Matrix(new double[][]{{3, 9, 2}, {0, 0, 0}, {-4, -5, 1}});
         var inverse = MatrixMathematics.inverse(matrix);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                assertTrue(NaN(inverse.getValueAt(i, j)));
+                assertTrue(isNaN(inverse.getValueAt(i, j)));
             }
         }
     }
 
     @Test
-    public void testInverse3() {
+    public void inverseOnThreeByThreeMatrixWithNegativesAndFloats() {
         var matrix = new Matrix(new double[][]{{3, 4, 8}, {2.4, -1, 11}, {7, -3.2, 0}});
         var inverse = MatrixMathematics.inverse(matrix);
         assertTrue(0.086 - inverse.getValueAt(0, 0) < CLOSE_TO_ZERO);
@@ -126,11 +119,11 @@ public class MatrixMathematicsTest {
     }
 
     @Test
-    public void testInverse4() {
+    public void inverseThrowsOnEmptyMatrix() {
         assertThrows(IllegalArgumentException.class, () -> new Matrix(new double[][]{}));
     }
 
-    private boolean NaN(double value) {
+    private boolean isNaN(double value) {
         return Double.isNaN(value) || Double.isInfinite(value);
     }
 }

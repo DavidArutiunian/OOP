@@ -12,7 +12,7 @@ import java.util.List;
 
 public class JoinTest {
     @Test
-    public void testProcessingWorks() throws IOException {
+    public void joinHelloWorldOutputsHelloWorld() throws IOException {
         final List<File> files = new ArrayList<>(Arrays.asList(
             new FileManager().write("Hello").getFileInstance(),
             new FileManager().write("World").getFileInstance()

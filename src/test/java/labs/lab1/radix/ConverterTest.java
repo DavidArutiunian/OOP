@@ -37,13 +37,13 @@ public class ConverterTest {
     }
 
     @Test
-    public void testConverterWorks() {
+    public void convert() {
         final var converter = new Converter(value, from);
         Assert.assertEquals(converter.convert(to), expected);
     }
 
     @Test
-    public void testValidationWorks() {
+    public void validate() {
         {
             final var cases = Arrays.asList(new Object[][]{
                 {"1G", 16},

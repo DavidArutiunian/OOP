@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class FileManagerTest {
     @Test
-    public void testFileCreates() throws IOException {
+    public void fileManagerCreatesFile() throws IOException {
         final var pathname = UUID.randomUUID().toString();
         final var file = new File(pathname);
         Assert.assertFalse(file.exists());
@@ -24,7 +24,7 @@ public class FileManagerTest {
     }
 
     @Test
-    public void testWriteReadWorks() throws IOException {
+    public void readWriteWorks() throws IOException {
         final var manager = new FileManager().write("Hello, World!");
         final var actual = manager.read();
         Assert.assertEquals("Hello, World!", actual.strip());

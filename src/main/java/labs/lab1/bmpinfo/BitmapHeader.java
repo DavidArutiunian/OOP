@@ -1,8 +1,9 @@
 package labs.lab1.bmpinfo;
 
+@SuppressWarnings("unused")
 class BitmapHeader {
-    static int OFFSET = 14;
-    static int BMP_TYPE = 0x4D42;
+    static final int OFFSET = 14;
+    static final int BMP_TYPE = 0x4D42;
     private int headerSize;
     private int width;
     private int height;

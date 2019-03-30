@@ -25,6 +25,7 @@ class Converter {
         }
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean isRadixValid(final int radix) {
         return radix >= MIN_RADIX && radix <= MAX_RADIX;
     }

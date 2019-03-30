@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 class HtmlEntityMapImpl implements HtmlEntityMap {
-    private Map<String, String> dictionary = new HashMap<>();
+    private final Map<String, String> dictionary = new HashMap<>();
 
     HtmlEntityMapImpl() {
         dictionary.put(HtmlEntities.QUOT.toString(), "\"");

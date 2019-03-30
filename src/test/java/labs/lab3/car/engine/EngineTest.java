@@ -9,6 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@SuppressWarnings("SameParameterValue")
 public class EngineTest {
     private CarState state = new CarState();
     private Engine engine = new Engine(state);

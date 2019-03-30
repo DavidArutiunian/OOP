@@ -15,10 +15,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class EventLoopTest {
-    private PrintStream original = System.out;
+    private final PrintStream original = System.out;
     private Dictionary dictionary = new Dictionary();
-    private DictionaryStore store = new DictionaryStore();
-    private InteractionController controller = spy(new InteractionController(dictionary, store));
+    private final DictionaryStore store = new DictionaryStore();
+    private final InteractionController controller = spy(new InteractionController(dictionary, store));
     private ByteArrayOutputStream mock = new ByteArrayOutputStream();
 
     public EventLoopTest() throws IOException {

@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +24,13 @@ public class JoinTest {
         join.process();
         final var actual = output.read().strip().replaceAll("\\s", "");
         Assert.assertEquals("HelloWorld", actual);
-        output.getFileInstance().delete();
-        files.forEach(File::delete);
+        Files.delete(Path.of(output.getFileInstance().getAbsolutePath()));
+        files.forEach(file -> {
+            try {
+                Files.delete(Path.of(file.getAbsolutePath()));
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        });
     }
 }

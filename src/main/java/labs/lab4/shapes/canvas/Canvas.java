@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Canvas implements ICanvas, ICanvasPanelDrawable {
-    private List<CShape> shapes = new ArrayList<>();
-    private List<CPolygonShape> polygons = new ArrayList<>();
-    private List<CCircleShape> circles = new ArrayList<>();
+    private final List<CShape> shapes = new ArrayList<>();
+    private final List<CPolygonShape> polygons = new ArrayList<>();
+    private final List<CCircleShape> circles = new ArrayList<>();
 
     public void draw(Graphics2D g2d) {
         shapes.forEach(shape -> {

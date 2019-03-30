@@ -5,13 +5,10 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.*;
 
+@SuppressWarnings({"FieldCanBeLocal", "SameParameterValue"})
 class InputOutput extends BaseInputOutput {
-    static int MATRIX_SIZE = 3;
-    private static String DELIMITER = "\t";
-
-    public InputOutput() {
-        super();
-    }
+    static final int MATRIX_SIZE = 3;
+    private static final String DELIMITER = "\t";
 
     static double[][] parse(final File file, final int size) throws IOException {
         var input = new FileInputStream(file);

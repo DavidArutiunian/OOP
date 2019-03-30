@@ -1,7 +1,7 @@
 package labs.lab3.car.car;
 
 public class CarStateException extends Exception {
-    public CarStateException(String message) {
+    protected CarStateException(String message) {
         super(message);
     }
 }

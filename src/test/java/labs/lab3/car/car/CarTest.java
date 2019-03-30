@@ -10,6 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@SuppressWarnings("SameParameterValue")
 public class CarTest {
     private static final double DELTA = 0.0005;
     private Car car = new Car();

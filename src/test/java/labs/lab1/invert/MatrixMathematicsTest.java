@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MatrixMathematicsTest {
-    private static double CLOSE_TO_ZERO = 1e-3;
+    private final static double EPS = 1e-3;
 
     @Test
     public void transposeOnTwoByTwoMatrix() {
@@ -43,36 +43,36 @@ public class MatrixMathematicsTest {
     public void determinantOnOneByOneMatrix() {
         var matrix = new Matrix(new double[][]{{2}});
         double determinant = MatrixMathematics.determinant(matrix);
-        assertTrue(Math.abs(determinant - 2) < CLOSE_TO_ZERO);
+        assertTrue(Math.abs(determinant - 2) < EPS);
     }
 
     @Test
     public void determinantOnThreeByThreeMatrix() {
         var matrix = new Matrix(new double[][]{{-2, 2, 3}, {-1, 1, 3}, {2, 0, -1}});
         double determinant = MatrixMathematics.determinant(matrix);
-        assertTrue(Math.abs(determinant - 6) < CLOSE_TO_ZERO);
+        assertTrue(Math.abs(determinant - 6) < EPS);
     }
 
     @Test
     public void determinantOnFourByFourMatrix() {
         var matrix = new Matrix(new double[][]{{3, 2, 0, 1}, {4, 0, 1, 2}, {3, 0, 2, 1}, {9, 2, 3, 1}});
         double determinant = MatrixMathematics.determinant(matrix);
-        assertTrue(Math.abs(determinant - 24) < CLOSE_TO_ZERO);
+        assertTrue(Math.abs(determinant - 24) < EPS);
     }
 
     @Test
     public void cofactorOnThreeByThreeMatrix() {
         var matrix = new Matrix(new double[][]{{1, 2, 3}, {0, 4, 5}, {1, 0, 6}});
         var cofactor = MatrixMathematics.cofactor(matrix);
-        assertTrue(Math.abs(24 - cofactor.getValueAt(0, 0)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(5 - cofactor.getValueAt(0, 1)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(-4 - cofactor.getValueAt(0, 2)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(-12 - cofactor.getValueAt(1, 0)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(3 - cofactor.getValueAt(1, 1)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(2 - cofactor.getValueAt(1, 2)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(-2 - cofactor.getValueAt(2, 0)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(-5 - cofactor.getValueAt(2, 1)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(4 - cofactor.getValueAt(2, 2)) < CLOSE_TO_ZERO);
+        assertTrue(Math.abs(24 - cofactor.getValueAt(0, 0)) < EPS);
+        assertTrue(Math.abs(5 - cofactor.getValueAt(0, 1)) < EPS);
+        assertTrue(Math.abs(-4 - cofactor.getValueAt(0, 2)) < EPS);
+        assertTrue(Math.abs(-12 - cofactor.getValueAt(1, 0)) < EPS);
+        assertTrue(Math.abs(3 - cofactor.getValueAt(1, 1)) < EPS);
+        assertTrue(Math.abs(2 - cofactor.getValueAt(1, 2)) < EPS);
+        assertTrue(Math.abs(-2 - cofactor.getValueAt(2, 0)) < EPS);
+        assertTrue(Math.abs(-5 - cofactor.getValueAt(2, 1)) < EPS);
+        assertTrue(Math.abs(4 - cofactor.getValueAt(2, 2)) < EPS);
 
     }
 
@@ -80,15 +80,15 @@ public class MatrixMathematicsTest {
     public void inverseOnThreeByThreeMatrix() {
         var matrix = new Matrix(new double[][]{{1, 2, 3}, {0, 4, 5}, {1, 0, 6}});
         var inverse = MatrixMathematics.inverse(matrix);
-        assertTrue(Math.abs(12.0 / 11.0 - inverse.getValueAt(0, 0)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(-6.0 / 11.0 - inverse.getValueAt(0, 1)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(-1.0 / 11.0 - inverse.getValueAt(0, 2)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(5.0 / 22.0 - inverse.getValueAt(1, 0)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(3.0 / 22.0 - inverse.getValueAt(1, 1)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(-5.0 / 22.0 - inverse.getValueAt(1, 2)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(-2.0 / 11.0 - inverse.getValueAt(2, 0)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(1.0 / 11.0 - inverse.getValueAt(2, 1)) < CLOSE_TO_ZERO);
-        assertTrue(Math.abs(2.0 / 11.0 - inverse.getValueAt(2, 2)) < CLOSE_TO_ZERO);
+        assertTrue(Math.abs(12.0 / 11.0 - inverse.getValueAt(0, 0)) < EPS);
+        assertTrue(Math.abs(-6.0 / 11.0 - inverse.getValueAt(0, 1)) < EPS);
+        assertTrue(Math.abs(-1.0 / 11.0 - inverse.getValueAt(0, 2)) < EPS);
+        assertTrue(Math.abs(5.0 / 22.0 - inverse.getValueAt(1, 0)) < EPS);
+        assertTrue(Math.abs(3.0 / 22.0 - inverse.getValueAt(1, 1)) < EPS);
+        assertTrue(Math.abs(-5.0 / 22.0 - inverse.getValueAt(1, 2)) < EPS);
+        assertTrue(Math.abs(-2.0 / 11.0 - inverse.getValueAt(2, 0)) < EPS);
+        assertTrue(Math.abs(1.0 / 11.0 - inverse.getValueAt(2, 1)) < EPS);
+        assertTrue(Math.abs(2.0 / 11.0 - inverse.getValueAt(2, 2)) < EPS);
 
     }
 
@@ -107,15 +107,15 @@ public class MatrixMathematicsTest {
     public void inverseOnThreeByThreeMatrixWithNegativesAndFloats() {
         var matrix = new Matrix(new double[][]{{3, 4, 8}, {2.4, -1, 11}, {7, -3.2, 0}});
         var inverse = MatrixMathematics.inverse(matrix);
-        assertTrue(0.086 - inverse.getValueAt(0, 0) < CLOSE_TO_ZERO);
-        assertTrue(-0.063 + inverse.getValueAt(0, 1) < CLOSE_TO_ZERO);
-        assertTrue(0.127 - inverse.getValueAt(0, 2) < CLOSE_TO_ZERO);
-        assertTrue(0.189 - inverse.getValueAt(1, 0) < CLOSE_TO_ZERO);
-        assertTrue(-0.137 + inverse.getValueAt(1, 1) < CLOSE_TO_ZERO);
-        assertTrue(-0.034 + inverse.getValueAt(1, 2) < CLOSE_TO_ZERO);
-        assertTrue(-0.002 + inverse.getValueAt(2, 0) < CLOSE_TO_ZERO);
-        assertTrue(0.092 - inverse.getValueAt(2, 1) < CLOSE_TO_ZERO);
-        assertTrue(-0.031 + inverse.getValueAt(2, 2) < CLOSE_TO_ZERO);
+        assertTrue(0.086 - inverse.getValueAt(0, 0) < EPS);
+        assertTrue(-0.063 + inverse.getValueAt(0, 1) < EPS);
+        assertTrue(0.127 - inverse.getValueAt(0, 2) < EPS);
+        assertTrue(0.189 - inverse.getValueAt(1, 0) < EPS);
+        assertTrue(-0.137 + inverse.getValueAt(1, 1) < EPS);
+        assertTrue(-0.034 + inverse.getValueAt(1, 2) < EPS);
+        assertTrue(-0.002 + inverse.getValueAt(2, 0) < EPS);
+        assertTrue(0.092 - inverse.getValueAt(2, 1) < EPS);
+        assertTrue(-0.031 + inverse.getValueAt(2, 2) < EPS);
     }
 
     @Test

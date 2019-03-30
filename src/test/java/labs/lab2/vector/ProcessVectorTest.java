@@ -10,34 +10,34 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
 public class ProcessVectorTest {
-    private static float DELTA = 0.005f;
+    private final static float EPS = 0.005f;
 
     @Test
     public void averageOfFloats() {
         final List<Float> input = Arrays.asList(6.7f, 3.8f, 68.4f, 127.f, -1.28f);
         final var pv = new ProcessVector(input);
-        assertEquals(40.924f, pv.getAverage(), DELTA);
+        assertEquals(40.924f, pv.getAverage(), EPS);
     }
 
     @Test
     public void averageOfZerosIsZero() {
         final List<Float> input = Arrays.asList(0.f, 0.f, 0.f, 0.f, 0.f);
         final var pv = new ProcessVector(input);
-        assertEquals(0.f, pv.getAverage(), DELTA);
+        assertEquals(0.f, pv.getAverage(), EPS);
     }
 
     @Test
     public void averageOfMaxValuesIsInfinity() {
         final List<Float> input = Arrays.asList(Float.MAX_VALUE, Float.MAX_VALUE);
         final var pv = new ProcessVector(input);
-        assertEquals(Float.POSITIVE_INFINITY, pv.getAverage(), DELTA);
+        assertEquals(Float.POSITIVE_INFINITY, pv.getAverage(), EPS);
     }
 
     @Test
     public void averageOfMaxAndMinValues() {
         final List<Float> input = Arrays.asList(Float.MAX_VALUE, Float.MIN_VALUE);
         final var pv = new ProcessVector(input);
-        assertEquals(1.7014117e38f, pv.getAverage(), DELTA);
+        assertEquals(1.7014117e38f, pv.getAverage(), EPS);
     }
 
     @Test

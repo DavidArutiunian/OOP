@@ -5,7 +5,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 class EventLoop {
-    private static String TERMINAL_STRING = "...";
+    @SuppressWarnings("FieldCanBeLocal")
+    private static final String TERMINAL_STRING = "...";
 
     private final EventLoopDelegate delegate;
 

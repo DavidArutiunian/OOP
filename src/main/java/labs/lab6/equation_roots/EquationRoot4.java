@@ -17,7 +17,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 class EquationRoot4 {
     private static final String APP_ID = System.getenv("WOLFRAM_APP_ID");
-    private static OkHttpClient client = new OkHttpClient();
+    private static final OkHttpClient client = new OkHttpClient();
 
     @Getter
     private final List<Double> roots = new ArrayList<>();

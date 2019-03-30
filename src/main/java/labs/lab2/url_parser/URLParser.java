@@ -7,6 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+@SuppressWarnings("SameParameterValue")
 class URLParser {
     private static final int MAX_PORT = 65535;
 

@@ -1,20 +1,14 @@
 package labs.lab6.string_list;
 
+import lombok.AllArgsConstructor;
 import lombok.val;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class StringListIterator implements Iterator<StringNode> {
+@AllArgsConstructor
+public class StringNodeIterator implements Iterator<StringNode> {
     private StringNode current;
-
-    StringListIterator(StringList list) {
-        if (list.size() == 0) {
-            current = null;
-        } else {
-            current = list.get(0);
-        }
-    }
 
     @Override
     public boolean hasNext() {

@@ -124,7 +124,7 @@ class StringList implements Iterable<StringNode> {
     @NotNull
     @Override
     public Iterator<StringNode> iterator() {
-        return new StringListIterator(this);
+        return new StringNodeIterator(first);
     }
 
     @Override

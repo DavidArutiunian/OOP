@@ -7,21 +7,25 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
+@SuppressWarnings("SameParameterValue")
 class StringList implements Iterable<StringNode> {
     private int counter = 0;
     @Nullable
     private StringNode first = null;
+    @Nullable
+    private StringNode last = null;
 
     void pushBack(String value) {
         if (counter == 0) {
             assert first == null;
             first = new StringNode(value);
+            last = first;
         } else {
-            val prev = get(counter - 1);
-            val node = new StringNode(value);
-            node.setPrev(prev);
+            val prev = last;
+            last = new StringNode(value);
+            last.setPrev(prev);
             assert prev != null;
-            prev.setNext(node);
+            prev.setNext(last);
         }
         counter++;
     }
@@ -67,7 +71,6 @@ class StringList implements Iterable<StringNode> {
         if (first == null) {
             return;
         }
-        var last = get(counter - 1);
         for (int i = counter; i > 0; --i) {
             assert last != null;
             last.setNext(null);

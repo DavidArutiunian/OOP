@@ -1,17 +1,13 @@
 package labs.lab7.find_max_ex
 
-fun <T : Comparable<T>, L : (max: T, item: T) -> Boolean> findMax(array: Array<T>, less: L? = null): T? {
+fun <T : Comparable<T>> findMax(array: Array<T>): T? {
     var max: T? = null
     for (item in array) {
         if (max == null) {
             max = item
             continue
         }
-        if (less != null) {
-            if (less(max, item)) {
-                max = item
-            }
-        } else if (item is String && max is String) {
+        if (item is String && max is String) {
             if (compareStringsLexicographically(max, item) > 0) {
                 max = item
             }

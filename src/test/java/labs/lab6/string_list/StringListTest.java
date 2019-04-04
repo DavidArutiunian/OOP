@@ -170,7 +170,7 @@ public class StringListTest {
         var it = list.iterator();
         for (final var string : list) {
             assert it.getCurrent() != null;
-            assertThat(string, is(it.getCurrent().getValue()));
+            assertThat(string, is(it.getCurrent()));
             it.next();
             counter++;
         }
@@ -231,5 +231,26 @@ public class StringListTest {
         list.pushBack("World");
         list.pushBack("Java");
         assertThrows(IndexOutOfBoundsException.class, () -> list.get(100));
+    }
+
+    @Test
+    public void testRemoveAllEmptyStrings() throws StringListIteratorException {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("");
+        list.pushBack("World");
+        list.pushBack("");
+        list.pushBack("Java");
+        val it = list.iterator();
+        for (String string : list) {
+            if (string.isEmpty()) {
+                list.erase(it);
+            }
+            it.next();
+        }
+        assertEquals(3, list.size());
+        assertEquals("Hello", list.get(0));
+        assertEquals("World", list.get(1));
+        assertEquals("Java", list.get(2));
     }
 }

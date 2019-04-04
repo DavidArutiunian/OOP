@@ -50,7 +50,7 @@ class StringList implements Iterable<String> {
             throw new StringListIteratorException("Incorrect iterator!");
         }
         val node = new StringNode(value);
-        if (iterator.getCurrent() == first) {
+        if (iterator.getCurrentNode() == first) {
             val curr = first;
             first = node;
             node.setNext(curr);
@@ -63,7 +63,7 @@ class StringList implements Iterable<String> {
             assert prev != null;
             prev.setNext(last);
         } else {
-            val curr = iterator.getCurrent();
+            val curr = iterator.getCurrentNode();
             assert curr != null;
             val prev = curr.getPrev();
             assert prev != null;
@@ -109,7 +109,7 @@ class StringList implements Iterable<String> {
         if (iterator.getList() != this) {
             throw new StringListIteratorException("Incorrect iterator!");
         }
-        var curr = iterator.getCurrent();
+        var curr = iterator.getCurrentNode();
         assert curr != null;
         val prev = curr.getPrev();
         val next = curr.getNext();
@@ -195,8 +195,15 @@ class StringList implements Iterable<String> {
         }
 
         @Nullable
-        StringNode getCurrent() {
+        private StringNode getCurrentNode() {
             return current;
+        }
+
+        String getCurrent() {
+            if (current == null) {
+                throw new NoSuchElementException("Iterator doesn't point to next element!");
+            }
+            return current.getValue();
         }
 
         private StringList getList() {

@@ -72,7 +72,7 @@ public class StringListTest {
         list.pushBack("Hello");
         list.pushBack("World");
         list.pushBack("Java");
-        list.insert(new StringNodeIterator(list.get(1)), "C++");
+        list.insert(new StringListIterator(list.get(1)), "C++");
         assertEquals("Hello", list.get(0).getValue());
         assertEquals("C++", list.get(1).getValue());
         assertEquals("World", list.get(2).getValue());
@@ -87,7 +87,7 @@ public class StringListTest {
         list.pushBack("Hello");
         list.pushBack("World");
         list.pushBack("Java");
-        list.insert(new StringNodeIterator(list.get(0)), "C++");
+        list.insert(new StringListIterator(list.get(0)), "C++");
         assertEquals("C++", list.get(0).getValue());
         assertEquals("Hello", list.get(1).getValue());
         assertEquals("World", list.get(2).getValue());
@@ -102,7 +102,7 @@ public class StringListTest {
         list.pushBack("Hello");
         list.pushBack("World");
         list.pushBack("Java");
-        list.insert(new StringNodeIterator(list.get(2)), "C++");
+        list.insert(new StringListIterator(list.get(2)), "C++");
         assertEquals("Hello", list.get(0).getValue());
         assertEquals("World", list.get(1).getValue());
         assertEquals("C++", list.get(2).getValue());
@@ -117,7 +117,7 @@ public class StringListTest {
         list.pushBack("Hello");
         list.pushBack("World");
         list.pushBack("Java");
-        assertThrows(IndexOutOfBoundsException.class, () -> list.insert(new StringNodeIterator(null), "C++"));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.insert(new StringListIterator(null), "C++"));
     }
 
     @Test
@@ -129,8 +129,6 @@ public class StringListTest {
         list.clear();
         assertEquals(0, list.size());
         assertTrue(list.empty());
-
-        list.iterator().next().setNext(null);
     }
 
     @Test
@@ -197,8 +195,8 @@ public class StringListTest {
         list.pushBack("Java");
         var counter = 0;
         var it = list.get(0);
-        for (final var node : list) {
-            assertThat(node, is(it));
+        for (final var string : list) {
+            assertThat(string, is(it.getValue()));
             it = it.getNext();
             counter++;
         }

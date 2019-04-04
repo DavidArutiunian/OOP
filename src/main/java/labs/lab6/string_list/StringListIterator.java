@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 @AllArgsConstructor
-public class StringNodeIterator implements Iterator<StringNode> {
+public class StringListIterator implements Iterator<String> {
     @Getter
     @Nullable
     private StringNode current;
@@ -20,12 +20,12 @@ public class StringNodeIterator implements Iterator<StringNode> {
     }
 
     @Override
-    public StringNode next() {
+    public String next() {
         val next = current;
         if (next == null) {
             throw new NoSuchElementException("Iterator doesn't point to next element!");
         }
         current = current.getNext();
-        return next;
+        return next.getValue();
     }
 }

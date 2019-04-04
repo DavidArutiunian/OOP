@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.function.Consumer;
 
 @SuppressWarnings("SameParameterValue")
-class StringList implements Iterable<StringNode> {
+class StringList implements Iterable<String> {
     private int counter = 0;
     @Nullable
     private StringNode first = null;
@@ -43,7 +43,7 @@ class StringList implements Iterable<StringNode> {
         counter++;
     }
 
-    void insert(StringNodeIterator iterator, String value) {
+    void insert(StringListIterator iterator, String value) {
         val node = new StringNode(value);
         if (!iterator.hasNext()) {
             throw new IndexOutOfBoundsException("Index out of bound!");
@@ -122,18 +122,19 @@ class StringList implements Iterable<StringNode> {
 
     @NotNull
     @Override
-    public Iterator<StringNode> iterator() {
-        return new StringNodeIterator(first);
+    public Iterator<String> iterator() {
+        return new StringListIterator(first);
     }
 
     @Override
-    public void forEach(Consumer<? super StringNode> action) {
+    public void forEach(Consumer<? super String> action) {
         if (first == null) {
             return;
         }
         var it = first;
         for (int i = 0; i < counter; i++) {
-            action.accept(it);
+            assert it != null;
+            action.accept(it.getValue());
             it = first.getNext();
         }
     }

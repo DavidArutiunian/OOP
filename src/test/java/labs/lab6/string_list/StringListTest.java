@@ -7,7 +7,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SuppressWarnings("ConstantConditions")
 public class StringListTest {
     @Test
     public void middleNodeHasCorrectNextAndPrevValuesOnBack() {
@@ -16,9 +15,7 @@ public class StringListTest {
         list.pushBack("World");
         list.pushBack("Java");
         val middle = list.get(1);
-        assertThat(middle.getPrev(), is(list.get(0)));
-        assertThat(middle.getNext(), is(list.get(2)));
-        assertEquals("World", middle.getValue());
+        assertEquals("World", middle);
     }
 
     @Test
@@ -28,9 +25,7 @@ public class StringListTest {
         list.pushBack("World");
         list.pushBack("Java");
         val first = list.get(0);
-        assertNull(first.getPrev());
-        assertThat(first.getNext(), is(list.get(1)));
-        assertEquals("Hello", first.getValue());
+        assertEquals("Hello", first);
     }
 
     @Test
@@ -40,14 +35,9 @@ public class StringListTest {
         list.pushFront("Java");
         list.pushBack("World");
         val first = list.get(0);
-        assertNull(first.getPrev());
-        assert first.getNext() != null;
-        assertEquals("Java", first.getValue());
-        assertEquals("Hello", first.getNext().getValue());
-        assert first.getNext().getNext() != null;
-        assertEquals("World", first.getNext().getNext().getValue());
-        assertEquals("Hello", list.get(1).getValue());
-        assertEquals("World", list.get(2).getValue());
+        assertEquals("Java", first);
+        assertEquals("Hello", list.get(1));
+        assertEquals("World", list.get(2));
     }
 
     @Test
@@ -75,12 +65,10 @@ public class StringListTest {
         val it = list.iterator();
         it.next();
         list.insert(it, "C++");
-        assertEquals("Hello", list.get(0).getValue());
-        assertEquals("C++", list.get(1).getValue());
-        assertEquals("World", list.get(2).getValue());
-        assertEquals("Java", list.get(3).getValue());
-        assertThat(list.get(1).getPrev(), is(list.get(0)));
-        assertThat(list.get(1).getNext(), is(list.get(2)));
+        assertEquals("Hello", list.get(0));
+        assertEquals("C++", list.get(1));
+        assertEquals("World", list.get(2));
+        assertEquals("Java", list.get(3));
     }
 
     @Test
@@ -90,12 +78,10 @@ public class StringListTest {
         list.pushBack("World");
         list.pushBack("Java");
         list.insert(list.iterator(), "C++");
-        assertEquals("C++", list.get(0).getValue());
-        assertEquals("Hello", list.get(1).getValue());
-        assertEquals("World", list.get(2).getValue());
-        assertEquals("Java", list.get(3).getValue());
-        assertNull(list.get(0).getPrev());
-        assertThat(list.get(0).getNext(), is(list.get(1)));
+        assertEquals("C++", list.get(0));
+        assertEquals("Hello", list.get(1));
+        assertEquals("World", list.get(2));
+        assertEquals("Java", list.get(3));
     }
 
     @Test
@@ -108,12 +94,10 @@ public class StringListTest {
         it.next();
         it.next();
         list.insert(it, "C++");
-        assertEquals("Hello", list.get(0).getValue());
-        assertEquals("World", list.get(1).getValue());
-        assertEquals("C++", list.get(2).getValue());
-        assertEquals("Java", list.get(3).getValue());
-        assertThat(list.get(3).getPrev(), is(list.get(2)));
-        assertNull(list.get(3).getNext());
+        assertEquals("Hello", list.get(0));
+        assertEquals("World", list.get(1));
+        assertEquals("C++", list.get(2));
+        assertEquals("Java", list.get(3));
     }
 
     @Test
@@ -142,12 +126,8 @@ public class StringListTest {
         list.pushBack("World");
         list.pushBack("Java");
         list.erase(1);
-        assertEquals("Hello", list.get(0).getValue());
-        assertEquals("Java", list.get(1).getValue());
-        assertThat(list.get(0).getNext(), is(list.get(1)));
-        assertThat(list.get(1).getPrev(), is(list.get(0)));
-        assertNull(list.get(1).getNext());
-        assertNull(list.get(0).getPrev());
+        assertEquals("Hello", list.get(0));
+        assertEquals("Java", list.get(1));
         assertEquals(2, list.size());
     }
 
@@ -158,12 +138,8 @@ public class StringListTest {
         list.pushBack("World");
         list.pushBack("Java");
         list.erase(0);
-        assertEquals("World", list.get(0).getValue());
-        assertEquals("Java", list.get(1).getValue());
-        assertThat(list.get(0).getNext(), is(list.get(1)));
-        assertThat(list.get(1).getPrev(), is(list.get(0)));
-        assertNull(list.get(1).getNext());
-        assertNull(list.get(0).getPrev());
+        assertEquals("World", list.get(0));
+        assertEquals("Java", list.get(1));
         assertEquals(2, list.size());
     }
 
@@ -174,12 +150,8 @@ public class StringListTest {
         list.pushBack("World");
         list.pushBack("Java");
         list.erase(2);
-        assertEquals("Hello", list.get(0).getValue());
-        assertEquals("World", list.get(1).getValue());
-        assertThat(list.get(0).getNext(), is(list.get(1)));
-        assertThat(list.get(1).getPrev(), is(list.get(0)));
-        assertNull(list.get(1).getNext());
-        assertNull(list.get(0).getPrev());
+        assertEquals("Hello", list.get(0));
+        assertEquals("World", list.get(1));
         assertEquals(2, list.size());
     }
 
@@ -190,10 +162,11 @@ public class StringListTest {
         list.pushBack("World");
         list.pushBack("Java");
         var counter = 0;
-        var it = list.get(0);
+        var it = list.iterator();
         for (final var string : list) {
-            assertThat(string, is(it.getValue()));
-            it = it.getNext();
+            assert it.getCurrent() != null;
+            assertThat(string, is(it.getCurrent().getValue()));
+            it.next();
             counter++;
         }
         assertEquals(list.size(), counter);
@@ -233,5 +206,14 @@ public class StringListTest {
         it.next();
         list.insert(it, "C++");
         assertEquals(4, list.size());
+    }
+
+    @Test
+    public void getIndexOutOfBound() throws IndexOutOfBoundsException {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(100));
     }
 }

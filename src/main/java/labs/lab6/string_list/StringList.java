@@ -88,7 +88,15 @@ class StringList implements Iterable<String> {
         counter = 0;
     }
 
-    @Nullable StringNode get(int index) {
+    String get(int index) {
+        val next = getStringNode(index);
+        return next.getValue();
+    }
+
+    private StringNode getStringNode(int index) {
+        if (index > counter || index < 0) {
+            throw new IndexOutOfBoundsException("Index out of bound!");
+        }
         if (first == null) {
             assert counter == 0;
             throw new NullPointerException("List is empty!");
@@ -105,7 +113,7 @@ class StringList implements Iterable<String> {
         if (index > counter || index < 0) {
             throw new IndexOutOfBoundsException("Index out of bound!");
         }
-        var curr = get(index);
+        var curr = getStringNode(index);
         assert curr != null;
         val prev = curr.getPrev();
         val next = curr.getNext();
@@ -148,17 +156,55 @@ class StringList implements Iterable<String> {
         }
     }
 
-    class StringListIterator implements Iterator<String> {
-        @Getter
+    class StringNode {
         @Nullable
-        private StringNode current;
+        private StringNode prev = null;
+        @Nullable
+        private StringNode next = null;
 
         @Getter
+        private String value;
+
+        StringNode(String value) {
+            this.value = value;
+        }
+
+        @Nullable
+        private StringNode getNext() {
+            return next;
+        }
+
+        private void setNext(@Nullable StringNode next) {
+            this.next = next;
+        }
+
+        @Nullable
+        private StringNode getPrev() {
+            return prev;
+        }
+
+        private void setPrev(@Nullable StringNode prev) {
+            this.prev = prev;
+        }
+    }
+
+    class StringListIterator implements Iterator<String> {
+        @Nullable
+        private StringNode current;
         private StringList list;
 
         private StringListIterator(@Nullable StringNode current, StringList list) {
             this.current = current;
             this.list = list;
+        }
+
+        @Nullable
+        StringNode getCurrent() {
+            return current;
+        }
+
+        private StringList getList() {
+            return list;
         }
 
         @Override

@@ -129,6 +129,8 @@ public class StringListTest {
         list.clear();
         assertEquals(0, list.size());
         assertTrue(list.empty());
+
+        list.iterator().next().setNext(null);
     }
 
     @Test
@@ -213,5 +215,4 @@ public class StringListTest {
         }
         assertEquals(list.size(), counter);
     }
-
 }

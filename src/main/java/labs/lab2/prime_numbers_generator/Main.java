@@ -17,8 +17,7 @@ class Main {
             InputOutput.validate(args, 1);
             final int upperBound = InputOutput.parse(args[0]);
             InputOutput.validate(upperBound);
-            final PrimeNumbersGenerator primeNumbersGenerator = new PrimeNumbersGenerator(upperBound);
-            System.out.println(Arrays.toString(primeNumbersGenerator.sieve().primes()));
+            System.out.println(Arrays.toString(PrimeNumbersGenerator.primes(upperBound)));
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

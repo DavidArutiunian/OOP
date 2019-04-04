@@ -67,12 +67,14 @@ public class StringListTest {
     }
 
     @Test
-    public void insertToMiddleOfList() {
+    public void insertToMiddleOfList() throws StringListIteratorException {
         val list = new StringList();
         list.pushBack("Hello");
         list.pushBack("World");
         list.pushBack("Java");
-        list.insert(new StringListIterator(list.get(1)), "C++");
+        val it = list.iterator();
+        it.next();
+        list.insert(it, "C++");
         assertEquals("Hello", list.get(0).getValue());
         assertEquals("C++", list.get(1).getValue());
         assertEquals("World", list.get(2).getValue());
@@ -82,12 +84,12 @@ public class StringListTest {
     }
 
     @Test
-    public void insertToFrontOfList() {
+    public void insertToFrontOfList() throws StringListIteratorException {
         val list = new StringList();
         list.pushBack("Hello");
         list.pushBack("World");
         list.pushBack("Java");
-        list.insert(new StringListIterator(list.get(0)), "C++");
+        list.insert(list.iterator(), "C++");
         assertEquals("C++", list.get(0).getValue());
         assertEquals("Hello", list.get(1).getValue());
         assertEquals("World", list.get(2).getValue());
@@ -97,27 +99,21 @@ public class StringListTest {
     }
 
     @Test
-    public void insertToBackOfList() {
+    public void insertToBackOfList() throws StringListIteratorException {
         val list = new StringList();
         list.pushBack("Hello");
         list.pushBack("World");
         list.pushBack("Java");
-        list.insert(new StringListIterator(list.get(2)), "C++");
+        val it = list.iterator();
+        it.next();
+        it.next();
+        list.insert(it, "C++");
         assertEquals("Hello", list.get(0).getValue());
         assertEquals("World", list.get(1).getValue());
         assertEquals("C++", list.get(2).getValue());
         assertEquals("Java", list.get(3).getValue());
         assertThat(list.get(3).getPrev(), is(list.get(2)));
         assertNull(list.get(3).getNext());
-    }
-
-    @Test
-    public void throwsIsIndexOutOfBoundOnInsert() {
-        val list = new StringList();
-        list.pushBack("Hello");
-        list.pushBack("World");
-        list.pushBack("Java");
-        assertThrows(IndexOutOfBoundsException.class, () -> list.insert(new StringListIterator(null), "C++"));
     }
 
     @Test
@@ -212,5 +208,30 @@ public class StringListTest {
             assert false;
         }
         assertEquals(list.size(), counter);
+    }
+
+    @Test
+    public void insertIteratorFromOtherList() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        val other = new StringList();
+        other.pushBack("C++");
+        assertThrows(StringListIteratorException.class, () -> list.insert(other.iterator(), "C++"));
+    }
+
+    @Test
+    public void insertNotBreakingList() throws StringListIteratorException {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        val it = list.iterator();
+        it.next();
+        it.next();
+        it.next();
+        list.insert(it, "C++");
+        assertEquals(4, list.size());
     }
 }

@@ -1,10 +1,12 @@
 package labs.lab6.string_list;
 
+import lombok.Getter;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 @SuppressWarnings("SameParameterValue")
@@ -43,17 +45,23 @@ class StringList implements Iterable<String> {
         counter++;
     }
 
-    void insert(StringListIterator iterator, String value) {
-        val node = new StringNode(value);
-        if (!iterator.hasNext()) {
-            throw new IndexOutOfBoundsException("Index out of bound!");
+    void insert(StringListIterator iterator, String value) throws StringListIteratorException {
+        if (iterator.getList() != this) {
+            throw new StringListIteratorException("Incorrect iterator!");
         }
+        val node = new StringNode(value);
         if (iterator.getCurrent() == first) {
             val curr = first;
             first = node;
             node.setNext(curr);
             assert curr != null;
             curr.setPrev(node);
+        } else if (!iterator.hasNext()) {
+            val prev = last;
+            last = node;
+            last.setPrev(prev);
+            assert prev != null;
+            prev.setNext(last);
         } else {
             val curr = iterator.getCurrent();
             assert curr != null;
@@ -64,6 +72,7 @@ class StringList implements Iterable<String> {
             node.setNext(curr);
             curr.setPrev(node);
         }
+        counter++;
     }
 
     void clear() {
@@ -122,8 +131,8 @@ class StringList implements Iterable<String> {
 
     @NotNull
     @Override
-    public Iterator<String> iterator() {
-        return new StringListIterator(first);
+    public StringListIterator iterator() {
+        return new StringListIterator(first, this);
     }
 
     @Override
@@ -136,6 +145,35 @@ class StringList implements Iterable<String> {
             assert it != null;
             action.accept(it.getValue());
             it = first.getNext();
+        }
+    }
+
+    class StringListIterator implements Iterator<String> {
+        @Getter
+        @Nullable
+        private StringNode current;
+
+        @Getter
+        private StringList list;
+
+        private StringListIterator(@Nullable StringNode current, StringList list) {
+            this.current = current;
+            this.list = list;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public String next() {
+            val next = current;
+            if (next == null) {
+                throw new NoSuchElementException("Iterator doesn't point to next element!");
+            }
+            current = current.getNext();
+            return next.getValue();
         }
     }
 }

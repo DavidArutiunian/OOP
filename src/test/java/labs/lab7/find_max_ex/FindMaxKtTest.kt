@@ -87,7 +87,7 @@ class FindMaxKtTest {
             expected,
             Human("Graig Herriman", 168.0, 50.0)
         )
-        val max = findMax(array, { max, current -> max == null || max.growth < current.growth })
+        val max = findMax(array, { max, current -> max.growth < current.growth })
         assertThat(max, `is`(expected))
     }
 
@@ -101,7 +101,7 @@ class FindMaxKtTest {
             Human("Obdulia Belisle", 175.0, 65.0),
             Human("Graig Herriman", 168.0, 50.0)
         )
-        val max = findMax(array, { max, current -> max == null || max.weight < current.weight })
+        val max = findMax(array, { max, current -> max.weight < current.weight })
         assertThat(max, `is`(expected))
     }
 }

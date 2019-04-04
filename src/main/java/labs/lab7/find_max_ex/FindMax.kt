@@ -1,8 +1,12 @@
 package labs.lab7.find_max_ex
 
-fun <T : Comparable<T>, L : (max: T?, item: T) -> Boolean> findMax(array: Array<T>, less: L? = null): T? {
+fun <T : Comparable<T>, L : (max: T, item: T) -> Boolean> findMax(array: Array<T>, less: L? = null): T? {
     var max: T? = null
     for (item in array) {
+        if (max == null) {
+            max = item
+            continue
+        }
         if (less != null) {
             if (less(max, item)) {
                 max = item
@@ -18,9 +22,13 @@ fun <T : Comparable<T>, L : (max: T?, item: T) -> Boolean> findMax(array: Array<
     return max
 }
 
-fun <T, L : (max: T?, item: T) -> Boolean> findMax(array: Array<T>, less: L? = null): T? {
+fun <T, L : (max: T, item: T) -> Boolean> findMax(array: Array<T>, less: L? = null): T? {
     var max: T? = null
     for (item in array) {
+        if (max == null) {
+            max = item
+            continue
+        }
         if (less != null) {
             if (less(max, item)) {
                 max = item

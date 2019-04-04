@@ -120,36 +120,41 @@ public class StringListTest {
     }
 
     @Test
-    public void eraseFromMiddle() {
+    public void eraseFromMiddle() throws StringListIteratorException {
         val list = new StringList();
         list.pushBack("Hello");
         list.pushBack("World");
         list.pushBack("Java");
-        list.erase(1);
+        val it = list.iterator();
+        it.next();
+        list.erase(it);
         assertEquals("Hello", list.get(0));
         assertEquals("Java", list.get(1));
         assertEquals(2, list.size());
     }
 
     @Test
-    public void eraseFromFront() {
+    public void eraseFromFront() throws StringListIteratorException {
         val list = new StringList();
         list.pushBack("Hello");
         list.pushBack("World");
         list.pushBack("Java");
-        list.erase(0);
+        list.erase(list.iterator());
         assertEquals("World", list.get(0));
         assertEquals("Java", list.get(1));
         assertEquals(2, list.size());
     }
 
     @Test
-    public void eraseFromBack() {
+    public void eraseFromBack() throws StringListIteratorException {
         val list = new StringList();
         list.pushBack("Hello");
         list.pushBack("World");
         list.pushBack("Java");
-        list.erase(2);
+        val it = list.iterator();
+        it.next();
+        it.next();
+        list.erase(it);
         assertEquals("Hello", list.get(0));
         assertEquals("World", list.get(1));
         assertEquals(2, list.size());
@@ -192,6 +197,17 @@ public class StringListTest {
         val other = new StringList();
         other.pushBack("C++");
         assertThrows(StringListIteratorException.class, () -> list.insert(other.iterator(), "C++"));
+    }
+
+    @Test
+    public void eraseIteratorFromOtherList() {
+        val list = new StringList();
+        list.pushBack("Hello");
+        list.pushBack("World");
+        list.pushBack("Java");
+        val other = new StringList();
+        other.pushBack("C++");
+        assertThrows(StringListIteratorException.class, () -> list.erase(other.iterator()));
     }
 
     @Test

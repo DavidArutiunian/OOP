@@ -89,11 +89,6 @@ class StringList implements Iterable<String> {
     }
 
     String get(int index) {
-        val next = getStringNode(index);
-        return next.getValue();
-    }
-
-    private StringNode getStringNode(int index) {
         if (index > counter || index < 0) {
             throw new IndexOutOfBoundsException("Index out of bound!");
         }
@@ -106,14 +101,15 @@ class StringList implements Iterable<String> {
             assert next != null;
             next = next.getNext();
         }
-        return next;
+        assert next != null;
+        return next.getValue();
     }
 
-    void erase(int index) {
-        if (index > counter || index < 0) {
-            throw new IndexOutOfBoundsException("Index out of bound!");
+    void erase(StringListIterator iterator) throws StringListIteratorException {
+        if (iterator.getList() != this) {
+            throw new StringListIteratorException("Incorrect iterator!");
         }
-        var curr = getStringNode(index);
+        var curr = iterator.getCurrent();
         assert curr != null;
         val prev = curr.getPrev();
         val next = curr.getNext();
@@ -123,7 +119,7 @@ class StringList implements Iterable<String> {
         if (next != null) {
             next.setPrev(prev);
         }
-        if (index == 0) {
+        if (curr == first) {
             first = next;
         }
         counter--;

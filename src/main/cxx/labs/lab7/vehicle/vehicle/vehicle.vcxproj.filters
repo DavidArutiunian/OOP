@@ -18,9 +18,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CPersonImpl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CPerson.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,13 +27,7 @@
     <ClCompile Include="CPoliceMan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CVehicleImpl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CBus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CCarImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CRacingCar.cpp">

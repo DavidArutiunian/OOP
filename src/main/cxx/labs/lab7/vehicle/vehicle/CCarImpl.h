@@ -8,9 +8,14 @@ class CCarImpl : public CVehicleImpl<Base, Passenger>
     const ECarModel m_carModel;
 
 public:
-    CCarImpl(size_t placeCount, ECarModel carModel);
+    CCarImpl(size_t placeCount, ECarModel carModel) : CVehicleImpl<Base, Passenger>(placeCount), m_carModel(carModel)
+    {
+    };
 
-    ~CCarImpl();
+    ~CCarImpl() = default;
 
-    ECarModel GetCarModel() const;
+    ECarModel GetCarModel() const
+    {
+        return m_carModel;
+    };
 };

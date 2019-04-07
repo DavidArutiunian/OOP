@@ -153,15 +153,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CBus.cpp" />
-    <ClCompile Include="CCarImpl.cpp" />
     <ClCompile Include="CPerson.cpp" />
-    <ClCompile Include="CPersonImpl.cpp" />
     <ClCompile Include="CPoliceCar.cpp" />
     <ClCompile Include="CPoliceMan.cpp" />
     <ClCompile Include="CRacer.cpp" />
     <ClCompile Include="CRacingCar.cpp" />
     <ClCompile Include="CTaxi.cpp" />
-    <ClCompile Include="CVehicleImpl.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

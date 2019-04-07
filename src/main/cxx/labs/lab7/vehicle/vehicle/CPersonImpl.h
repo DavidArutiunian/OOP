@@ -7,9 +7,14 @@ class CPersonImpl : public Base
     const std::string m_name;
 
 public:
-    CPersonImpl(std::string const& name);
+    CPersonImpl(std::string const& name) : m_name(name)
+    {
+    };
 
-    ~CPersonImpl();
+    ~CPersonImpl() = default;
 
-    std::string GetName() const;
+    std::string GetName() const
+    {
+        return std::string(m_name);
+    };
 };

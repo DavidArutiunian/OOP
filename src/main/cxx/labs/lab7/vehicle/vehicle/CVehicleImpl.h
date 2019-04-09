@@ -11,7 +11,7 @@ class CVehicleImpl : public Base
 
     void CheckPassengersBounds(size_t index) const
     {
-        if (index > m_placeCount || index < 0)
+        if (index >= m_placeCount || index < 0)
         {
             throw std::logic_error("Vehicle is full!");
         }

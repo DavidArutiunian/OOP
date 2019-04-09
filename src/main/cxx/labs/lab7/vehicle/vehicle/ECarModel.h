@@ -1,6 +1,6 @@
 #pragma once
 
-enum ECarModel
+enum class ECarModel
 {
     BMW,
     MITSUBISHI,

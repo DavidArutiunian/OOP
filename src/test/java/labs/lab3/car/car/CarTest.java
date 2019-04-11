@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SuppressWarnings("SameParameterValue")
 public class CarTest {
-    private static final double DELTA = 0.0005;
+    private static final double EPS = 10e-15;
     private Car car = new Car();
 
     @Before
@@ -34,7 +34,7 @@ public class CarTest {
     @Test
     public void throwsOnSetSpeedIfEngineOff() {
         assertThrows(EngineIsOffException.class, () -> car.setSpeed(10));
-        assertEquals(0, car.getSpeed(), DELTA);
+        assertEquals(0, car.getSpeed(), EPS);
         assertEquals(Gear.NEUTRAL, car.getGear());
     }
 
@@ -53,13 +53,13 @@ public class CarTest {
     public void setDecreasingSpeedOnNeutralGear() throws CarStateException, IllegalStateChangeException, EngineIsOnException {
         setSpeedOnFirstGearAndLeaveOnNeutralGear(15);
         car.setSpeed(10);
-        assertEquals(10, car.getSpeed(), DELTA);
+        assertEquals(10, car.getSpeed(), EPS);
         assertEquals(Gear.NEUTRAL, car.getGear());
     }
 
     @Test
     public void speedIsZeroOnInit() {
-        assertEquals(0, car.getSpeed(), DELTA);
+        assertEquals(0, car.getSpeed(), EPS);
     }
 
     @Test
@@ -178,6 +178,14 @@ public class CarTest {
     public void throwsOnSetZeroSpeedOnMovingReverseOnNeutralGear() throws IllegalStateChangeException, CarStateException, EngineIsOnException {
         setSpeedOnReverseGearAndLeaveOnNeutralGear(-10);
         car.setSpeed(0);
+    }
+
+    @Test
+    public void testWhenRunningBackwardsAt5ChangingTo4Works() throws IllegalStateChangeException, CarStateException, EngineIsOnException {
+        setSpeedOnReverseGearAndLeaveOnNeutralGear(-5);
+        setSpeed(-4);
+        assertEquals(-4, car.getSpeed(), EPS);
+        assertEquals(Gear.NEUTRAL, car.getGear());
     }
 
     private void turnOnEngine() throws EngineIsOnException {

@@ -26,6 +26,13 @@ public class Car {
     }
 
     public void setSpeed(double nextSpeed) throws CarStateException, IllegalStateChangeException {
+        final var currentGear = state.getTransmissionGear();
+        final var currentSpeed = state.getCarSeed();
+        boolean isMovingReverseAndNeutralGear = currentSpeed < 0 && currentGear == Gear.NEUTRAL;
+        boolean isReverseGear = currentGear == Gear.REVERSE;
+        if (isReverseGear || isMovingReverseAndNeutralGear) {
+            nextSpeed = nextSpeed * -1;
+        }
         transmission.testConditionsForSpeed(nextSpeed);
         state.setCarSpeed(nextSpeed);
     }

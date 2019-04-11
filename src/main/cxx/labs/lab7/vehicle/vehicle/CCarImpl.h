@@ -14,7 +14,7 @@ public:
 
     ~CCarImpl() = default;
 
-    ECarModel GetCarModel() const
+    ECarModel GetCarModel() const override
     {
         return m_carModel;
     };

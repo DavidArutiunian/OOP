@@ -11,7 +11,7 @@ class CVehicleImpl : public Base
 
     void CheckPassengersBounds(size_t index) const
     {
-        if (index >= m_placeCount || index < 0)
+        if (index >= m_placeCount)
         {
             throw std::logic_error("Vehicle is full!");
         }
@@ -30,39 +30,39 @@ public:
         m_passengers.emplace_back(pPassenger);
     };
 
-    Passenger const& GetPassenger(size_t index) const
+    Passenger const& GetPassenger(size_t index) const override
     {
         CheckPassengersBounds(index);
-       return static_cast<Passenger const&>(*m_passengers.at(index));
+        return static_cast<Passenger const&>(*m_passengers.at(index));
     };
 
-    size_t GetPassengerCount() const
+    size_t GetPassengerCount() const override
     {
         return m_passengers.size();
     };
 
-    bool IsEmpty() const
+    bool IsEmpty() const override
     {
         return m_passengers.empty();
     };
 
-    bool IsFull() const
+    bool IsFull() const override
     {
         return m_passengers.size() == m_placeCount;
     };
 
-    void RemoveAllPassengers()
+    void RemoveAllPassengers() override
     {
         m_passengers.clear();
     };
 
-    void RemovePassenger(size_t index)
+    void RemovePassenger(size_t index) override
     {
         CheckPassengersBounds(index);
         m_passengers.erase(m_passengers.begin() + index);
     };
 
-    size_t GetPlaceCount() const
+    size_t GetPlaceCount() const override
     {
         return m_placeCount;
     };

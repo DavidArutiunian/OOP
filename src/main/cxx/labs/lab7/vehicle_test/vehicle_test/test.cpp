@@ -1,10 +1,4 @@
 #include "pch.h"
-#include "CTaxi.h"
-#include "CPoliceCar.h"
-#include "CPoliceMan.h"
-#include "IRacer.h"
-#include "CRacer.h"
-#include "CPerson.h"
 
 TEST(ComplexScenario, TestStory)
 {

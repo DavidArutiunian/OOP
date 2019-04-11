@@ -13,7 +13,7 @@ public:
 
     ~CPersonImpl() = default;
 
-    std::string GetName() const
+    std::string GetName() const override
     {
         return std::string(m_name);
     };

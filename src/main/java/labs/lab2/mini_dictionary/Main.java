@@ -15,10 +15,9 @@ import java.io.IOException;
 class Main {
     public static void main(String... args) {
         try {
-            final var dictionary = new Dictionary();
-            final var provider = createDictionaryStore(args[0]);
-            provider.load(dictionary);
-            final var controller = new InteractionController(dictionary, provider);
+            final var store = createDictionaryStore(args[0]);
+            final var dictionary = store.load();
+            final var controller = new InteractionController(dictionary, store);
             final var loop = new EventLoop(controller);
             loop.run();
         } catch (Exception e) {
@@ -27,13 +26,13 @@ class Main {
     }
 
     private static DictionaryStore createDictionaryStore(@Nullable String filename) throws IOException {
-        DictionaryStore provider;
+        DictionaryStore store;
         if (filename != null) {
-            provider = new DictionaryStore(filename);
+            store = new DictionaryStore(filename);
         } else {
-            provider = new DictionaryStore();
+            store = new DictionaryStore();
         }
-        return provider;
+        return store;
     }
 
     private static void exception(Exception e) {

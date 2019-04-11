@@ -10,18 +10,18 @@ import java.io.IOException
 import java.lang.System.`in`
 import java.lang.System.out
 
-@Suppress("ReplaceCallWithBinaryOperator")
+@Suppress("ReplaceCallWithBinaryOperator", "SameParameterValue")
 class ComplexTest {
     @Test
     fun `get real part`() {
-        val complex = Complex(2.0, 1.0)
+        val complex = Complex(2.0)
         val expected = 2.0
         assertComplexReal(expected, complex)
     }
 
     @Test
     fun `get imaginary part`() {
-        val complex = Complex(2.0, 1.0)
+        val complex = Complex(0.0, 1.0)
         val expected = 1.0
         assertComplexImage(expected, complex)
     }
@@ -438,9 +438,11 @@ class ComplexTest {
 
     private fun assertComplexReal(expected: Double, actual: Complex) {
         assertEquals(expected, actual.re(), EPS)
+        assertEquals(0.0, actual.im())
     }
 
     private fun assertComplexImage(expected: Double, actual: Complex) {
         assertEquals(expected, actual.im(), EPS)
+        assertEquals(0.0, actual.re())
     }
 }

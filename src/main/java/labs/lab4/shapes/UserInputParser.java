@@ -17,7 +17,7 @@ class UserInputParser {
     private final ShapeFactory factory = new ShapeFactory();
     private final Map<String, BiConsumer<List<IShape>, Scanner>> methods = new HashMap<>();
 
-    public UserInputParser() {
+    UserInputParser() {
         methods.put(EShape.RECTANGLE.getType(), this::parseRectangle);
         methods.put(EShape.LINE.getType(), this::parseLine);
         methods.put(EShape.CIRCLE.getType(), this::parseCircle);

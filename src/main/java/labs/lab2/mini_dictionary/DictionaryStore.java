@@ -28,7 +28,8 @@ class DictionaryStore implements ISavableDictionary {
         this.manager.create();
     }
 
-    void load(Dictionary dictionary) throws IOException {
+    Dictionary load() throws IOException {
+        final var dictionary = new Dictionary();
         try (final var input = new Scanner(manager.getFileInstance())) {
             while (input.hasNext()) {
                 final String word = input.next();
@@ -38,6 +39,7 @@ class DictionaryStore implements ISavableDictionary {
         } catch (NoSuchElementException e) {
             throw new IOException("Словарь повреждён!");
         }
+        return dictionary;
     }
 
     @Override

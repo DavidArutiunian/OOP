@@ -45,9 +45,8 @@ public class DictionaryStoreTest {
 
     @Test
     public void testLoadWorks() throws IOException {
-        dictionary = new Dictionary();
         store = new DictionaryStore();
-        store.load(dictionary);
+        dictionary = store.load();
         final var expectedDict = new Dictionary();
         expectedDict.add("hello", "world");
         expectedDict.add("hello", "user");

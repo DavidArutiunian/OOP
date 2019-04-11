@@ -18,18 +18,14 @@ fun <T : Comparable<T>> findMax(array: Array<T>): T? {
     return max
 }
 
-fun <T, L : (max: T, item: T) -> Boolean> findMax(array: Array<T>, less: L? = null): T? {
+fun <T, L : (max: T, item: T) -> Boolean> findMax(array: Array<T>, less: L): T? {
     var max: T? = null
     for (item in array) {
         if (max == null) {
             max = item
             continue
         }
-        if (less != null) {
-            if (less(max, item)) {
-                max = item
-            }
-        } else if (item is String && max is String && compareStringsLexicographically(max, item) > 0) {
+        if (less(max, item)) {
             max = item
         }
     }

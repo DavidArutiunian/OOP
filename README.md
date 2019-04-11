@@ -27,3 +27,4 @@ mvn test
 * Java 11
 * Kotlin 1.3.11
 * Maven 3.6.0
+* Visual Studio 2019 (C++ 17)

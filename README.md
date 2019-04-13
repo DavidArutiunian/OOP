@@ -5,6 +5,7 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/DavidArutiunian/OOP.svg)
 ![GitHub last commit](https://img.shields.io/github/last-commit/DavidArutiunian/OOP.svg)
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/DavidArutiunian/OOP.svg)
+[![TLOC](https://tokei.rs/b1/github/DavidArutiunian/OOP)](https://github.com/DavidArutiunian/OOP)
 
 ### Installation
 

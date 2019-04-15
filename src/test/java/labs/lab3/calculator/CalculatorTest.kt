@@ -19,8 +19,8 @@ class CalculatorTest {
     @TestFactory
     fun `set var test`() = listOf("foo", "bar", "baz23", "foo45bar23baz")
         .map { name ->
-            val calc = Calculator()
             dynamicTest("test set var works for $name") {
+                val calc = Calculator()
                 calc.setVar(name)
                 assertEquals(Double.NaN, calc.getValue(name), EPS)
             }
@@ -29,8 +29,8 @@ class CalculatorTest {
     @TestFactory
     fun `set var throws SyntaxException when var is incorrect`() = listOf("1foo", "foo_bar", "\$baz", "@const")
         .map { name ->
-            val calc = Calculator()
             dynamicTest("test set var throws SyntaxException for $name") {
+                val calc = Calculator()
                 assertThrows<SyntaxException> { calc.setVar(name) }
             }
         }
@@ -38,18 +38,18 @@ class CalculatorTest {
     @TestFactory
     fun `set var throws SyntaxException when var already defined`() = listOf("foo", "bar", "baz")
         .map { name ->
-            val calc = Calculator()
             dynamicTest("test set var throws SyntaxException for $name") {
+                val calc = Calculator()
                 calc.setVar(name)
                 assertThrows<SyntaxException> { calc.setVar(name) }
             }
         }
 
     @TestFactory
-    fun `set fun test factory`() = listOf("fn1" to "var1", "foo45bar23baz" to "var2", "baz23" to "bar3")
+    fun `set fun test`() = listOf("fn1" to "var1", "foo45bar23baz" to "var2", "baz23" to "bar3")
         .map { pair ->
-            val calc = Calculator()
             dynamicTest("test set fun works for ${pair.first}") {
+                val calc = Calculator()
                 calc.setVar(pair.second)
                 calc.setFun(pair.first, pair.second)
                 assertEquals(Double.NaN, calc.getValue(pair.first), EPS)
@@ -70,8 +70,8 @@ class CalculatorTest {
     @TestFactory
     fun `set fun throws SyntaxException when name is incorrect`() = listOf("1fn1" to "var1", "#fn2" to "var2", "\$fn3" to "bar3")
         .map { pair ->
-            val calc = Calculator()
             dynamicTest("test set fun throws SyntaxException for ${pair.first}") {
+                val calc = Calculator()
                 calc.setVar(pair.second)
                 assertThrows<SyntaxException> { calc.setFun(pair.first, pair.second) }
             }
@@ -92,5 +92,26 @@ class CalculatorTest {
         val actual = calc.getVars()
         val expected = mapOf("foo" to Double.NaN, "bar" to Double.NaN, "baz" to Double.NaN)
         assertThat(actual, `is`(expected))
+    }
+
+    @TestFactory
+    fun `let var test`() = with(Calculator()) {
+        listOf("foo" to "12.3456", "bar" to "foo", "baz" to "bar")
+            .map { pair ->
+                dynamicTest("test let var works for ${pair.first}") {
+                    letVar(pair.first, pair.second)
+                    assertEquals(12.3456, getValue(pair.first), EPS)
+                }
+            }
+    }
+
+    @Test
+    fun `set fun sets value if var is defined`() {
+        val calc = Calculator()
+        calc.letVar("foo", "12.3456")
+        calc.setFun("fn", "foo")
+        assertEquals(12.3456, calc.getValue("fn"), EPS)
+        val expected = Function("foo", null, null, 12.3456)
+        assertThat(calc.getFns()["fn"], `is`(expected))
     }
 }

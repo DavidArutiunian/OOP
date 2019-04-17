@@ -6,7 +6,7 @@ import org.apache.commons.lang3.math.NumberUtils
 
 class Calculator {
     private val vars = HashMap<String, Double>()
-    private val fns = HashMap<String, Function>()
+    private val fns = LinkedHashMap<String, Function>()
 
     fun setVar(name: String) = when {
         !isNameCorrect(name) -> throw SyntaxException("Invalid or unexpected token")
@@ -14,7 +14,7 @@ class Calculator {
         else -> vars[name] = Double.NaN
     }
 
-    fun letVar(name: String, value: String) {
+    fun setVarValue(name: String, value: String) {
         when {
             value.isEmpty() -> throw SyntaxException("Unexpected token")
             !vars.containsKey(name) -> setVar(name)
@@ -23,11 +23,9 @@ class Calculator {
             NumberUtils.isCreatable(value) -> vars[name] = NumberUtils.toDouble(value)
             else -> vars[name] = getValue(value)
         }
-        for (fn in fns) {
-            if (fn.value.left == name || fn.value.right == name) {
-                TODO("calculate function value")
-            }
-        }
+        val calculated = HashSet<String>()
+        traverseAndCalcFunsValues(name, fns, calculated)
+//        traverseAndCalcFunsValues(name, getReversedMap(fns), calculated)
     }
 
     fun setFun(ident: String, `var`: String) = when {
@@ -36,8 +34,23 @@ class Calculator {
         !vars.containsKey(`var`) -> throw ReferenceException("'$`var`' is not defined")
         else -> {
             fns[ident] = Function(`var`)
-            setFunValue(ident)
+            setFunValue(fns[ident]!!)
         }
+    }
+
+    fun setFun(ident: String, left: String, op: Operator, right: String) {
+        val conditions = booleanArrayOf(
+            !isReservedName(ident),
+            isNameCorrect(ident),
+            isNameCorrect(left),
+            isNameCorrect(right)
+        )
+        if (conditions.any { !it }) {
+            throw SyntaxException("Invalid or unexpected token")
+        }
+        val fn = Function(left, right, op)
+        fns[ident] = fn
+        setFunValue(fn)
     }
 
     fun getVars() = mapOf(*vars.map { Pair(it.key, it.value) }.toTypedArray())
@@ -50,14 +63,44 @@ class Calculator {
         else -> Double.NaN
     }
 
-    private fun setFunValue(name: String) {
-        if (!fns.containsKey(name)) {
+    private fun setFunValue(fn: Function) = when {
+        fn.op == null -> fn.value = getValue(fn.left)
+        else -> calcFunValue(fn)
+    }
+
+    private fun calcFunValue(fn: Function) {
+        val left = getValue(fn.left)
+        val right = getValue(fn.right!!)
+        if (left == Double.NaN || right == Double.NaN) {
             return
         }
-        val fn = fns[name]!!
+        var value = Double.NaN
         when {
-            fn.op == null -> fn.value = getValue(fn.left)
-            else -> TODO("calculate function value")
+            fn.op == Operator.ADD -> value = left + right
+            fn.op == Operator.SUB -> value = left - right
+            fn.op == Operator.MUL -> value = left * right
+            fn.op == Operator.DIV -> value = when (right) {
+                0.0 -> Double.POSITIVE_INFINITY
+                else -> left / right
+            }
+        }
+        fn.value = value
+    }
+
+    private fun <K, V> getReversedMap(map: Map<K, V>) = map.entries.reversed().map { it.key to it.value }.toMap()
+
+    private fun traverseAndCalcFunsValues(name: String, fns: Map<String, Function>, calculated: HashSet<String>) {
+        for (fn in fns) {
+            val conditions = booleanArrayOf(
+                fn.value.left == name,
+                fn.value.right == name,
+                calculated.contains(fn.value.left),
+                calculated.contains(fn.value.right)
+            )
+            if (conditions.any { it }) {
+                setFunValue(fns.getValue(fn.key))
+                calculated.add(fn.key)
+            }
         }
     }
 

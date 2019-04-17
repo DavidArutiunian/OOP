@@ -10,6 +10,7 @@ import org.junit.Test
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.api.assertThrows
+import org.junit.rules.TestRule
 
 class CalculatorTest {
     companion object {
@@ -95,11 +96,11 @@ class CalculatorTest {
     }
 
     @TestFactory
-    fun `let var test`() = with(Calculator()) {
+    fun `set var value test`() = with(Calculator()) {
         listOf("foo" to "12.3456", "bar" to "foo", "baz" to "bar")
             .map { pair ->
-                dynamicTest("test let var works for ${pair.first}") {
-                    letVar(pair.first, pair.second)
+                dynamicTest("test set var value works for ${pair.first}") {
+                    setVarValue(pair.first, pair.second)
                     assertEquals(12.3456, getValue(pair.first), EPS)
                 }
             }
@@ -108,10 +109,127 @@ class CalculatorTest {
     @Test
     fun `set fun sets value if var is defined`() {
         val calc = Calculator()
-        calc.letVar("foo", "12.3456")
+        calc.setVarValue("foo", "12.3456")
         calc.setFun("fn", "foo")
         assertEquals(12.3456, calc.getValue("fn"), EPS)
         val expected = Function("foo", null, null, 12.3456)
         assertThat(calc.getFns()["fn"], `is`(expected))
+    }
+
+    @Test
+    fun `set fun with left, right and operator`() {
+        val calc = Calculator()
+        calc.setVarValue("bar", "5.0")
+        calc.setVarValue("baz", "5.0")
+        calc.setFun("foo", "bar", Operator.ADD, "baz")
+        val expected = Function("bar", "baz", Operator.ADD, 10.0)
+        assertThat(calc.getFns()["foo"], `is`(expected))
+        assertEquals(10.0, calc.getValue("foo"), EPS)
+    }
+
+    @Test
+    fun `scenario with vars`() {
+        val calc = Calculator()
+        calc.setVar("x")
+        assertEquals(Double.NaN, calc.getValue("x"), EPS)
+        calc.setVarValue("x", "42")
+        assertEquals(42.00, calc.getValue("x"), EPS)
+        assertEquals(1, calc.getVars().size)
+        calc.setVarValue("x", "1.234")
+        assertEquals(1.234, calc.getValue("x"), EPS)
+        assertEquals(1, calc.getVars().size)
+        calc.setVarValue("y", "x")
+        calc.setVarValue("x", "99")
+        assertEquals(99.0, calc.getValue("x"), EPS)
+        assertEquals(1.234, calc.getValue("y"), EPS)
+        assertEquals(2, calc.getVars().size)
+    }
+
+    @Test
+    fun `scenario with funs`() {
+        val calc = Calculator()
+        calc.setVar("x")
+        calc.setVar("y")
+        calc.setFun("XPlusY", "x", Operator.ADD, "y")
+        assertEquals(Double.NaN, calc.getValue("XPlusY"), EPS)
+        assertEquals(1, calc.getFns().size)
+        calc.setVarValue("x", "3")
+        calc.setVarValue("y", "4")
+        assertEquals(7.0, calc.getValue("XPlusY"), EPS)
+        assertEquals(1, calc.getFns().size)
+        calc.setVarValue("x", "10")
+        assertEquals(14.0, calc.getValue("XPlusY"), EPS)
+        calc.setVarValue("z", "3.5")
+        calc.setFun("XPlusYDivZ", "XPlusY", Operator.DIV, "z")
+        assertEquals(4.0, calc.getValue("XPlusYDivZ"), EPS)
+        assertEquals(2, calc.getFns().size)
+    }
+
+    @Test
+    fun `calc circle area`() {
+        val calc = Calculator()
+        calc.setVar("radius")
+        calc.setVarValue("pi", "3.14159265")
+        calc.setFun("radiusSquared", "radius", Operator.MUL, "radius")
+        calc.setFun("circleArea", "pi", Operator.MUL, "radiusSquared")
+        calc.setVarValue("radius", "10")
+        assertEquals(314.159265, calc.getValue("circleArea"), EPS)
+        calc.setVarValue("circle10Area", "circleArea")
+        calc.setVarValue("radius", "20")
+        calc.setVarValue("circle20Area", "circleArea")
+        assertEquals(1256.63706, calc.getValue("circleArea"), EPS)
+        assertEquals(400.0, calc.getValue("radiusSquared"), EPS)
+        assertEquals(2, calc.getFns().size)
+        assertEquals(314.159265, calc.getValue("circle10Area"), EPS)
+        assertEquals(1256.63706, calc.getValue("circle20Area"), EPS)
+        assertEquals(3.14159265, calc.getValue("pi"), EPS)
+        assertEquals(20.0, calc.getValue("radius"), EPS)
+        assertEquals(4, calc.getVars().size)
+    }
+
+    @Test
+    fun `calc Fibonacci numbers`() {
+        val calc = Calculator()
+        calc.setVarValue("v0", "0")
+        calc.setVarValue("v1", "1")
+        calc.setFun("fib0", "v0")
+        calc.setFun("fib1", "v1")
+        calc.setFun("fib2", "fib1", Operator.ADD, "fib0")
+        calc.setFun("fib3", "fib2", Operator.ADD, "fib1")
+        calc.setFun("fib4", "fib3", Operator.ADD, "fib2")
+        calc.setFun("fib5", "fib4", Operator.ADD, "fib3")
+        calc.setFun("fib6", "fib5", Operator.ADD, "fib4")
+        assertEquals(0.0, calc.getValue("fib0"), EPS)
+        assertEquals(1.0, calc.getValue("fib1"), EPS)
+        assertEquals(1.0, calc.getValue("fib2"), EPS)
+        assertEquals(2.0, calc.getValue("fib3"), EPS)
+        assertEquals(3.0, calc.getValue("fib4"), EPS)
+        assertEquals(5.0, calc.getValue("fib5"), EPS)
+        assertEquals(8.0, calc.getValue("fib6"), EPS)
+        assertEquals(7, calc.getFns().size)
+        calc.setVarValue("v0", "1")
+        calc.setVarValue("v1", "1")
+        assertEquals(1.0, calc.getValue("fib0"), EPS)
+        assertEquals(1.0, calc.getValue("fib1"), EPS)
+        assertEquals(2.0, calc.getValue("fib2"), EPS)
+        assertEquals(3.0, calc.getValue("fib3"), EPS)
+        assertEquals(5.0, calc.getValue("fib4"), EPS)
+        assertEquals(8.0, calc.getValue("fib5"), EPS)
+        assertEquals(13.0, calc.getValue("fib6"), EPS)
+        assertEquals(7, calc.getFns().size)
+    }
+
+    @Test
+    fun `calc 1 000 000 funs recursively`() {
+        val calc = Calculator()
+        calc.setVarValue("x1", "1")
+        for (i in 2..1_000_000) {
+            calc.setFun("x$i", "x${i - 1}", Operator.ADD, "x1")
+        }
+        assertEquals(1_000_000.0, calc.getValue("x1000000"), EPS)
+        assertEquals(999_999, calc.getFns().size)
+        calc.setVarValue("x1", "2")
+        assertEquals(2_000_000.0, calc.getValue("x1000000"), EPS)
+        assertEquals(999_999, calc.getFns().size)
     }
 }

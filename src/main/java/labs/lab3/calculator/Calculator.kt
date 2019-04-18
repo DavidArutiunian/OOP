@@ -23,9 +23,7 @@ class Calculator {
             NumberUtils.isCreatable(value) -> vars[name] = NumberUtils.toDouble(value)
             else -> vars[name] = getValue(value)
         }
-        val calculated = HashSet<String>()
-        traverseAndCalcFunsValues(name, fns, calculated)
-//        traverseAndCalcFunsValues(name, getReversedMap(fns), calculated)
+        traverseAndCalcFunsValues(name, fns)
     }
 
     fun setFun(ident: String, `var`: String) = when {
@@ -87,9 +85,8 @@ class Calculator {
         fn.value = value
     }
 
-    private fun <K, V> getReversedMap(map: Map<K, V>) = map.entries.reversed().map { it.key to it.value }.toMap()
-
-    private fun traverseAndCalcFunsValues(name: String, fns: Map<String, Function>, calculated: HashSet<String>) {
+    private fun traverseAndCalcFunsValues(name: String, fns: Map<String, Function>) {
+        val calculated = HashSet<String>()
         for (fn in fns) {
             val conditions = booleanArrayOf(
                 fn.value.left == name,
@@ -104,7 +101,7 @@ class Calculator {
         }
     }
 
-    private fun isNameCorrect(name: String) = name.isNotEmpty() && name.first().isLetter() && name.all { it.isLetterOrDigit() }
+    private fun isNameCorrect(name: String) = name.isNotEmpty() && name.first().isLetter() && name.all { it.isLetterOrDigit() || it == '_' }
 
     private fun isReservedName(name: String) = vars.containsKey(name) || fns.containsKey(name)
 }

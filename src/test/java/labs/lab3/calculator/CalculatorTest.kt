@@ -10,7 +10,6 @@ import org.junit.Test
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.api.assertThrows
-import org.junit.rules.TestRule
 
 class CalculatorTest {
     companion object {
@@ -18,7 +17,7 @@ class CalculatorTest {
     }
 
     @TestFactory
-    fun `set var test`() = listOf("foo", "bar", "baz23", "foo45bar23baz")
+    fun `set var test`() = listOf("foo", "bar", "baz23", "foo45bar23baz", "foo_bar_baz")
         .map { name ->
             dynamicTest("test set var works for $name") {
                 val calc = Calculator()
@@ -28,7 +27,7 @@ class CalculatorTest {
         }
 
     @TestFactory
-    fun `set var throws SyntaxException when var is incorrect`() = listOf("1foo", "foo_bar", "\$baz", "@const")
+    fun `set var throws SyntaxException when var is incorrect`() = listOf("1foo", "\$baz", "@const")
         .map { name ->
             dynamicTest("test set var throws SyntaxException for $name") {
                 val calc = Calculator()

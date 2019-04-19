@@ -22,6 +22,7 @@
         <maven.assemply.plugin.version>3.1.1</maven.assemply.plugin.version>
         <json.version>20180813</json.version>
         <okhttp.version>3.14.0</okhttp.version>
+        <mockito-kotlin.version>2.1.0</mockito-kotlin.version>
     </properties>
     <groupId>com.DavidArutiunian.OOP</groupId>
     <artifactId>OOP</artifactId>
@@ -81,6 +82,11 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>${json.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.nhaarman.mockitokotlin2</groupId>
+            <artifactId>mockito-kotlin</artifactId>
+            <version>${mockito-kotlin.version}</version>
         </dependency>
     </dependencies>
     <build>

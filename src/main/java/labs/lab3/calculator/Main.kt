@@ -11,6 +11,9 @@ fun main() {
     while (true) {
         try {
             token = sc.next()
+            if (token == "exit") {
+                break
+            }
             val method = handler.getTokenHandler(token)
             method.invoke(calc)
         } catch (ex: Exception) {

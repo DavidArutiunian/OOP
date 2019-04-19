@@ -56,8 +56,7 @@ class CommandLineHandler(private val sc: Scanner) : IHandler {
         }
         when {
             left != null && right != null && op != null -> operatable.setFun(ident.trim(), left.trim(), op, right.trim())
-            left != null -> operatable.setFun(ident.trim(), left.trim())
-            else -> throw SyntaxException("Invalid or unexpected token")
+            else -> operatable.setFun(ident.trim(), left!!.trim())
         }
     }
 

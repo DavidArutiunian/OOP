@@ -4,17 +4,17 @@ import labs.lab3.calculator.exceptions.ReferenceException
 import labs.lab3.calculator.exceptions.SyntaxException
 import org.apache.commons.lang3.math.NumberUtils
 
-class Calculator {
+class Calculator : IOperatable {
     private val vars = HashMap<String, Double>()
     private val fns = LinkedHashMap<String, Function>()
 
-    fun setVar(name: String) = when {
+    override fun setVar(name: String) = when {
         !isNameCorrect(name) -> throw SyntaxException("Invalid or unexpected token")
         isReservedName(name) -> throw SyntaxException("Identifier '$name' has already been declared")
         else -> vars[name] = Double.NaN
     }
 
-    fun setVarValue(name: String, value: String) {
+    override fun setVarValue(name: String, value: String) {
         when {
             value.isEmpty() -> throw SyntaxException("Unexpected token")
             !vars.containsKey(name) -> setVar(name)
@@ -26,7 +26,7 @@ class Calculator {
         traverseAndCalcFunsValues(name, fns)
     }
 
-    fun setFun(ident: String, `var`: String) = when {
+    override fun setFun(ident: String, `var`: String) = when {
         isReservedName(ident) -> throw SyntaxException("Identifier '$ident' has already been declared")
         !isNameCorrect(ident) -> throw SyntaxException("Invalid or unexpected token")
         !vars.containsKey(`var`) -> throw ReferenceException("'$`var`' is not defined")
@@ -36,7 +36,7 @@ class Calculator {
         }
     }
 
-    fun setFun(ident: String, left: String, op: Operator, right: String) {
+    override fun setFun(ident: String, left: String, op: Operator, right: String) {
         val conditions = booleanArrayOf(
             !isReservedName(ident),
             isNameCorrect(ident),
@@ -51,11 +51,11 @@ class Calculator {
         setFunValue(fn)
     }
 
-    fun getVars() = mapOf(*vars.map { Pair(it.key, it.value) }.toTypedArray())
+    override fun getVars() = mapOf(*vars.map { Pair(it.key, it.value) }.toTypedArray())
 
-    fun getFns() = mapOf(*fns.map { Pair(it.key, it.value) }.toTypedArray())
+    override fun getFns() = mapOf(*fns.map { Pair(it.key, it.value) }.toTypedArray())
 
-    fun getValue(name: String) = when {
+    override fun getValue(name: String) = when {
         fns.containsKey(name) -> fns[name]!!.value
         vars.containsKey(name) -> vars[name]!!
         else -> Double.NaN

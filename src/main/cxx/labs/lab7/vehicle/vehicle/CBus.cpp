@@ -1,6 +1,7 @@
 #include "CBus.h"
 
-CBus::CBus(size_t placeCount) : CVehicleImpl(placeCount)
+CBus::CBus(size_t placeCount)
+    : CVehicleImpl(placeCount)
 {
 }
 

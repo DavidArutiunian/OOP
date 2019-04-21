@@ -5,10 +5,10 @@
 
 #pragma once
 
-#include "gtest/gtest.h"
-#include "CTaxi.h"
+#include "CPerson.h"
 #include "CPoliceCar.h"
 #include "CPoliceMan.h"
-#include "IRacer.h"
 #include "CRacer.h"
-#include "CPerson.h"
+#include "CTaxi.h"
+#include "IRacer.h"
+#include "gtest/gtest.h"

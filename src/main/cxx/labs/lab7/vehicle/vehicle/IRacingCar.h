@@ -1,6 +1,6 @@
 #pragma once
-#include "IRacer.h"
 #include "ICar.h"
+#include "IRacer.h"
 
 class IRacingCar : public ICar<IRacer>
 {

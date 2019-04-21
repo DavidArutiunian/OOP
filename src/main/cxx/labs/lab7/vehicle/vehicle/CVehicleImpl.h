@@ -18,9 +18,8 @@ class CVehicleImpl : public Base
     };
 
 public:
-    CVehicleImpl(size_t placeCount) : m_placeCount(placeCount)
-    {
-    };
+    CVehicleImpl(size_t placeCount)
+        : m_placeCount(placeCount){};
 
     ~CVehicleImpl() = default;
 

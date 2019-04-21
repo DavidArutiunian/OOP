@@ -1,6 +1,6 @@
 #pragma once
-#include "IPoliceCar.h"
 #include "CCarImpl.h"
+#include "IPoliceCar.h"
 
 class CPoliceCar : public CCarImpl<IPoliceCar, IPoliceMan>
 {

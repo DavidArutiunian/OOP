@@ -5,7 +5,7 @@
 class CTaxi : public CCarImpl<ITaxi, IPerson>
 {
 public:
-	CTaxi(size_t placeCount, ECarModel carModel);
+    CTaxi(size_t placeCount, ECarModel carModel);
 
-	~CTaxi();
+    ~CTaxi();
 };

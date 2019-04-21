@@ -2,7 +2,7 @@
 class IBasicVehicle
 {
 public:
-    virtual ~IBasicVehicle() = default;;
+    virtual ~IBasicVehicle() = default;
 
     virtual bool IsEmpty() const = 0;
 

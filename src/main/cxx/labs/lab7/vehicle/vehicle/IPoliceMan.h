@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 #include "IPerson.h"
+#include <string>
 
 class IPoliceMan : public IPerson
 {

@@ -111,7 +111,7 @@ class CalculatorTest {
         calc.setVarValue("foo", "12.3456")
         calc.setFun("fn", "foo")
         assertEquals(12.3456, calc.getValue("fn"), EPS)
-        val expected = Function("foo", null, null, 12.3456)
+        val expected = Function("foo", null, null, 12.3456, false)
         assertThat(calc.getFns()["fn"], `is`(expected))
     }
 
@@ -121,7 +121,8 @@ class CalculatorTest {
         calc.setVarValue("bar", "5.0")
         calc.setVarValue("baz", "5.0")
         calc.setFun("foo", "bar", Operator.ADD, "baz")
-        val expected = Function("bar", "baz", Operator.ADD, 10.0)
+        val expected = Function("bar", "baz", Operator.ADD, 10.0, false)
+        calc.getValue("foo")
         assertThat(calc.getFns()["foo"], `is`(expected))
         assertEquals(10.0, calc.getValue("foo"), EPS)
     }

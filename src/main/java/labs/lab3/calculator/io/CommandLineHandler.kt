@@ -27,16 +27,16 @@ class CommandLineHandler(private val sc: Scanner) : IHandler {
         return handlers[token]!!
     }
 
-    private fun handleVarToken(operatable: ISetVar) {
+    private fun handleVarToken(operatable: IVariableSetter) {
         operatable.setVar(sc.next())
     }
 
-    private fun handleLetToken(operatable: ISetVarValue) {
+    private fun handleLetToken(operatable: IVariableValueSetter) {
         val tokens = sc.nextLine().split('=')
         operatable.setVarValue(tokens.first().trim(), tokens.last().trim())
     }
 
-    private fun handleFnToken(operatable: ISetFun) {
+    private fun handleFnToken(operatable: IFunctionsSetter) {
         val tokens = sc.nextLine().split('=')
         val ident = tokens.first()
         val operation = tokens.last().find { arrayOf('+', '-', '*', '/').contains(it) }
@@ -60,15 +60,15 @@ class CommandLineHandler(private val sc: Scanner) : IHandler {
         }
     }
 
-    private fun handlePrintToken(operatable: IGetValue) {
+    private fun handlePrintToken(operatable: IValueGetter) {
         println("%.2f".format(operatable.getValue(sc.next())))
     }
 
-    private fun handlePrintvarsToken(operatable: IGetVars) {
+    private fun handlePrintvarsToken(operatable: IVariablesGetter) {
         println(operatable.getVars().map { it.key to "%.2f".format(it.value) })
     }
 
-    private fun handlePrintfnsToken(operatable: IGetFns) {
+    private fun handlePrintfnsToken(operatable: IFunctionsGetter) {
         println(operatable.getFns().map { it.key to "%.2f".format(it.value.value) })
     }
 }

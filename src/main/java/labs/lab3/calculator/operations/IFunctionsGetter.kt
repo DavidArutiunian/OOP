@@ -3,6 +3,6 @@ package labs.lab3.calculator.operations
 import labs.lab3.calculator.Function
 
 
-interface IGetFns {
+interface IFunctionsGetter {
     fun getFns(): Map<String, Function>
 }

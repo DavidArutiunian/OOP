@@ -1,5 +1,5 @@
 package labs.lab3.calculator.operations
 
-interface IGetValue {
+interface IValueGetter {
     fun getValue(name: String): Double
 }

@@ -1,5 +1,5 @@
 package labs.lab3.calculator.operations
 
-interface IGetVars {
+interface IVariablesGetter {
     fun getVars(): Map<String, Double>
 }

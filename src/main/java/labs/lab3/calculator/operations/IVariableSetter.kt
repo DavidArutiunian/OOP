@@ -1,5 +1,5 @@
 package labs.lab3.calculator.operations
 
-interface ISetVar {
+interface IVariableSetter {
     fun setVar(name: String)
 }

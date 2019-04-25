@@ -104,7 +104,7 @@
                 <configuration>
                     <forkCount>3</forkCount>
                     <reuseForks>true</reuseForks>
-                    <argLine>-Xmx2048m -XX:MaxPermSize=256m</argLine>
+                    <argLine>-Xmx2048m</argLine>
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
                 </configuration>
             </plugin>

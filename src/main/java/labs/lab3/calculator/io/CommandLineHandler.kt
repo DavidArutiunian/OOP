@@ -1,6 +1,6 @@
 package labs.lab3.calculator.io
 
-import labs.lab3.calculator.Operator
+import labs.lab3.calculator.calculator.Operator
 import labs.lab3.calculator.exceptions.SyntaxException
 import java.util.*
 

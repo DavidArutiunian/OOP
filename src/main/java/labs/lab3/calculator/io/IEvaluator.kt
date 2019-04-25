@@ -1,7 +1,7 @@
 package labs.lab3.calculator.io
 
-import labs.lab3.calculator.Function
-import labs.lab3.calculator.Operator
+import labs.lab3.calculator.calculator.Function
+import labs.lab3.calculator.calculator.Operator
 
 interface IEvaluator {
     fun setVar(name: String)

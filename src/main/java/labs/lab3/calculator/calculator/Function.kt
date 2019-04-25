@@ -1,4 +1,4 @@
-package labs.lab3.calculator
+package labs.lab3.calculator.calculator
 
 data class Function(
     var left: String,

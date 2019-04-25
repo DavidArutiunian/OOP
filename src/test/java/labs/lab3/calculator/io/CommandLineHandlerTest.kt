@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
-import labs.lab3.calculator.Operator
+import labs.lab3.calculator.calculator.Operator
 import labs.lab3.calculator.exceptions.SyntaxException
 import lib.io.OutputMock.setSystemInput
 import org.junit.Assert.assertEquals

@@ -1,4 +1,4 @@
-package labs.lab3.calculator
+package labs.lab3.calculator.calculator
 
 import labs.lab3.calculator.exceptions.ReferenceException
 import labs.lab3.calculator.exceptions.SyntaxException
@@ -6,13 +6,12 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.api.assertThrows
 
-class CalculatorTest {
+class FastCalculatorTest {
     companion object {
         const val EPS = 10e-15
     }
@@ -21,7 +20,7 @@ class CalculatorTest {
     fun `set var test`() = listOf("foo", "bar", "baz23", "foo45bar23baz", "foo_bar_baz")
         .map { name ->
             dynamicTest("test set var works for $name") {
-                val calc = Calculator()
+                val calc = FastCalculator()
                 calc.setVar(name)
                 assertEquals(Double.NaN, calc.getValue(name), EPS)
             }
@@ -31,7 +30,7 @@ class CalculatorTest {
     fun `set var throws SyntaxException when var is incorrect`() = listOf("1foo", "\$baz", "@const")
         .map { name ->
             dynamicTest("test set var throws SyntaxException for $name") {
-                val calc = Calculator()
+                val calc = FastCalculator()
                 assertThrows<SyntaxException> { calc.setVar(name) }
             }
         }
@@ -40,7 +39,7 @@ class CalculatorTest {
     fun `set var throws SyntaxException when var already defined`() = listOf("foo", "bar", "baz")
         .map { name ->
             dynamicTest("test set var throws SyntaxException for $name") {
-                val calc = Calculator()
+                val calc = FastCalculator()
                 calc.setVar(name)
                 assertThrows<SyntaxException> { calc.setVar(name) }
             }
@@ -50,7 +49,7 @@ class CalculatorTest {
     fun `set fun test`() = listOf("fn1" to "var1", "foo45bar23baz" to "var2", "baz23" to "bar3")
         .map { pair ->
             dynamicTest("test set fun works for ${pair.first}") {
-                val calc = Calculator()
+                val calc = FastCalculator()
                 calc.setVar(pair.second)
                 calc.setFun(pair.first, pair.second)
                 assertEquals(Double.NaN, calc.getValue(pair.first), EPS)
@@ -61,7 +60,7 @@ class CalculatorTest {
 
     @Test
     fun `set fun throws SyntaxException when name is reserved`() {
-        val calc = Calculator()
+        val calc = FastCalculator()
         calc.setVar("foo")
         calc.setVar("baz")
         calc.setFun("bar", "foo")
@@ -72,7 +71,7 @@ class CalculatorTest {
     fun `set fun throws SyntaxException when name is incorrect`() = listOf("1fn1" to "var1", "#fn2" to "var2", "\$fn3" to "bar3")
         .map { pair ->
             dynamicTest("test set fun throws SyntaxException for ${pair.first}") {
-                val calc = Calculator()
+                val calc = FastCalculator()
                 calc.setVar(pair.second)
                 assertThrows<SyntaxException> { calc.setFun(pair.first, pair.second) }
             }
@@ -80,13 +79,13 @@ class CalculatorTest {
 
     @Test
     fun `set fun throws ReferenceException when var is not defined`() {
-        val calc = Calculator()
+        val calc = FastCalculator()
         assertThrows<ReferenceException> { calc.setFun("foo", "bar") }
     }
 
     @Test
     fun `get vars return map with vars`() {
-        val calc = Calculator()
+        val calc = FastCalculator()
         calc.setVar("foo")
         calc.setVar("bar")
         calc.setVar("baz")
@@ -96,7 +95,7 @@ class CalculatorTest {
     }
 
     @TestFactory
-    fun `set var value test`() = with(Calculator()) {
+    fun `set var value test`() = with(FastCalculator()) {
         listOf("foo" to "12.3456", "bar" to "foo", "baz" to "bar")
             .map { pair ->
                 dynamicTest("test set var value works for ${pair.first}") {
@@ -108,29 +107,28 @@ class CalculatorTest {
 
     @Test
     fun `set fun sets value if var is defined`() {
-        val calc = Calculator()
+        val calc = FastCalculator()
         calc.setVarValue("foo", "12.3456")
         calc.setFun("fn", "foo")
         assertEquals(12.3456, calc.getValue("fn"), EPS)
-        val expected = Function("foo", null, null, 12.3456, false)
+        val expected = Function("foo", null, null, 12.3456)
         assertThat(calc.getFns()["fn"], `is`(expected))
     }
 
     @Test
     fun `set fun with left, right and operator`() {
-        val calc = Calculator()
+        val calc = FastCalculator()
         calc.setVarValue("bar", "5.0")
         calc.setVarValue("baz", "5.0")
         calc.setFun("foo", "bar", Operator.ADD, "baz")
-        val expected = Function("bar", "baz", Operator.ADD, 10.0, false)
-        calc.getValue("foo")
+        val expected = Function("bar", "baz", Operator.ADD, 10.0)
         assertThat(calc.getFns()["foo"], `is`(expected))
         assertEquals(10.0, calc.getValue("foo"), EPS)
     }
 
     @Test
     fun `scenario with vars`() {
-        val calc = Calculator()
+        val calc = FastCalculator()
         calc.setVar("x")
         assertEquals(Double.NaN, calc.getValue("x"), EPS)
         calc.setVarValue("x", "42")
@@ -148,7 +146,7 @@ class CalculatorTest {
 
     @Test
     fun `scenario with funs`() {
-        val calc = Calculator()
+        val calc = FastCalculator()
         calc.setVar("x")
         calc.setVar("y")
         calc.setFun("XPlusY", "x", Operator.ADD, "y")
@@ -168,7 +166,7 @@ class CalculatorTest {
 
     @Test
     fun `calc circle area`() {
-        val calc = Calculator()
+        val calc = FastCalculator()
         calc.setVar("radius")
         calc.setVarValue("pi", "3.14159265")
         calc.setFun("radiusSquared", "radius", Operator.MUL, "radius")
@@ -190,7 +188,7 @@ class CalculatorTest {
 
     @Test
     fun `calc Fibonacci numbers`() {
-        val calc = Calculator()
+        val calc = FastCalculator()
         calc.setVarValue("v0", "0")
         calc.setVarValue("v1", "1")
         calc.setFun("fib0", "v0")
@@ -221,9 +219,8 @@ class CalculatorTest {
     }
 
     @Test
-    @Ignore
     fun `calc 1 000 000 funs recursively`() {
-        val calc = Calculator()
+        val calc = FastCalculator()
         calc.setVarValue("x1", "1")
         for (i in 2..1_000_000) {
             calc.setFun("x$i", "x${i - 1}", Operator.ADD, "x1")

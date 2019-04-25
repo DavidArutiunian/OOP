@@ -2,19 +2,14 @@ package labs.lab3.calculator
 
 import labs.lab3.calculator.exceptions.ReferenceException
 import labs.lab3.calculator.exceptions.SyntaxException
+import labs.lab3.calculator.graphs.GraphFactory
 import labs.lab3.calculator.io.IEvaluator
 import org.apache.commons.lang3.math.NumberUtils
-import org.jgrapht.graph.DefaultEdge
-import org.jgrapht.graph.SimpleDirectedGraph
-import java.util.*
-import java.util.stream.Stream
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class Calculator : IEvaluator {
     private val vars = HashMap<String, Double>()
     private val fns = HashMap<String, Function>()
-    private val graph = SimpleDirectedGraph<String, DefaultEdge>(DefaultEdge::class.java)
+    private val graph = GraphFactory.createCustomGraph<String>()
 
     override fun setVar(name: String) = when {
         !isNameCorrect(name) -> throw SyntaxException("Invalid or unexpected token")
@@ -102,17 +97,11 @@ class Calculator : IEvaluator {
         if (!fns.containsKey(name)) {
             return
         }
-        val queue = ArrayDeque<String>()
-        val nodes = ArrayList<String>()
-        nodes.add(name)
-        getOutgoingEdges(name).forEach { queue.add(it) }
-        while (!queue.isEmpty()) {
-            val curr = queue.first
-            queue.pop()
-            nodes.add(curr)
-            getOutgoingEdges(curr).forEach { queue.add(it) }
-        }
-        for (fn in nodes.reversed()) {
+        val nodes = graph
+            .getAllNeighbours(name)
+            .filter { fns.containsKey(it) }
+            .asReversed()
+        for (fn in nodes) {
             setFunValue(fns[fn]!!)
             setFunNotExpired(fns[fn]!!)
         }
@@ -165,29 +154,10 @@ class Calculator : IEvaluator {
         if (!graph.containsVertex(name)) {
             return
         }
-        val queue = ArrayDeque<String>()
-        getAllNeighbours(name).forEach { queue.add(it) }
-        while (!queue.isEmpty()) {
-            val curr = queue.first
-            queue.pop()
-            setFunExpired(fns[curr]!!)
-            getAllNeighbours(curr).forEach { queue.add(it) }
-        }
+        graph.getAllNeighbours(name)
+            .filter { fns.containsKey(it) }
+            .forEach { setFunExpired(fns[it]!!) }
     }
-
-    private fun getAllNeighbours(name: String) = Stream.concat(
-        graph.incomingEdgesOf(name).stream(),
-        graph.outgoingEdgesOf(name).stream()
-    )
-        .map { listOf(graph.getEdgeSource(it), graph.getEdgeTarget(it)) }
-        .flatMap(List<String>::stream)
-        .filter { fns.containsKey(it) }
-        .filter { !fns[it]!!.expired }
-
-    private fun getOutgoingEdges(name: String) = graph.outgoingEdgesOf(name)
-        .map { graph.getEdgeTarget(it) }
-        .filter { fns.containsKey(it) }
-        .toMutableList()
 
     private fun setFunExpired(fn: Function) {
         fn.expired = true

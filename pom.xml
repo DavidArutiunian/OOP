@@ -102,7 +102,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
-                    <argLine>-Xmx4096m -XX:MaxPermSize=1024m</argLine>
+                    <forkCount>3</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <argLine>-Xmx2048m -XX:MaxPermSize=256m</argLine>
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
                 </configuration>
             </plugin>

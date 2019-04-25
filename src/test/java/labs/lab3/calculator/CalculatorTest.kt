@@ -6,6 +6,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
@@ -220,6 +221,7 @@ class CalculatorTest {
     }
 
     @Test
+    @Ignore
     fun `calc 1 000 000 funs recursively`() {
         val calc = Calculator()
         calc.setVarValue("x1", "1")

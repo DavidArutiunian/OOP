@@ -2,6 +2,7 @@ package labs.lab3.calculator
 
 import labs.lab3.calculator.exceptions.ReferenceException
 import labs.lab3.calculator.exceptions.SyntaxException
+import labs.lab3.calculator.io.IEvaluator
 import org.apache.commons.lang3.math.NumberUtils
 import org.jgrapht.graph.DefaultEdge
 import org.jgrapht.graph.SimpleDirectedGraph
@@ -10,7 +11,7 @@ import java.util.stream.Stream
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class Calculator : IOperatable {
+class Calculator : IEvaluator {
     private val vars = HashMap<String, Double>()
     private val fns = HashMap<String, Function>()
     private val graph = SimpleDirectedGraph<String, DefaultEdge>(DefaultEdge::class.java)

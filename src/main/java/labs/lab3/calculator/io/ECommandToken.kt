@@ -6,7 +6,8 @@ enum class ECommandToken(private val token: String) {
     FN("fn"),
     PRINT("print"),
     PRINTVARS("printvars"),
-    PRINTFNS("printfns");
+    PRINTFNS("printfns"),
+    EXIT("exit");
 
     override fun toString(): String {
         return token

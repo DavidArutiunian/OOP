@@ -1,42 +1,30 @@
 package labs.lab3.calculator.io
 
-import labs.lab3.calculator.IOperatable
 import labs.lab3.calculator.Operator
 import labs.lab3.calculator.exceptions.SyntaxException
-import labs.lab3.calculator.operations.*
 import java.util.*
 
-typealias THandler = (operatable: IOperatable) -> Unit
-
-class CommandLineHandler(private val sc: Scanner) : IHandler {
-    private val handlers = HashMap<String, THandler>()
-
-    init {
-        handlers[ECommandToken.VAR.toString()] = { operatable -> handleVarToken(operatable) }
-        handlers[ECommandToken.LET.toString()] = { operatable -> handleLetToken(operatable) }
-        handlers[ECommandToken.FN.toString()] = { operatable -> handleFnToken(operatable) }
-        handlers[ECommandToken.PRINT.toString()] = { operatable -> handlePrintToken(operatable) }
-        handlers[ECommandToken.PRINTVARS.toString()] = { operatable -> handlePrintvarsToken(operatable) }
-        handlers[ECommandToken.PRINTFNS.toString()] = { operatable -> handlePrintfnsToken(operatable) }
+class CommandLineHandler(private val evaluator: IEvaluator, private val sc: Scanner) {
+    fun eval(token: String) = when (token) {
+        ECommandToken.VAR.toString() -> handleVarToken(evaluator)
+        ECommandToken.LET.toString() -> handleLetToken(evaluator)
+        ECommandToken.FN.toString() -> handleFnToken(evaluator)
+        ECommandToken.PRINT.toString() -> handlePrintToken(evaluator)
+        ECommandToken.PRINTVARS.toString() -> handlePrintvarsToken(evaluator)
+        ECommandToken.PRINTFNS.toString() -> handlePrintfnsToken(evaluator)
+        else -> throw SyntaxException("Invalid or unexpected token")
     }
 
-    override fun getTokenHandler(token: String): THandler {
-        if (!handlers.containsKey(token)) {
-            throw SyntaxException("Invalid or unexpected token")
-        }
-        return handlers[token]!!
+    private fun handleVarToken(evaluator: IEvaluator) {
+        evaluator.setVar(sc.next())
     }
 
-    private fun handleVarToken(operatable: IVariableSetter) {
-        operatable.setVar(sc.next())
-    }
-
-    private fun handleLetToken(operatable: IVariableValueSetter) {
+    private fun handleLetToken(evaluator: IEvaluator) {
         val tokens = sc.nextLine().split('=')
-        operatable.setVarValue(tokens.first().trim(), tokens.last().trim())
+        evaluator.setVarValue(tokens.first().trim(), tokens.last().trim())
     }
 
-    private fun handleFnToken(operatable: IFunctionsSetter) {
+    private fun handleFnToken(evaluator: IEvaluator) {
         val tokens = sc.nextLine().split('=')
         val ident = tokens.first()
         val operation = tokens.last().find { arrayOf('+', '-', '*', '/').contains(it) }
@@ -55,20 +43,20 @@ class CommandLineHandler(private val sc: Scanner) : IHandler {
             right = expr.last()
         }
         when {
-            left != null && right != null && op != null -> operatable.setFun(ident.trim(), left.trim(), op, right.trim())
-            else -> operatable.setFun(ident.trim(), left!!.trim())
+            left != null && right != null && op != null -> evaluator.setFun(ident.trim(), left.trim(), op, right.trim())
+            else -> evaluator.setFun(ident.trim(), left!!.trim())
         }
     }
 
-    private fun handlePrintToken(operatable: IValueGetter) {
-        println("%.2f".format(operatable.getValue(sc.next())))
+    private fun handlePrintToken(evaluator: IEvaluator) {
+        println("%.2f".format(evaluator.getValue(sc.next())))
     }
 
-    private fun handlePrintvarsToken(operatable: IVariablesGetter) {
-        println(operatable.getVars().map { it.key to "%.2f".format(it.value) })
+    private fun handlePrintvarsToken(evaluator: IEvaluator) {
+        println(evaluator.getVars().map { it.key to "%.2f".format(it.value) })
     }
 
-    private fun handlePrintfnsToken(operatable: IFunctionsGetter) {
-        println(operatable.getFns().map { it.key to "%.2f".format(it.value.value) })
+    private fun handlePrintfnsToken(evaluator: IEvaluator) {
+        println(evaluator.getFns().map { it.key to "%.2f".format(it.value.value) })
     }
 }

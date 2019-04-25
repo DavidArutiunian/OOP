@@ -4,7 +4,6 @@ import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
-import labs.lab3.calculator.IOperatable
 import labs.lab3.calculator.Operator
 import labs.lab3.calculator.exceptions.SyntaxException
 import lib.io.OutputMock.setSystemInput
@@ -16,19 +15,19 @@ import java.util.*
 class CommandLineHandlerTest {
     @Test
     fun `throws if unexpected token`() {
+        val mock = mock<IEvaluator>()
         val scanner = Scanner(System.`in`)
-        val handler = CommandLineHandler(scanner)
-        assertThrows<SyntaxException> { handler.getTokenHandler("foo") }
+        val handler = CommandLineHandler(mock, scanner)
+        assertThrows<SyntaxException> { handler.eval("foo") }
     }
 
     @Test
     fun `var x`() {
         setSystemInput("x")
         val scanner = Scanner(System.`in`)
-        val handler = CommandLineHandler(scanner)
-        val mock = mock<IOperatable>()
-        val method = handler.getTokenHandler(ECommandToken.VAR.toString())
-        method(mock)
+        val mock = mock<IEvaluator>()
+        val handler = CommandLineHandler(mock, scanner)
+        handler.eval(ECommandToken.VAR.toString())
         argumentCaptor<String>().apply {
             verify(mock).setVar(capture())
             assertEquals("x", firstValue)
@@ -39,10 +38,9 @@ class CommandLineHandlerTest {
     fun `let x = 10`() {
         setSystemInput("x = 10")
         val scanner = Scanner(System.`in`)
-        val handler = CommandLineHandler(scanner)
-        val mock = mock<IOperatable>()
-        val method = handler.getTokenHandler(ECommandToken.LET.toString())
-        method(mock)
+        val mock = mock<IEvaluator>()
+        val handler = CommandLineHandler(mock, scanner)
+        handler.eval(ECommandToken.LET.toString())
         argumentCaptor<String>().apply {
             verify(mock).setVarValue(capture(), capture())
             assertEquals("x", firstValue)
@@ -54,10 +52,9 @@ class CommandLineHandlerTest {
     fun `let x=10`() {
         setSystemInput("x=10")
         val scanner = Scanner(System.`in`)
-        val handler = CommandLineHandler(scanner)
-        val mock = mock<IOperatable>()
-        val method = handler.getTokenHandler(ECommandToken.LET.toString())
-        method(mock)
+        val mock = mock<IEvaluator>()
+        val handler = CommandLineHandler(mock, scanner)
+        handler.eval(ECommandToken.LET.toString())
         argumentCaptor<String>().apply {
             verify(mock).setVarValue(capture(), capture())
             assertEquals("x", firstValue)
@@ -69,10 +66,9 @@ class CommandLineHandlerTest {
     fun `fn x = z`() {
         setSystemInput("x = z")
         val scanner = Scanner(System.`in`)
-        val handler = CommandLineHandler(scanner)
-        val mock = mock<IOperatable>()
-        val method = handler.getTokenHandler(ECommandToken.FN.toString())
-        method(mock)
+        val mock = mock<IEvaluator>()
+        val handler = CommandLineHandler(mock, scanner)
+        handler.eval(ECommandToken.FN.toString())
         argumentCaptor<String>().apply {
             verify(mock).setFun(capture(), capture())
             assertEquals("x", firstValue)
@@ -84,10 +80,9 @@ class CommandLineHandlerTest {
     fun `fn x=z`() {
         setSystemInput("x=z")
         val scanner = Scanner(System.`in`)
-        val handler = CommandLineHandler(scanner)
-        val mock = mock<IOperatable>()
-        val method = handler.getTokenHandler(ECommandToken.FN.toString())
-        method(mock)
+        val mock = mock<IEvaluator>()
+        val handler = CommandLineHandler(mock, scanner)
+        handler.eval(ECommandToken.FN.toString())
         argumentCaptor<String>().apply {
             verify(mock).setFun(capture(), capture())
             assertEquals("x", firstValue)
@@ -99,10 +94,9 @@ class CommandLineHandlerTest {
     fun `fn x = y + z`() {
         setSystemInput("x = y + z")
         val scanner = Scanner(System.`in`)
-        val handler = CommandLineHandler(scanner)
-        val mock = mock<IOperatable>()
-        val method = handler.getTokenHandler(ECommandToken.FN.toString())
-        method(mock)
+        val mock = mock<IEvaluator>()
+        val handler = CommandLineHandler(mock, scanner)
+        handler.eval(ECommandToken.FN.toString())
         val captor = argumentCaptor<Operator>()
         argumentCaptor<String>().apply {
             verify(mock).setFun(capture(), capture(), captor.capture(), capture())
@@ -117,10 +111,9 @@ class CommandLineHandlerTest {
     fun `fn x=y+z`() {
         setSystemInput("x=y+z")
         val scanner = Scanner(System.`in`)
-        val handler = CommandLineHandler(scanner)
-        val mock = mock<IOperatable>()
-        val method = handler.getTokenHandler(ECommandToken.FN.toString())
-        method(mock)
+        val mock = mock<IEvaluator>()
+        val handler = CommandLineHandler(mock, scanner)
+        handler.eval(ECommandToken.FN.toString())
         val captor = argumentCaptor<Operator>()
         argumentCaptor<String>().apply {
             verify(mock).setFun(capture(), capture(), captor.capture(), capture())
@@ -135,10 +128,9 @@ class CommandLineHandlerTest {
     fun `print x`() {
         setSystemInput("x")
         val scanner = Scanner(System.`in`)
-        val handler = CommandLineHandler(scanner)
-        val mock = mock<IOperatable>()
-        val method = handler.getTokenHandler(ECommandToken.PRINT.toString())
-        method(mock)
+        val mock = mock<IEvaluator>()
+        val handler = CommandLineHandler(mock, scanner)
+        handler.eval(ECommandToken.PRINT.toString())
         argumentCaptor<String>().apply {
             verify(mock).getValue(capture())
             assertEquals("x", firstValue)
@@ -148,20 +140,18 @@ class CommandLineHandlerTest {
     @Test
     fun printvars() {
         val scanner = Scanner(System.`in`)
-        val handler = CommandLineHandler(scanner)
-        val mock = mock<IOperatable>()
-        val method = handler.getTokenHandler(ECommandToken.PRINTVARS.toString())
-        method(mock)
+        val mock = mock<IEvaluator>()
+        val handler = CommandLineHandler(mock, scanner)
+        handler.eval(ECommandToken.PRINTVARS.toString())
         verify(mock, times(1)).getVars()
     }
 
     @Test
     fun printfns() {
         val scanner = Scanner(System.`in`)
-        val handler = CommandLineHandler(scanner)
-        val mock = mock<IOperatable>()
-        val method = handler.getTokenHandler(ECommandToken.PRINTFNS.toString())
-        method(mock)
+        val mock = mock<IEvaluator>()
+        val handler = CommandLineHandler(mock, scanner)
+        handler.eval(ECommandToken.PRINTFNS.toString())
         verify(mock, times(1)).getFns()
     }
 }

@@ -1,21 +1,21 @@
 package labs.lab3.calculator
 
 import labs.lab3.calculator.io.CommandLineHandler
+import labs.lab3.calculator.io.ECommandToken
 import java.util.*
 
 fun main() {
     val sc = Scanner(System.`in`)
     val calc = Calculator()
-    val handler = CommandLineHandler(sc)
+    val handler = CommandLineHandler(calc, sc)
     var token: String
     while (true) {
         try {
             token = sc.next()
-            if (token == "exit") {
+            if (token == ECommandToken.EXIT.toString()) {
                 break
             }
-            val method = handler.getTokenHandler(token)
-            method.invoke(calc)
+            handler.eval(token)
         } catch (ex: Exception) {
             print(ex.message)
         }

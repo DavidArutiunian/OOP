@@ -20,9 +20,7 @@ jobs:
                       - ~/.m2
                   key: v1-dependencies-{{ checksum "pom.xml" }}
 
-            - run: mvn test
-
-            - run: mvn -Dmaven.test.skip=true package
+            - run: mvn package
 
             - run:
                 name: Copy JARs

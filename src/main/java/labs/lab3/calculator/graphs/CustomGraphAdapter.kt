@@ -1,7 +1,6 @@
 package labs.lab3.calculator.graphs
 
 import java.util.*
-import java.util.stream.Stream
 import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 import kotlin.collections.LinkedHashSet
@@ -60,29 +59,13 @@ class CustomGraphAdapter<V> : IGraph<V, Pair<V, V>> {
     override fun getAllNeighbours(v: V): Set<V> {
         val result = LinkedHashSet<V>()
         val queue = ArrayDeque<V>()
-        val visited = HashSet<V>()
-        Stream.concat(
-            outgoingEdgesOf(v).stream(),
-            incomingEdgesOf(v).stream()
-        )
-            .map { listOf(it.first, it.second) }
-            .flatMap(List<V>::stream)
-            .filter { !queue.contains(it) }
-            .forEach { queue.add(it) }
+        queue.add(v)
+        queue.addAll(nodes[v]!!.children)
         while (!queue.isEmpty()) {
             val curr = queue.first
             queue.pop()
-            visited.add(curr)
             result.add(curr)
-            Stream.concat(
-                outgoingEdgesOf(curr).stream(),
-                incomingEdgesOf(curr).stream()
-            )
-                .map { listOf(it.first, it.second) }
-                .flatMap(List<V>::stream)
-                .filter { !queue.contains(it) }
-                .filter { !visited.contains(it) }
-                .forEach { queue.addFirst(it) }
+            queue.addAll(nodes[curr]!!.children)
         }
         return result
     }

@@ -2,6 +2,7 @@ package labs.lab3.calculator.calculator
 
 import labs.lab3.calculator.exceptions.ReferenceException
 import labs.lab3.calculator.exceptions.SyntaxException
+import org.apache.commons.lang3.time.StopWatch
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertEquals
@@ -221,14 +222,21 @@ class GraphCalculatorTest {
     }
 
     @Test
-    @Ignore
     fun `calc 1 000 000 funs recursively`() {
         val calc = GraphCalculator()
         calc.setVarValue("x1", "1")
+        val watch = StopWatch()
+        watch.start()
         for (i in 2..1_000_000) {
             calc.setFun("x$i", "x${i - 1}", Operator.ADD, "x1")
         }
+        watch.stop()
+        println("Time elapsed for setFun() 1_000_000 times: ${watch.time}")
+        watch.reset()
+        watch.start()
         assertEquals(1_000_000.0, calc.getValue("x1000000"), EPS)
+        watch.stop()
+        println("Time elapsed for getting x1000000 fun: ${watch.time}")
         assertEquals(999_999, calc.getFns().size)
         calc.setVarValue("x1", "2")
         assertEquals(2_000_000.0, calc.getValue("x1000000"), EPS)
